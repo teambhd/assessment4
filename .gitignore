@@ -1,0 +1,22 @@
+# Ignore build directory
+bin
+
+# Ignore junit output directory
+junit
+
+# Ignore runnables output directory
+dist
+
+# Ignore JavaDoc output directory
+doc
+
+# Ignore local eclipse configuration
+.settings
+
+# Ignore Windows and Mac OS X debris
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+.AppleDouble
+.LSOverride

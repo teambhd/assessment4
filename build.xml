@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!-- Based on the Ant Buildfile for Team BHD's Assessment 3 project. -->
+
+<project basedir="." default="build" name="Game">
+    
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+        
+    <path id="Game.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/jars/lwjgl.jar"/>
+        <pathelement location="lib/jars/slick.jar"/>
+        <pathelement location="lib/jars/jogg-0.0.7.jar"/>
+        <pathelement location="lib/jars/jorbis-0.0.17-1.jar"/>
+        <pathelement location="lib/jars/junit-4.11.jar"/>
+        <pathelement location="lib/jars/hamcrest-core-1.3.jar"/>
+    </path>
+    
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="clean">
+        <delete dir="bin"/>
+        <delete dir="junit"/>
+        <delete dir="dist"/>
+        <delete dir="doc"/>
+    </target>
+                
+    <target depends="init" name="build">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Game.classpath"/>
+        </javac>
+    </target>
+        
+    <target depends="build" name="play">
+        <java classname="stateContainer.Game" failonerror="true" fork="yes">
+            <classpath refid="Game.classpath"/>
+            <sysproperty key="java.library.path" value="lib/natives"/>
+        </java>
+    </target>
+    
+    <target depends="build" name="test">
+        <mkdir dir="junit/"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="unitTests.Airspace_Tests" todir="junit/"/>
+            <test name="unitTests.FlightPlan_Tests" todir="junit/"/>
+            <test name="unitTests.Flight_Tests" todir="junit/"/>
+            <test name="unitTests.SeparationRules_Tests" todir="junit/"/>
+            <classpath refid="Game.classpath"/>
+        </junit>
+    </target>
+    
+    <target depends="test" name="report">
+        <mkdir dir="junit/report/"/>
+        <junitreport todir="junit/report/">
+            <fileset dir="junit">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="junit/report/"/>
+        </junitreport>
+    </target>
+    
+    <target depends="build" name="mkrunnable">
+        <jar destfile="dist/runnable.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="stateContainer.Game"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="bin"/>
+            
+            <!-- JARs -->
+            <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/lwjgl.jar"/>
+            <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/slick.jar"/>
+            <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/jogg-0.0.7.jar"/>
+            <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/jorbis-0.0.17-1.jar"/>
+            <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/hamcrest-core-1.3.jar"/>
+            <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/junit-4.11.jar"/>
+        </jar>
+    </target>
+    
+    <target name="javadoc">
+        <javadoc sourcepath="src/" classpathref="Game.classpath" destdir="doc/" />
+    </target>
+</project>
