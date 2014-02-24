@@ -114,7 +114,7 @@ public class FlightPlan {
                     ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
                 }
 
-                else if(entryPoint.isRunway() == tempListOfExitPoints.get(ExitPointIndex).isRunway()) {
+                else if (entryPoint.isRunway() == tempListOfExitPoints.get(ExitPointIndex).isRunway()) {
                     ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
                 }
 
@@ -126,21 +126,21 @@ public class FlightPlan {
                 exitPoint =  tempListOfExitPoints.get(ExitPointIndex);
             }
 
-            for ( int i = 0; i < airspace.getListOfEntryPoints().size(); i ++) {
-                if(entryPoint == airspace.getListOfEntryPoints().get(i)) {
+            for (int i = 0; i < airspace.getListOfEntryPoints().size(); i ++) {
+                if (entryPoint == airspace.getListOfEntryPoints().get(i)) {
                     switch (i) {
                     // entry point on the left
                     case 0:
                         for (int k = 0; k < airspace.getListOfExitPoints().size(); k++) {
-                            if(tempRoute.get(tempRoute.size() - 1) == airspace.getListOfExitPoints().get(k)) {
+                            if (tempRoute.get(tempRoute.size() - 1) == airspace.getListOfExitPoints().get(k)) {
                                 int randInt = new Random().nextInt(2);
 
-                                switch(k) {
+                                switch (k) {
                                 //left to top
                                 case 0:
 
                                     //selects random flight plan
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(J));
                                         tempRoute.add(1, tempListOfWaypoints.get(A));
@@ -167,7 +167,7 @@ public class FlightPlan {
 
                                 //left to right
                                 case 2:
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(J));
                                         tempRoute.add(1, tempListOfWaypoints.get(F));
@@ -194,7 +194,7 @@ public class FlightPlan {
 
                                 //left to runway
                                 case 3:
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(B));
                                         tempRoute.add(1, tempListOfWaypoints.get(E));
@@ -228,15 +228,15 @@ public class FlightPlan {
                     // entry point on the right
                     case 1:
                         for (int k = 0; k < airspace.getListOfExitPoints().size(); k++) {
-                            if(tempRoute.get(tempRoute.size() - 1) == airspace.getListOfExitPoints().get(k)) {
+                            if (tempRoute.get(tempRoute.size() - 1) == airspace.getListOfExitPoints().get(k)) {
                                 int randInt = new Random().nextInt(2);
 
-                                switch(k) {
+                                switch (k) {
                                 //right to left
                                 case 0:
 
                                     //selects random flight plan
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(H));
                                         tempRoute.add(1, tempListOfWaypoints.get(G));
@@ -262,7 +262,7 @@ public class FlightPlan {
 
                                 //right to top
                                 case 1:
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     //selects random flight plan
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(H));
@@ -295,7 +295,7 @@ public class FlightPlan {
                                 case 3:
 
                                     //selects random flight plan
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(H));
                                         tempRoute.add(1, tempListOfWaypoints.get(I));
@@ -327,15 +327,15 @@ public class FlightPlan {
                     //entry point at the top
                     case 2:
                         for (int k = 0; k < airspace.getListOfExitPoints().size(); k++) {
-                            if(tempRoute.get(tempRoute.size() - 1) == airspace.getListOfExitPoints().get(k)) {
+                            if (tempRoute.get(tempRoute.size() - 1) == airspace.getListOfExitPoints().get(k)) {
                                 int randInt = new Random().nextInt(2);
 
-                                switch(k) {
+                                switch (k) {
                                 //top to left
                                 case 1:
 
                                     //selects random flight plan
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(C));
                                         tempRoute.add(1, tempListOfWaypoints.get(A));
@@ -364,7 +364,7 @@ public class FlightPlan {
 
                                 //top to right
                                 case 2:
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     //selects random flight plan
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(C));
@@ -391,7 +391,7 @@ public class FlightPlan {
 
                                 //top to runway
                                 case 3:
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(C));
                                         tempRoute.add(1, tempListOfWaypoints.get(D));
@@ -422,15 +422,15 @@ public class FlightPlan {
                     //entry point on the runway
                     case 3:
                         for (int k = 0; k < airspace.getListOfExitPoints().size(); k++) {
-                            if(tempRoute.get(tempRoute.size() - 1) == airspace.getListOfExitPoints().get(k)) {
+                            if (tempRoute.get(tempRoute.size() - 1) == airspace.getListOfExitPoints().get(k)) {
                                 int randInt = new Random().nextInt(2);
 
-                                switch(k) {
+                                switch (k) {
                                 //runway to top
                                 case 0:
 
                                     //selects random flight plan
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(C));
                                         break;
@@ -455,7 +455,7 @@ public class FlightPlan {
                                 case 1:
 
                                     //selects random flight plan
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(F));
                                         tempRoute.add(1, tempListOfWaypoints.get(J));
@@ -478,7 +478,7 @@ public class FlightPlan {
 
                                 //runway to right
                                 case 2:
-                                    switch(randInt) {
+                                    switch (randInt) {
                                     case 0:
                                         tempRoute.add(0, tempListOfWaypoints.get(C));
                                         tempRoute.add(1, tempListOfWaypoints.get(G));
@@ -521,7 +521,7 @@ public class FlightPlan {
     public int generateVelocity() {
         Random rand = new Random();
 
-        if(entryPoint.isRunway()) {
+        if (entryPoint.isRunway()) {
             return 0;
         }
 
@@ -538,7 +538,7 @@ public class FlightPlan {
         int mouseX = Mouse.getX(); //Get mouse coordinates
         int mouseY = Game.MAXIMUMHEIGHT - Mouse.getY();
 
-        if(this.getCurrentRoute().isEmpty()) { //If there are no waypouints
+        if (this.getCurrentRoute().isEmpty()) { //If there are no waypouints
             return false;
         }
 
@@ -581,30 +581,30 @@ public class FlightPlan {
      */
 
     public void changeFlightPlan(ScoreTracking score) {
-        if (this.flight.getSelected() && this.currentRoute.size() > 0 ) {
+        if (this.flight.getSelected() && this.currentRoute.size() > 0) {
             boolean mouseOverWaypoint = this.isMouseOnWaypoint();
 
             // Checks if user is not currently dragging a waypoint
             if (!draggingWaypoint) {
                 //Checks if user has clicked on a waypoint
-                if(mouseOverWaypoint && Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+                if (mouseOverWaypoint && Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
                     this.waypointClicked = this.waypointMouseIsOver;
                     this.draggingWaypoint = true;
                 }
             }
 
             // Checks if user is currently dragging a waypoint
-            else if(draggingWaypoint) {
+            else if (draggingWaypoint) {
                 // Checks if user has released mouse from drag over empty airspace
-                if((!Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) && !mouseOverWaypoint) {
+                if ((!Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) && !mouseOverWaypoint) {
                     this.waypointClicked = null;
                     this.draggingWaypoint = false;
                 }
 
                 // Checks if user has released mouse from drag over another waypoint
-                else if((!Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) && mouseOverWaypoint) {
+                else if ((!Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) && mouseOverWaypoint) {
                     //Finding waypoint that mouse is over
-                    for(int i = 0; i < this.currentRoute.size(); i++) {
+                    for (int i = 0; i < this.currentRoute.size(); i++) {
                         // Checks if new waypoint is not already in the plan and adds if not in plan
                         if (this.waypointClicked == this.currentRoute.get(i) && (!this.currentRoute.contains(this.waypointMouseIsOver)) && (!this.waypointsAlreadyVisited.contains(this.waypointMouseIsOver))) {
                             this.currentRoute.remove(i);
@@ -616,7 +616,7 @@ public class FlightPlan {
                         }
 
                         // else checks if waypoint already in plan and doesn't add if not
-                        else if(this.waypointClicked == this.currentRoute.get(i) && ((this.currentRoute.contains(this.waypointMouseIsOver)) || (this.waypointsAlreadyVisited.contains(this.waypointMouseIsOver)))) {
+                        else if (this.waypointClicked == this.currentRoute.get(i) && ((this.currentRoute.contains(this.waypointMouseIsOver)) || (this.waypointsAlreadyVisited.contains(this.waypointMouseIsOver)))) {
                             this.waypointClicked = null;
                             this.draggingWaypoint = false;
                             break;
@@ -638,17 +638,17 @@ public class FlightPlan {
             g.setColor(Color.cyan);
 
             // If not dragging waypoints, just draw lines between all waypoints in plan
-            if(!draggingWaypoint) {
-                for(int i = 1; i < this.currentRoute.size(); i++) {
+            if (!draggingWaypoint) {
+                for (int i = 1; i < this.currentRoute.size(); i++) {
                     g.drawLine((float)this.currentRoute.get(i).getX(), (float)this.currentRoute.get(i).getY(), (float)this.currentRoute.get(i - 1).getX(), (float)this.currentRoute.get(i - 1).getY());
                 }
             }
 
-            else if(draggingWaypoint) {
-                for(int i = 1; i < this.currentRoute.size(); i++) {
+            else if (draggingWaypoint) {
+                for (int i = 1; i < this.currentRoute.size(); i++) {
                     // This is needed as i=1 behavours differently to other values of i when first waypoint is being dragged.
-                    if(i == 1) {
-                        if(this.waypointClicked == this.currentRoute.get(0) ) {
+                    if (i == 1) {
+                        if (this.waypointClicked == this.currentRoute.get(0)) {
                             g.drawLine(Mouse.getX(), 600 - Mouse.getY() , (float)this.currentRoute.get(1).getX(), (float)this.currentRoute.get(1).getY());
                         }
 
@@ -697,14 +697,14 @@ public class FlightPlan {
     public void update(ScoreTracking score) {
         this.updateFlightPlan(score);
 
-        if(this.changingPlan == true) {
+        if (this.changingPlan == true) {
             this.changeFlightPlan(score);
         }
     }
 
     public void render(Graphics g, GameContainer gc) throws SlickException {
-        if(this.flight.getSelected()) {
-            if(this.changingPlan == true) {
+        if (this.flight.getSelected()) {
+            if (this.changingPlan == true) {
                 this.drawFlightsPlan(g, gc);
                 this.markUnavailableWaypoints(g, gc);
             }

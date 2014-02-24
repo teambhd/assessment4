@@ -97,7 +97,7 @@ public class CreditsState extends BasicGameState {
 
         //draw background panel
         g.setColor(new Color(250, 235, 215, 50));   //pale orange, semi-transparent
-        g.fillRoundRect (50, 230, 1100, 320, 5);
+        g.fillRoundRect(50, 230, 1100, 320, 5);
         {
             //draw credits screen
             g.setColor(Color.white);

@@ -44,7 +44,7 @@ public class SeparationRules {
      */
 
     public double lateralDistanceBetweenFlights(Flight flight1, Flight flight2) {
-        return Math.sqrt(Math.pow((flight1.getX() - flight2.getX()), 2) + Math.pow(( flight1.getY() - flight2.getY()), 2));
+        return Math.sqrt(Math.pow((flight1.getX() - flight2.getX()), 2) + Math.pow((flight1.getY() - flight2.getY()), 2));
     }
 
     /**
@@ -87,7 +87,7 @@ public class SeparationRules {
 
     public void render(Graphics g, GameContainer gc, Airspace airspace) {
         for (int i = 0; i < airspace.getListOfFlights().size(); i++) {
-            for (int j = i + 1; j < airspace.getListOfFlights().size(); j++ ) {
+            for (int j = i + 1; j < airspace.getListOfFlights().size(); j++) {
                 if (this.lateralDistanceBetweenFlights(airspace.getListOfFlights().get(i),
                                                        airspace.getListOfFlights().get(j)) <= this.getWarningLateralSeparation()) {
                     if (this.verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i),

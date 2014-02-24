@@ -39,7 +39,7 @@ public class Controls {
 
     // METHODS
 
-    private double distance (double x1, double y1, double x2, double y2) {
+    private double distance(double x1, double y1, double x2, double y2) {
         //DONT PANIC, just pythagoras
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
@@ -61,7 +61,7 @@ public class Controls {
      * @param pointY
      * @param airspace
      */
-    public void checkSelected(int pointX, int pointY, Airspace airspace ) {
+    public void checkSelected(int pointX, int pointY, Airspace airspace) {
         double minimumDistanceBetweenFlightAndMouseClick;//Distance between where you clicked on the airspace and the closest flight
         Flight nearestFlight;
 
@@ -89,7 +89,7 @@ public class Controls {
         minimumDistanceBetweenFlightAndMouseClick = Integer.MAX_VALUE;
 
         for (Flight f :  airspace.getListOfFlights()) {
-            double d = distance( pointX, pointY, f.getX(), f.getY() );
+            double d = distance(pointX, pointY, f.getX(), f.getY());
 
             if (d < minimumDistanceBetweenFlightAndMouseClick) {
                 nearestFlight = f;
@@ -155,7 +155,7 @@ public class Controls {
 
         //Finding the distance between the mouse click and the plane
         distanceBetweenMouseAndPlane =
-            distance( pointX, pointY, selectedFlight.getX(), selectedFlight.getY() );
+            distance(pointX, pointY, selectedFlight.getX(), selectedFlight.getY());
 
         if (distanceBetweenMouseAndPlane < 50) { //If the distance between the mouse and the plane is greater than 50 then don't do anything
             deltaY = pointY - selectedFlight.getY();
@@ -186,8 +186,8 @@ public class Controls {
      */
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        if(selectedFlight != null) {
-            if(!selectedFlight.getFlightPlan().getChangingPlan()) {
+        if (selectedFlight != null) {
+            if (!selectedFlight.getFlightPlan().getChangingPlan()) {
                 g.setColor(Color.white);
                 menu.render(g, gc);
             }
@@ -198,17 +198,17 @@ public class Controls {
         int posX = Mouse.getX();
         int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
 
-        if (selectedFlight != null ) {  //if controls are active
+        if (selectedFlight != null) {   //if controls are active
 
             //check for mode button presses
             if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
                 //Plan mode
-                if(posX > 10 && posX < 150 && posY < 65 && posY > 45) {
+                if (posX > 10 && posX < 150 && posY < 65 && posY > 45) {
                     selectedFlight.getFlightPlan().setChangingPlan(true);
                 }
 
                 //navigator mode
-                if(posX > 10 && posX < 150 && posY < 95 && posY > 75) {
+                if (posX > 10 && posX < 150 && posY < 95 && posY > 75) {
                     selectedFlight.getFlightPlan().setChangingPlan(false);
                 }
             }
@@ -216,13 +216,13 @@ public class Controls {
             // Only allow controls if user isn't changing a plan
             if (!(selectedFlight.getFlightPlan().getChangingPlan()) && selectedFlight.isCommandable()) {
                 //allow mouse control of flight if not in h
-                if(Mouse.isButtonDown(Input.MOUSE_RIGHT_BUTTON) && (difficultyValueOfGame != HARD)) {
+                if (Mouse.isButtonDown(Input.MOUSE_RIGHT_BUTTON) && (difficultyValueOfGame != HARD)) {
                     giveHeadingWithMouse(posX, posY, airspace);
                 }
             }
         }
 
-        if(Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+        if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             checkSelected(posX, posY, airspace);
         }
 

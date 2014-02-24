@@ -172,7 +172,7 @@ public class Airspace {
                     tempFlight.setTargetHeading(heading);
                     tempFlight.setCurrentHeading(heading);
 
-                    if(addFlight(tempFlight)) {
+                    if (addFlight(tempFlight)) {
                         this.numberOfGameLoopsSinceLastFlightAdded = 0;
                         this.listOfFlightsInAirspace.get(
                             this.listOfFlightsInAirspace.size() - 1).init(gc);
@@ -274,7 +274,7 @@ public class Airspace {
         for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
             this.listOfFlightsInAirspace.get(i).update(score);
 
-            if(this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size() == 0) {
+            if (this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size() == 0) {
                 this.removeSpecificFlight(i);
             }
 
@@ -389,8 +389,8 @@ public class Airspace {
         }
 
         else {
-            for(Flight a : listOfFlightsInAirspace) {
-                if(a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()) {
+            for (Flight a : listOfFlightsInAirspace) {
+                if (a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()) {
                     System.out.println("Flight already on runway!");
                     return false;
                 }

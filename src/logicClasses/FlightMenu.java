@@ -212,7 +212,7 @@ public class FlightMenu implements MouseListener {
                            cmdPos.x + (buttonWidth / 2.0f), cmdPos.y + (buttonHeight / 2.0f));
             }
 
-            if(flight.isCommandable()) {
+            if (flight.isCommandable()) {
                 //draw abort button and label
                 if (ABORT == mode) {
                     drawImage(aButtonSelect, abortPos);
@@ -229,13 +229,13 @@ public class FlightMenu implements MouseListener {
     }
 
     private void drawImage(Image image, Point2D pos) {
-        image.draw((float)( pos.getX() + flight.getX() ),
-                   (float)( pos.getY() + flight.getY() ) );
+        image.draw((float)(pos.getX() + flight.getX()),
+                   (float)(pos.getY() + flight.getY()));
     }
 
     private void drawString(String str, TrueTypeFont font, Color color, float x, float y) {
-        font.drawString((float)( x - (font.getWidth(str) / 2.0) + flight.getX() ),
-                        (float)( y - (font.getHeight() / 2.0) + flight.getY() ),
+        font.drawString((float)(x - (font.getWidth(str) / 2.0) + flight.getX()),
+                        (float)(y - (font.getHeight() / 2.0) + flight.getY()),
                         str, color);
     }
 
@@ -444,7 +444,7 @@ public class FlightMenu implements MouseListener {
         //reposition sliders
         case ALT: {
             //calculate y position relative to top of scale
-            int y = (int)Math.round( newy - flight.getY() - altPos.y);
+            int y = (int)Math.round(newy - flight.getY() - altPos.y);
             y = constrain(y, 0, altSize);   //cap y to within bounds of scale
             altIndicator = normalScale(y, altSize, 0);  //invert scale direction
             setIndicatorPos();
@@ -453,7 +453,7 @@ public class FlightMenu implements MouseListener {
 
         case SPEED: {
             //calculate x position relative to left of scale
-            int x = (int)Math.round( newx - flight.getX() - speedPos.x);
+            int x = (int)Math.round(newx - flight.getX() - speedPos.x);
             x = constrain(x, 0, speedSize); //cap x to within bounds of scale
             speedIndicator = normalScale(x, 0, speedSize);
             setIndicatorPos();

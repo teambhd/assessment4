@@ -59,7 +59,7 @@ public class Waypoint extends Point {
     public void render(Graphics g, Airspace airspace) throws SlickException {
         Image image;
 
-        if(airspace.getControls().getSelectedFlight() != null) { // If there is a selected flight use its next waypoint and draw it as next
+        if (airspace.getControls().getSelectedFlight() != null) { // If there is a selected flight use its next waypoint and draw it as next
             if (airspace.getControls().getSelectedFlight().getFlightPlan().getCurrentRoute().indexOf(this) == 0) {
                 image = nextWaypointImage;
             }

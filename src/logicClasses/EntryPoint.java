@@ -62,15 +62,15 @@ public class EntryPoint extends Point {
         entryPointRunway = entryPointRight.copy();
         entryPointRunway.setRotation(45);
 
-        if(y == 0) {
+        if (y == 0) {
             entryPointTop.draw((int)x - 20, (int)y);
         }
 
-        else if(x == 150) {
+        else if (x == 150) {
             entryPointLeft.draw((int)x, (int)y - 20);
         }
 
-        else if(x == 1200) {
+        else if (x == 1200) {
             entryPointRight.draw((int)x - 40, (int)y - 20);
         }
 

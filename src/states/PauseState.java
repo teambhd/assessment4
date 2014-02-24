@@ -145,7 +145,7 @@ public class PauseState extends BasicGameState {
             posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
         Input input = gc.getInput();
 
-        if(input.isKeyPressed(Input.KEY_P)) {
+        if (input.isKeyPressed(Input.KEY_P)) {
             pageNumber = 1;
             sbg.enterState(stateContainer.Game.PLAYSTATE);
         }
@@ -162,7 +162,7 @@ public class PauseState extends BasicGameState {
             }
 
             if (pageNumber == 1) {
-                if((posX > 1030 && posX < 1193) && (posY > 280 && posY < 315)) {
+                if ((posX > 1030 && posX < 1193) && (posY > 280 && posY < 315)) {
                     pageNumber = 2;
                 }
             }

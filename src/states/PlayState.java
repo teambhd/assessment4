@@ -182,7 +182,7 @@ public class PlayState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
     throws SlickException {
         // Checks whether the user is still choosing the difficulty
-        if(settingDifficulty) {
+        if (settingDifficulty) {
             int posX = Mouse.getX();
             int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
             //Fixing posY to reflect graphics coords
@@ -290,26 +290,26 @@ public class PlayState extends BasicGameState {
 
         // Checks whether the user is still choosing the difficulty
 
-        if(settingDifficulty) {
+        if (settingDifficulty) {
             int posX = Mouse.getX();
             int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
 
             if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-                if((posX > 100 && posX < 216) && (posY > 300 && posY < 354)) {
+                if ((posX > 100 && posX < 216) && (posY > 300 && posY < 354)) {
                     airspace.setDifficultyValueOfGame(1);
                     airspace.getControls().setDifficultyValueOfGame(Controls.EASY);
                     airspace.createAndSetSeparationRules();
                     settingDifficulty = false;
                 }
 
-                if((posX > 100 && posX < 284) && (posY > 400 && posY < 454)) {
+                if ((posX > 100 && posX < 284) && (posY > 400 && posY < 454)) {
                     airspace.setDifficultyValueOfGame(2);
                     airspace.getControls().setDifficultyValueOfGame(Controls.NORMAL);
                     airspace.createAndSetSeparationRules();
                     settingDifficulty = false;
                 }
 
-                if((posX > 100 && posX < 227) && (posY > 500 && posY < 554)) {
+                if ((posX > 100 && posX < 227) && (posY > 500 && posY < 554)) {
                     airspace.setDifficultyValueOfGame(3);
                     airspace.getControls().setDifficultyValueOfGame(Controls.HARD);
                     airspace.createAndSetSeparationRules();
@@ -329,7 +329,7 @@ public class PlayState extends BasicGameState {
             String stringMins = "";
             String stringSecs = "";
 
-            if(secs >= 60) {
+            if (secs >= 60) {
                 secs -= 60;
                 mins += 1;
                 // {!} should do +60 score every minute(possibly)
@@ -337,7 +337,7 @@ public class PlayState extends BasicGameState {
                 airspace.getScore().updateTimeScore();
             }
 
-            if(mins < 10) {
+            if (mins < 10) {
                 stringMins = "0" + mins;
             }
 
@@ -345,7 +345,7 @@ public class PlayState extends BasicGameState {
                 stringMins = String.valueOf(mins);
             }
 
-            if(secs < 10) {
+            if (secs < 10) {
                 stringSecs = "0" + secs;
             }
 

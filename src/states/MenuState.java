@@ -113,7 +113,7 @@ public class MenuState extends BasicGameState {
         // Mapping Mouse coords onto graphics coords
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-            if(mouseBeenReleased) { //button first pressed
+            if (mouseBeenReleased) { //button first pressed
                 mouseBeenReleased = false;
 
                 if (play.isMouseOver(posX, posY)) {

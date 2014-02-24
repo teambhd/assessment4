@@ -114,15 +114,15 @@ public class GameOverState extends BasicGameState {
             posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-            if(posX > 354 && posX < 582 && posY > 380 && posY < 424) {
+            if (posX > 354 && posX < 582 && posY > 380 && posY < 424) {
                 sbg.enterState(stateContainer.Game.PLAYSTATE);
             }
 
-            if(posX > 728 && posX < 844 && posY > 380 && posY < 426) { // 116 46
+            if (posX > 728 && posX < 844 && posY > 380 && posY < 426) { // 116 46
                 sbg.enterState(stateContainer.Game.MENUSTATE);
             }
 
-            if((posX > 1150 && posX < 1170) && (posY > 550 && posY < 580)) {
+            if ((posX > 1150 && posX < 1170) && (posY > 550 && posY < 580)) {
                 System.exit(0);
             }
         }

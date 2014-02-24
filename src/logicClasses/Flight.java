@@ -79,7 +79,7 @@ public class Flight {
      */
 
     public int generateAltitude() { //{!} not converted to using min/max
-        if(getFlightPlan().getEntryPoint().isRunway()) {
+        if (getFlightPlan().getEntryPoint().isRunway()) {
             return 0;
         }
 
@@ -127,7 +127,7 @@ public class Flight {
         this.turningLeft = true;
         this.targetHeading = Math.round(this.currentHeading) - degreeTurnedBy;
 
-        if(this.targetHeading < 0) {
+        if (this.targetHeading < 0) {
             this.targetHeading = 360 + this.targetHeading;
         }
     }
@@ -145,7 +145,7 @@ public class Flight {
         this.turningRight = true;
         this.targetHeading = Math.round(this.currentHeading) + degreeTurnedBy;
 
-        if(this.targetHeading >= 360) {
+        if (this.targetHeading >= 360) {
             this.targetHeading = this.targetHeading - 360;
         }
     }
@@ -219,7 +219,7 @@ public class Flight {
         setTargetAltitude(minAltitude);
     }
     public boolean altToLand() {
-        if(currentAltitude <= 720) {
+        if (currentAltitude <= 720) {
             return true;
         }
 
@@ -230,7 +230,7 @@ public class Flight {
     public void land() {
         // if next point is an exit point
         if (!landing) {
-            if(getFlightPlan().getPointByIndex(0) == getFlightPlan().getExitPoint() && getFlightPlan().getExitPoint().isRunway()) {
+            if (getFlightPlan().getPointByIndex(0) == getFlightPlan().getExitPoint() && getFlightPlan().getExitPoint().isRunway()) {
                 landing = true;
                 //point towards exitpoint
                 double heading = Math.atan2(flightPlan.getExitPoint().getY() - y, flightPlan.getExitPoint().getX() - x) + PI / 2;
@@ -250,21 +250,21 @@ public class Flight {
      * @param gc - GameContainer required by slick2d.
      */
 
-    public void drawFlight(Graphics g, GameContainer gc ) {
+    public void drawFlight(Graphics g, GameContainer gc) {
         g.setColor(Color.white);
         g.setWorldClip(150, 0, Game.MAXIMUMWIDTH - 150, Game.MAXIMUMHEIGHT);
-        float shadowScale = (float) (36 - (this.currentAltitude / 1000)) / 10; // Scale the shadow in accordance to the altitude of the flight
+        float shadowScale = (float)(36 - (this.currentAltitude / 1000)) / 10;  // Scale the shadow in accordance to the altitude of the flight
         shadowImage.setRotation((int) currentHeading);
         shadowImage.draw((int) this.x - 35, (int) this.y, shadowScale);
 
         //Depending on a plane's speed, different images for the plane are drawn
 
-        if(velocity <= 275) {   //{!} not converted to using min/max
+        if (velocity <= 275) {  //{!} not converted to using min/max
             slowFlightImage.setRotation((int) currentHeading);
             slowFlightImage.draw((int) this.x - 10, (int) this.y - 10);
         }
 
-        else if(velocity > 270 && velocity < 340) { //{!} not converted to using min/max
+        else if (velocity > 270 && velocity < 340) { //{!} not converted to using min/max
             regularFlightImage.setRotation((int) currentHeading);
             regularFlightImage.draw((int) this.x - 10, (int) this.y - 10);
         }
@@ -378,7 +378,7 @@ public class Flight {
              * If plane has been given a heading so no turning direction specified,
              * below works out whether it should turn left or right to that heading
              */
-            if(this.turningRight == false && this.turningLeft == false) {
+            if (this.turningRight == false && this.turningLeft == false) {
                 if (Math.abs(this.targetHeading - this.currentHeading) == 180) {
                     this.turningRight = true;
                 }
@@ -461,7 +461,7 @@ public class Flight {
             regularFlightImage = new Image("res/graphics/flight.png");
         }
 
-        if(shadowImage == null) {
+        if (shadowImage == null) {
             shadowImage = new Image("res/graphics/flight_shadow.png");
         }
 
@@ -520,7 +520,7 @@ public class Flight {
                     }
                 }
 
-                if(circling && !partCircling) {
+                if (circling && !partCircling) {
                     partCircling = true;
                     giveHeading((int)Math.round(currentHeading + 120));
                     //System.out.println(this.getFlightName() + " starts new part-circle");
@@ -543,7 +543,7 @@ public class Flight {
         this.drawFlight(g, gc);
         this.flightPlan.render(g, gc);
 
-        if(this.selected) {
+        if (this.selected) {
             this.drawSelectedFlightInformation(g, gc);
         }
     }

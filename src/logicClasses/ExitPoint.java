@@ -64,20 +64,20 @@ public class ExitPoint extends Point {
      */
 
     public void render(Graphics g, Airspace airspace) throws SlickException {
-        if(exitPointLeft != null) {
+        if (exitPointLeft != null) {
             exitPointRunway = exitPointLeft.copy();
             exitPointRunway.setRotation(45);
         }
 
-        if(y == 0) {
+        if (y == 0) {
             exitPointTop.draw((int)x - 20, (int)y);
         }
 
-        else if(x == 150) {
+        else if (x == 150) {
             exitPointLeft.draw((int)x, (int)y - 20);
         }
 
-        else if(x == 1200) {
+        else if (x == 1200) {
             exitPointRight.draw((int)x - 40, (int)y - 20);
         }
 
@@ -87,15 +87,15 @@ public class ExitPoint extends Point {
 
         g.setColor(Color.white);
 
-        if(y == 0) {
+        if (y == 0) {
             g.drawString(pointRef, (int)x - 15, (int)y);
         }
 
-        else if(x == 150) {
+        else if (x == 150) {
             g.drawString(pointRef, (int)x, (int)y - 7);
         }
 
-        else if(x == 1200) {
+        else if (x == 1200) {
             g.drawString(pointRef, (int)x - 35, (int)y - 7);
         }
 
