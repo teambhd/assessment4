@@ -16,37 +16,36 @@ import org.newdawn.slick.loading.LoadingList;
 import util.DeferredFile;
 
 public class DeferredFile_Test {
-	private DeferredFile deferredFileInstance;
+    private DeferredFile deferredFileInstance;
 
-	@Before
-	public void setUp() throws Exception {
-		LoadingList.get().add(deferredFileInstance = new DeferredFile("res/graphics/new/airport.png"){
-			public void loadFile(String filename) throws SlickException{
- 
-            }	
-		});
-	}
+    @Before
+    public void setUp() throws Exception {
+        LoadingList.get().add(deferredFileInstance = new DeferredFile("res/graphics/new/airport.png") {
+            public void loadFile(String filename) throws SlickException {
+            }
+        });
+    }
 
 
-	@Test
-	public void testGetDescription() {
-		assertEquals("res/graphics/new/airport.png", deferredFileInstance.getDescription());
-		
-	}
-	
-	@Test
-	public void testLoad() throws IOException {
-		String filename = "dummy";
-		boolean throwsException;
-		try {	//handle errors here to avoid duplicating try/catch
-			deferredFileInstance.loadFile(filename);
-		} catch (SlickException e) {
-			throwsException = true;
-			assertEquals(true, throwsException);
-			throw new IOException("error loading:\t" +filename);
-			
-		}
-		
-	}
+    @Test
+    public void testGetDescription() {
+        assertEquals("res/graphics/new/airport.png", deferredFileInstance.getDescription());
+    }
+
+    @Test
+    public void testLoad() throws IOException {
+        String filename = "dummy";
+        boolean throwsException;
+
+        try {   //handle errors here to avoid duplicating try/catch
+            deferredFileInstance.loadFile(filename);
+        }
+
+        catch (SlickException e) {
+            throwsException = true;
+            assertEquals(true, throwsException);
+            throw new IOException("error loading:\t" + filename);
+        }
+    }
 
 }
