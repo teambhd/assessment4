@@ -209,6 +209,7 @@ public class Flight {
     public int minDistanceFromWaypoint(Point waypoint) {
         return closestDistance;
     }
+
     public void resetMinDistanceFromWaypoint() {
         closestDistance = Integer.MAX_VALUE;
     }
@@ -218,6 +219,7 @@ public class Flight {
         setTargetVelocity((minVelocity + maxVelocity) / 2);
         setTargetAltitude(minAltitude);
     }
+
     public boolean altToLand() {
         if (currentAltitude <= 720) {
             return true;
@@ -227,6 +229,7 @@ public class Flight {
             return false;
         }
     }
+
     public void land() {
         // if next point is an exit point
         if (!landing) {
@@ -284,7 +287,7 @@ public class Flight {
             g.setColor(Color.white);
             g.drawString(this.flightName, (int) this.x - 24, (int) this.y - 44);
             g.drawString(Math.round(this.currentAltitude) + " ft", (int) this.x - 30, (int) this.y + 10);
-            g.drawString(Math.round(this.currentHeading) + "°", (int) this.x - 13, (int) this.y + 25); //-15,20
+            g.drawString(Math.round(this.currentHeading) + "\u00B0", (int) this.x - 13, (int) this.y + 25); //-15,20
 
             if (this.flightPlan.getCurrentRoute().size() > 0) {
                 g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int) this.x - 22, (int)this.y - 28);
@@ -294,47 +297,19 @@ public class Flight {
         // If flight isn't selected then don't display current heading
         else {
             g.setColor(Color.lightGray);
-            g.drawString(this.flightName, (int) this.x - 24, (int) this.y - 44);
-            g.drawString(Math.round(this.currentAltitude) + " ft", (int) this.x - 30, (int) this.y + 10);
+            g.drawString(this.flightName, (int)this.x - 24, (int)this.y - 44);
+            g.drawString(Math.round(this.currentAltitude) + " ft", (int)this.x - 30, (int)this.y + 10);
 
             if (this.flightPlan.getCurrentRoute().size() > 0) {
-                g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int) this.x - 22, (int)this.y - 28);
+                g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int)this.x - 22, (int)this.y - 28);
             }
 
-            g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
+            g.drawOval((int)this.x - 50, (int)this.y - 50, 100, 100);
         }
 
         g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
     }
 
-    /**
-     * drawSelectedFlightInformation: draws the selected flight's information in the bottom left hand corner.
-     * @param g - Graphics libraries required by slick2d.
-     * @param gc - GameContainer required by slick2d.
-     */
-
-    public void drawSelectedFlightInformation(Graphics g, GameContainer gc) {
-        /*selectedFlightInformationBackgroundImage.draw(0,450);
-        g.setColor(Color.white);
-        g.drawString(this.flightName,  10, 460);
-        g.drawString("Plan: ",  10, 480);
-        String plan = "";
-
-        for(int i=0; i<this.flightPlan.getCurrentRoute().size(); i++) {
-            plan += this.flightPlan.getCurrentRoute().get(i).getPointRef()+", ";
-        }
-
-
-        g.setColor(Color.white);
-        g.drawString(plan, 10, 500);
-        g.drawString(Math.round(this.currentAltitude) + " Ft",
-             10, 520);
-        g.drawString(Math.round(this.currentHeading) + " DEG",
-            10, 540);
-        g.drawString(Math.round(velocity) + " MPH",
-            10, 560);
-            */
-    }
 
     // UPDATE METHODS
 
@@ -542,16 +517,10 @@ public class Flight {
     public void render(Graphics g, GameContainer gc) throws SlickException {
         this.drawFlight(g, gc);
         this.flightPlan.render(g, gc);
-
-        if (this.selected) {
-            this.drawSelectedFlightInformation(g, gc);
-        }
     }
 
 
     // MUTATORS AND ACCESSORS
-
-
     public double getX() {
         return this.x;
     }
@@ -603,6 +572,7 @@ public class Flight {
     public boolean isGrounded() {
         return (getAltitude() == 0);
     }
+
     public Boolean isCommandable() {
         return (!isGrounded() && !landing);
     }
@@ -666,13 +636,13 @@ public class Flight {
     // toString function to display a flight object so we can read it
     @Override
     public String toString() {
-        return "X: " + this.x + " Y: " + this.y + " Flight Number: "
-               + this.flightNumber;
+        return "X: " + this.x + " Y: " + this.y + " Flight Number: " + this.flightNumber;
     }
 
     public int getCurrentAltitude() {
         return currentAltitude;
     }
+
     public void setCurrentAltitude(int currentAltitude) {
         this.currentAltitude = currentAltitude;
     }
@@ -692,11 +662,10 @@ public class Flight {
     public double getTargetVelocity() {
         return targetVelocity;
     }
+
     public FlightPlan getFlightPlan() {
         return flightPlan;
     }
-
-
 
     public Airspace getAirspace() {
         return airspace;
@@ -705,7 +674,5 @@ public class Flight {
     public boolean getSelected() {
         return this.selected;
     }
-
-
 
 }
