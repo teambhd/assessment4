@@ -95,7 +95,7 @@ public class FlightPlan {
             // Adding ExitPoint to Plan
             int ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
 
-            while (exitpointAdded == false) {
+            while (!exitpointAdded) {
                 // if entrypoint.y is 0 then top point so remove top exit point
                 if ((entryPoint.getY() == 0) && (entryPoint.getY() == tempListOfExitPoints.get(ExitPointIndex).getY())) {
                     //tempListOfExitPoints.remove(ExitPointIndex);
@@ -697,14 +697,14 @@ public class FlightPlan {
     public void update(ScoreTracking score) {
         this.updateFlightPlan(score);
 
-        if (this.changingPlan == true) {
+        if (this.changingPlan) {
             this.changeFlightPlan(score);
         }
     }
 
     public void render(Graphics g, GameContainer gc) throws SlickException {
         if (this.flight.getSelected()) {
-            if (this.changingPlan == true) {
+            if (this.changingPlan) {
                 this.drawFlightsPlan(g, gc);
                 this.markUnavailableWaypoints(g, gc);
             }

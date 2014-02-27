@@ -25,7 +25,7 @@ public class Achievements {
     //METHODS
 
     public String pointsAchievement(int pointsTotal) {
-        if (silverAchievementGained == false) {
+        if (!silverAchievementGained) {
             if (pointsTotal >= 1000) {
                 //then display silver achievement
                 achievementMessage = "silver achievement gained";
@@ -34,7 +34,7 @@ public class Achievements {
             }
         }
 
-        if (goldAchievementGained == false) {
+        if (!goldAchievementGained) {
             if (pointsTotal >= 2000) {
                 //then display gold achievement
                 achievementMessage = "gold achievement gained";
@@ -56,7 +56,7 @@ public class Achievements {
     }
 
     public void timeAchievement(int time) {
-        if (timeAchievementGained == false) {
+        if (!timeAchievementGained) {
             if (time >= ACHIEVEMENTTIME) {
                 //then display achievement
                 System.out.println("time achievement gained");
@@ -77,7 +77,7 @@ public class Achievements {
     }
 
     public String changeFlightPlanAchievement() {
-        if (flightPlanChangedAchievementGained == false) {
+        if (!flightPlanChangedAchievementGained) {
             //display achievement
             achievementMessage = "change flight plan achievement gained";
             completeAchievement();
@@ -94,7 +94,7 @@ public class Achievements {
     }
 
     public void minsWithoutPlaneLossAchievement(int timeWithoutLoss) {
-        if (noPlaneLossAchievementGained == false) {
+        if (!noPlaneLossAchievementGained) {
             if (timeWithoutLoss >= 10) {
                 //display achievement
                 System.out.println("time without losing plane achievement gained");
@@ -105,7 +105,7 @@ public class Achievements {
     }
 
     public void planesLandedAchievement(int planesLanded) {
-        if (planesLandedAchievementGained == false) {
+        if (!planesLandedAchievementGained) {
             if (planesLanded >= 10) {
                 //display achievement
                 System.out.println("landing achievement gained");

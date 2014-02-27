@@ -353,7 +353,7 @@ public class Flight {
              * If plane has been given a heading so no turning direction specified,
              * below works out whether it should turn left or right to that heading
              */
-            if (this.turningRight == false && this.turningLeft == false) {
+            if (!this.turningRight && !this.turningLeft) {
                 if (Math.abs(this.targetHeading - this.currentHeading) == 180) {
                     this.turningRight = true;
                 }
@@ -380,8 +380,7 @@ public class Flight {
             }
 
             // If plane is already turning right or user has told it to turn right
-
-            if (this.turningRight == true) {
+            if (this.turningRight) {
                 this.currentHeading += turnRate;
 
                 if (Math.round(this.currentHeading) >= 360 && this.targetHeading != 360) {
@@ -390,8 +389,7 @@ public class Flight {
             }
 
             // If plane is already turning left or user has told it to turn left
-
-            if (this.turningLeft == true) {
+            if (this.turningLeft) {
                 this.currentHeading -= turnRate;
 
                 if (Math.round(this.currentHeading) <= 0 && this.targetHeading != 0) {
