@@ -54,10 +54,9 @@
         <mkdir dir="junit/"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="unitTests.Airspace_Tests" todir="junit/"/>
-            <test name="unitTests.FlightPlan_Tests" todir="junit/"/>
-            <test name="unitTests.Flight_Tests" todir="junit/"/>
-            <test name="unitTests.SeparationRules_Tests" todir="junit/"/>
+            <batchtest todir="junit/">
+                <fileset dir="src/unitTests" />
+            </batchtest>
             <classpath refid="Game.classpath"/>
         </junit>
     </target>

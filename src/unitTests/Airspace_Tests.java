@@ -9,7 +9,7 @@ import org.junit.Before;
 public class Airspace_Tests {
 
     private Airspace airspace;
-    private  Flight flight1;
+    private Flight flight1;
 
     @Before
     public void setUp() {
