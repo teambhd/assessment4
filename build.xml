@@ -53,11 +53,12 @@
     <target depends="build" name="test">
         <mkdir dir="junit/"/>
         <junit fork="yes" printsummary="withOutAndErr">
+            <classpath refid="Game.classpath" />
             <formatter type="xml"/>
+            <sysproperty key="java.library.path" value="lib/natives"/>
             <batchtest todir="junit/">
-                <fileset dir="src/unitTests" />
+                <fileset dir="src" includes="unitTests/*.java" />
             </batchtest>
-            <classpath refid="Game.classpath"/>
         </junit>
     </target>
     
