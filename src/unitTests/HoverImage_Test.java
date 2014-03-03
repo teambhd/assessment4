@@ -2,7 +2,7 @@ package unitTests;
 
 import static org.junit.Assert.*;
 
-import java.awt.geom.Rectangle2D;
+import java.awt.Rectangle;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,8 +16,7 @@ public class HoverImage_Test {
     private HoverImage hoverImageInstance;
     private Image playHover;
     private Image playButton;
-    private Rectangle2D.Float
-    dim = new Rectangle2D.Float();
+    private Rectangle dim = new Rectangle();
 
     @Before
     public void setUp() throws Exception {
@@ -36,25 +35,25 @@ public class HoverImage_Test {
     @Test
     public void testGetX() {
         dim.x = 439;
-        assertEquals(dim.x, hoverImageInstance.getX());
+        assertEquals(dim.x, (int)hoverImageInstance.getX());
     }
 
     @Test
     public void testSetX() {
         hoverImageInstance.setX(240);
-        assertEquals(240, hoverImageInstance.getX());
+        assertEquals(240, (int)hoverImageInstance.getX());
     }
 
     @Test
     public void testGetY() {
         dim.y = 349;
-        assertEquals(dim.y, hoverImageInstance.getY());
+        assertEquals(dim.y, (int)hoverImageInstance.getY());
     }
 
     @Test
     public void testSetY() {
         hoverImageInstance.setY(240);
-        assertEquals(240, hoverImageInstance.getY());
+        assertEquals(240, (int)hoverImageInstance.getY());
     }
 
 }

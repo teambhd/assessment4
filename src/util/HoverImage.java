@@ -1,18 +1,16 @@
 package util;
 
-import java.awt.geom.Rectangle2D;
+import java.awt.Rectangle;
 
 import org.newdawn.slick.Image;
 
 public class HoverImage {
 
-    private Image
-    normal, hover;
-    private Rectangle2D.Float
-    dim = new Rectangle2D.Float();  //tracks position and dimensions
+    private Image normal, hover;
+    private Rectangle dim = new Rectangle();  //tracks position and dimensions
 
 
-    public HoverImage(Image normal, Image hover, float x, float y) {
+    public HoverImage(Image normal, Image hover, int x, int y) {
         //ASSUMES normal AND hover TO BE THE SAME SIZE
         this.normal = normal;
         this.hover = hover;
@@ -41,14 +39,16 @@ public class HoverImage {
     public float getX() {
         return dim.x;
     }
-    public void setX(float x) {
+    
+    public void setX(int x) {
         this.dim.x = x;
     }
 
     public float getY() {
         return dim.y;
     }
-    public void setY(float y) {
+    
+    public void setY(int y) {
         this.dim.y = y;
     }
 
