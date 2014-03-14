@@ -83,7 +83,6 @@ public class FlightPlan {
             Random rand = new Random();
 
             // Initialising Temporary Lists
-
             for (int i = 0; i < airspace.getListOfWaypoints().size(); i++) { //loop through all waypoints and add them to tempwaypoints
                 tempListOfWaypoints.add(airspace.getListOfWaypoints().get(i));
             }
@@ -94,38 +93,31 @@ public class FlightPlan {
 
             // Adding ExitPoint to Plan
             int ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
-
-            while (!exitpointAdded) {
-                // if entrypoint.y is 0 then top point so remove top exit point
-                if ((entryPoint.getY() == 0) && (entryPoint.getY() == tempListOfExitPoints.get(ExitPointIndex).getY())) {
-                    //tempListOfExitPoints.remove(ExitPointIndex);
-                    ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+            
+            for (int i = 0; i < tempListOfExitPoints.size(); i++) {
+                exitPoint = tempListOfExitPoints.get(i);
+                
+                if ((entryPoint.getY() == 0) && (exitPoint.getY() == 0)) {
+                    continue;
                 }
-
-                // if entrypoint.x is 150 then left point so remove left exit point
-                else if ((entryPoint.getX() == 150) && (entryPoint.getX() == tempListOfExitPoints.get(ExitPointIndex).getX())) {
-                    //tempListOfExitPoints.remove(ExitPointIndex);
-                    ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+                
+                if ((entryPoint.getY() == 150) && (exitPoint.getY() == 150)) {
+                    continue;
                 }
-
-                // if entrypoint.x is 1200
-                else if ((entryPoint.getX() == 1200) && (entryPoint.getX() == tempListOfExitPoints.get(ExitPointIndex).getX())) {
-                    //tempListOfExitPoints.remove(ExitPointIndex);
-                    ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+                
+                if ((entryPoint.getY() == 1200) && (exitPoint.getY() == 1200)) {
+                    continue;
                 }
-
-                else if (entryPoint.isRunway() == tempListOfExitPoints.get(ExitPointIndex).isRunway()) {
-                    ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+                
+                if (entryPoint.isRunway() && exitPoint.isRunway()) {
+                    continue;
                 }
-
-                else {
-                    tempRoute.add(tempListOfExitPoints.get(ExitPointIndex));
-                    exitpointAdded = true;
-                }
-
-                exitPoint =  tempListOfExitPoints.get(ExitPointIndex);
+                
+                tempRoute.add(exitPoint);
+                break;                
+                
             }
-
+            
             for (int i = 0; i < airspace.getListOfEntryPoints().size(); i ++) {
                 if (entryPoint == airspace.getListOfEntryPoints().get(i)) {
                     switch (i) {
