@@ -1,4 +1,5 @@
 package logicClasses;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,13 +14,16 @@ public class ExitPoint extends Point {
 
     static Image exitPointTop, exitPointRight, exitPointLeft, exitPointRunway;
     private boolean runway = false;
+
     public ExitPoint(double xcoord, double ycoord, String name) {
         super(xcoord, ycoord, name);
         //System.out.println("ExitPoint " + pointRef + " set:(" + x + "," + y +").");
     }
+
     public boolean isRunway() {
         return runway;
     }
+
     /**
      * init: Initialises the variables and resources required for the ExitPoint object render (Sets ExitPoint Images)
      * @param gc Game container required by Slick2d
