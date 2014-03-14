@@ -35,10 +35,10 @@ public class FlightPlan_Tests {
         airspace.newEntryPoint(600, 0);
         airspace.newEntryPoint(760, 405);
         // Exit Points
-        // airspace.newExitPoint(800, 0, "1");
-        // airspace.newExitPoint(150, 200, "2");
-        // airspace.newExitPoint(1200, 300, "3");
-        // airspace.newExitPoint(590, 195, "4");
+        airspace.newExitPoint(800, 0, "1");
+        airspace.newExitPoint(150, 200, "2");
+        airspace.newExitPoint(1200, 300, "3");
+        airspace.newExitPoint(590, 195, "4");
         // Get a Flight
         flight1 = new Flight(airspace);
         airspace.setDifficultyValueOfGame(1);

@@ -30,9 +30,9 @@ public class SeparationRules_Tests {
         airspace.newEntryPoint(150, 400);
         airspace.newEntryPoint(1200, 200);
         airspace.newEntryPoint(600, 0);
-        // airspace.newExitPoint(800, 0, "1");
-        // airspace.newExitPoint(150, 200, "2");
-        // airspace.newExitPoint(1200, 300, "3");
+        airspace.newExitPoint(800, 0, "1");
+        airspace.newExitPoint(150, 200, "2");
+        airspace.newExitPoint(1200, 300, "3");
         flight1 = new Flight(airspace);
         flight2 = new Flight(airspace);
         airspace.addFlight(flight1);

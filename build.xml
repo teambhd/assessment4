@@ -47,7 +47,7 @@
     
     <target name="test" depends="build">
         <mkdir dir="junit/"/>
-        <junit fork="yes" printsummary="withOutAndErr">
+        <junit fork="yes" printsummary="withOutAndErr" timeout="1000" showoutput="true">
             <classpath refid="Game.classpath"/>
             <formatter type="xml"/>
             <sysproperty key="java.library.path" value="lib/natives"/>
