@@ -13,7 +13,6 @@ public class Airspace_Tests {
 
     @Before
     public void setUp() {
-        System.out.println("?");
         airspace = new Airspace();
         // Waypoints
         airspace.newWaypoint(350, 150, "A");
