@@ -39,6 +39,7 @@ public class Flight_Tests {
         airspace.setDifficultyValueOfGame(1);
         airspace.createAndSetSeparationRules();
     }
+    
     // Testing generate_altitude()
 
     @Test
@@ -162,7 +163,6 @@ public class Flight_Tests {
 
     // Testing check_if_flight_at_waypoint()
 
-
     @Test
     public void checkIfFlightAtWaypointTest1() {
         // Test that waypoint detection works at exactly 15 pixels away.
@@ -211,7 +211,6 @@ public class Flight_Tests {
     }
 
 
-
     // Testing update_x_y_coordinates()
 
     @Test
@@ -223,10 +222,9 @@ public class Flight_Tests {
         flight1.setX(100);
         flight1.setY(100);
         flight1.updateXYCoordinates();
-        assertEquals(100.2, flight1.getX(), 0.1);
-        assertEquals(99.8, flight1.getY(), 0.1);
+        assertEquals(100.2, flight1.getX(), 0.15);
+        assertEquals(99.8, flight1.getY(), 0.15);
     }
-
 
 
     //Testing update_altitude()
@@ -366,11 +364,5 @@ public class Flight_Tests {
         assertFalse(flight1.getTurningRight());
         assertEquals(360, flight1.getCurrentHeading(), 0.1);
     }
-
-
-
-
-
-
 
 }

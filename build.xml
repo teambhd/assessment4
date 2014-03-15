@@ -63,7 +63,7 @@
             <fileset dir="junit">
                 <include name="TEST-*.xml"/>
             </fileset>
-            <report format="frames" todir="junit/report/"/>
+            <report format="noframes" todir="junit/report/"/>
         </junitreport>
     </target>
     
