@@ -26,6 +26,8 @@ public class FlightMenu_Tests {
     @Before
     public void setUp() throws SlickException {
         flightMenuInstance = new FlightMenu();
+        Graphics graphics = new Graphics();
+        Graphics.setCurrent(graphics);
     }
 
     @After

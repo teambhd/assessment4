@@ -26,29 +26,8 @@ public class PlayState_Test {
     }
 
     @Test
-    public void testPlayState() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testInit() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testRender() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testUpdate() {
-        fail("Not yet implemented");
-    }
-
-
-    // This test also tests getAirspace
-    @Test
     public void testSetAirspace() {
+        // This test also tests getAirspace
         Airspace airspace = new Airspace();
         playStateInstance.setAirspace(airspaceInstance);
         Airspace actualAirspace = playStateInstance.getAirspace();
