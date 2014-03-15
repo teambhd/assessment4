@@ -45,7 +45,7 @@ public class Flight_Tests {
     public void generateAltitudeTest1() {
         // Testing the function returns an altitude within a certain range.
         int result = flight1.generateAltitude();
-        assertTrue(result >= 27000 && result <= 30000);
+        assertTrue(result >= 2000 && result <= 5000);
     }
 
     // Testing calculate_heading_to_first_waypoint()
