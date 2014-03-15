@@ -59,7 +59,7 @@
     
     <target name="report" depends="test">
         <mkdir dir="junit/report/"/>
-        <junitreport todir="junit/report/">
+        <junitreport todir="junit/">
             <fileset dir="junit">
                 <include name="TEST-*.xml"/>
             </fileset>
