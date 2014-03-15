@@ -125,10 +125,6 @@ public class FlightPlan_Tests {
         airspaceMissingWaypoints.newEntryPoint(150, 400);
         airspaceMissingWaypoints.newEntryPoint(1200, 200);
         airspaceMissingWaypoints.newEntryPoint(600, 0);
-        // Exit Points
-        airspaceMissingWaypoints.newExitPoint(800, 0, "1");
-        airspaceMissingWaypoints.newExitPoint(150, 200, "2");
-        airspaceMissingWaypoints.newExitPoint(1200, 300, "3");
         Flight flight1 = new Flight(airspaceMissingWaypoints);
         ArrayList<Point> route = flightplan.buildRoute(airspaceMissingWaypoints, flight1.getFlightPlan().getEntryPoint());
         assertTrue(route.size() == 0);
