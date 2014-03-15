@@ -58,8 +58,8 @@ public class FlightPlan {
 
     public EntryPoint generateEntryPoint(Airspace airspace) {
         Random rand = new Random();
-        int randomNumber = rand.nextInt(4);
-        //randomNumber = 3;
+        int randomNumber = rand.nextInt(airspace.getListOfEntryPoints().size());
+
         // Setting flights x and y to the coordinates of it's entrypoint
         flight.setX(airspace.getListOfEntryPoints().get(randomNumber).getX()); // choose one a get the x and y values
         flight.setY(airspace.getListOfEntryPoints().get(randomNumber).getY());

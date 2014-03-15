@@ -17,6 +17,7 @@ public class SeparationRules_Tests {
     public void setUp() {
         separationRules = new SeparationRules(1);
         airspace = new Airspace();
+        
         airspace.newWaypoint(350, 150, "A");
         airspace.newWaypoint(400, 470, "B");
         airspace.newWaypoint(700, 60,  "C");
@@ -33,16 +34,20 @@ public class SeparationRules_Tests {
         airspace.newExitPoint(800, 0, "1");
         airspace.newExitPoint(150, 200, "2");
         airspace.newExitPoint(1200, 300, "3");
+        
         flight1 = new Flight(airspace);
         flight2 = new Flight(airspace);
         airspace.addFlight(flight1);
         airspace.addFlight(flight2);
+        
         flight1.setX(0);
-        flight2.setX(25);
         flight1.setY(0);
-        flight2.setY(25);
         flight1.setAltitude(27000);
+        
+        flight2.setX(25);
+        flight2.setY(25);
         flight2.setAltitude(27000);
+        
         airspace.setDifficultyValueOfGame(1);
         airspace.createAndSetSeparationRules();
     }
