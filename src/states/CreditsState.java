@@ -1,8 +1,5 @@
 package states;
 
-//import java.awt.Font;
-//import java.io.InputStream;
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -15,21 +12,16 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import util.DeferredFile;
-//import org.newdawn.slick.util.ResourceLoader;
 
 
 public class CreditsState extends BasicGameState {
 
     private static Image
     menuButton, menuHover, menuBackground;
-    //private static TrueTypeFont font;
 
     private String[][] credits; //[section, line]
 
-
-    public CreditsState(int state) {
-    }
-
+    public CreditsState(int state) {}
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg)
@@ -52,12 +44,7 @@ public class CreditsState extends BasicGameState {
                 }
             });
         }
-        /*try {
-            Font awtFont = new Font("Courier New", Font.PLAIN, 20);
-            font = new TrueTypeFont(awtFont, false);
-        } catch(Exception e){
-            e.printStackTrace();
-        }*/
+
         credits = new String[][] {
             {
                 "Music Assets",

@@ -15,7 +15,7 @@ import states.SplashState;
 
 public class Game extends StateBasedGame {
 
-    public static final String NAME = "Turbulence";
+    public static final String NAME = "Don't Crash";
 
     public static final int
     SPLASHSTATE = 0,
@@ -54,7 +54,6 @@ public class Game extends StateBasedGame {
     public static void main(String[] args) {
         AppGameContainer appgc;
 
-//      fLogger.info("Showing the main window.");
         try {
             appgc = new AppGameContainer(new Game(NAME));
             appgc.setDisplayMode(MAXIMUMWIDTH, MAXIMUMHEIGHT, false);

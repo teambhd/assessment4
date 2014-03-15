@@ -371,7 +371,6 @@ public class PlayState extends BasicGameState {
             Input input = gc.getInput();
 
             // Checking For Pause Screen requested in game
-
             if (input.isKeyPressed(Input.KEY_P)) {
                 sbg.enterState(stateContainer.Game.PAUSESTATE);
             }
@@ -382,7 +381,6 @@ public class PlayState extends BasicGameState {
             }
         }
     }
-
 
     @Override
     public int getID() {
@@ -396,7 +394,5 @@ public class PlayState extends BasicGameState {
     public void setAirspace(Airspace airspace) {
         this.airspace = airspace;
     }
-
-
 
 }

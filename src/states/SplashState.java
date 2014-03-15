@@ -18,14 +18,9 @@ public final class SplashState extends BasicGameState {
 
     private static Image
     splash, indicator;
-    /*private static Color
-        loadBaseColor = Color.white, loadFillColor = Color.black;*/
     private static LoadingList loading = LoadingList.get();
 
-
-    public SplashState(int state) {
-    }
-
+    public SplashState(int state) {}
 
     @Override
     public void init(GameContainer gc, StateBasedGame s)
@@ -38,27 +33,7 @@ public final class SplashState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame s, Graphics g)
     throws SlickException {
         g.drawImage(splash, 0, 0);
-        indicator.drawCentered(900 - ((600 * loading.getRemainingResources())
-                                      / loading.getTotalResources()), 390);
-        /*//calculate loading bar sizes
-        int ox = stateContainer.Game.MAXIMUMWIDTH /4,   // offset/sizing values
-            oy = stateContainer.Game.MAXIMUMHEIGHT /16;
-
-        Rectangle
-            loadBase = new Rectangle(ox, 10*oy, 2*ox, oy),
-            loadFill = new Rectangle(loadBase);
-        loadFill.grow(-4, -4);
-        loadFill.width = loadFill.width -
-                    ((loadFill.width * loading.getRemainingResources())
-                            / loading.getTotalResources());
-
-        //draw loading bar
-        g.setColor(loadBaseColor);
-        g.fillRoundRect(loadBase.x, loadBase.y,
-                loadBase.width, loadBase.height, oy/3);
-        g.setColor(loadFillColor);
-        g.fillRoundRect(loadFill.x, loadFill.y,
-                loadFill.width, loadFill.height, oy/3 -1);*/
+        indicator.drawCentered(900 - ((600 * loading.getRemainingResources()) / loading.getTotalResources()), 390);
     }
 
     @Override

@@ -17,14 +17,10 @@ public class PauseState extends BasicGameState {
     nextPageButton, previousPageButton, menuButton, quitButton, backButton,
                     nextPageButtonHover, previousPageButtonHover, quitButtonHover, backButtonHover,
                     pauseBackgroundPage1, pauseBackgroundPage2;
-    //private static TrueTypeFont font;
 
     private int pageNumber;
 
-
-    public PauseState(int state) {
-    }
-
+    public PauseState(int state) {}
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbj) throws SlickException {
@@ -87,10 +83,6 @@ public class PauseState extends BasicGameState {
                 }
             });
         }
-        /*InputStream inputStream = ResourceLoader.getResourceAsStream("res/blue_highway_font/bluehigh.ttf");
-        Font awtFont= Font.createFont(Font.TRUETYPE_FONT, inputStream);
-        awtFont = awtFont.deriveFont(20f);
-        font = new TrueTypeFont(awtFont, false);*/
     }
 
     @Override
@@ -179,4 +171,5 @@ public class PauseState extends BasicGameState {
     public int getID() {
         return stateContainer.Game.PAUSESTATE;
     }
+    
 }
