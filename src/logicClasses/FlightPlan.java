@@ -79,38 +79,38 @@ public class FlightPlan {
         ArrayList<ExitPoint> tempListOfExitPoints = new ArrayList<ExitPoint>();
         Boolean exitpointAdded = false;
 
-        if (!airspace.getListOfWaypoints().isEmpty() && !airspace.getListOfExitPoints().isEmpty()) { 
+        if (!airspace.getListOfWaypoints().isEmpty() && !airspace.getListOfExitPoints().isEmpty()) {
 
             // Initialise a temporary list of all waypoints
             for (int i = 0; i < airspace.getListOfWaypoints().size(); i++) { //loop through all waypoints and add them to tempwaypoints
                 tempListOfWaypoints.add(airspace.getListOfWaypoints().get(i));
             }
 
-            // Add an ExitPoint to the plan, ensuring that a plane isn't set to exit on the same edge as it arrived from      
+            // Add an ExitPoint to the plan, ensuring that a plane isn't set to exit on the same edge as it arrived from
             for (int i = 0; i < airspace.getListOfExitPoints().size(); i++) {
                 exitPoint = airspace.getListOfExitPoints().get(i);
-                
+
                 if ((entryPoint.getY() == 0) && (exitPoint.getY() == 0)) {
                     continue;
                 }
-                
+
                 if ((entryPoint.getY() == 150) && (exitPoint.getY() == 150)) {
                     continue;
                 }
-                
+
                 if ((entryPoint.getY() == 1200) && (exitPoint.getY() == 1200)) {
                     continue;
                 }
-                
+
                 if (entryPoint.isRunway() && exitPoint.isRunway()) {
                     continue;
                 }
-                
+
                 tempRoute.add(exitPoint);
-                break;                
-                
+                break;
+
             }
-            
+
             for (int i = 0; i < airspace.getListOfEntryPoints().size(); i ++) {
                 if (entryPoint == airspace.getListOfEntryPoints().get(i)) {
                     switch (i) {

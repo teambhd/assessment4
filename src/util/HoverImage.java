@@ -39,7 +39,7 @@ public class HoverImage {
     public float getX() {
         return dim.x;
     }
-    
+
     public void setX(int x) {
         this.dim.x = x;
     }
@@ -47,7 +47,7 @@ public class HoverImage {
     public float getY() {
         return dim.y;
     }
-    
+
     public void setY(int y) {
         this.dim.y = y;
     }

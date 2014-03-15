@@ -381,7 +381,7 @@ public class Airspace {
             return true;
         }
     }
-    
+
     public boolean addFlight(Flight flight) {
         // Checks whether the flight was already added before, and if it won't pass the maximum number of flights allowed
         if ((this.listOfFlightsInAirspace.contains(flight))

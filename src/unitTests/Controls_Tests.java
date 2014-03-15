@@ -23,7 +23,7 @@ public class Controls_Tests {
         controlsInstance = new Controls();
     }
 
-    @Test 
+    @Test
     public void testGetSelectedFlight() {
         // This also tests 'setSelectedFlight()'
         // No need to repeat test!

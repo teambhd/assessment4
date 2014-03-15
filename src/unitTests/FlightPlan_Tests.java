@@ -43,7 +43,7 @@ public class FlightPlan_Tests {
         flight1 = new Flight(airspace);
         airspace.setDifficultyValueOfGame(1);
         airspace.createAndSetSeparationRules();
-        
+
         flightplan = new FlightPlan(airspace, flight1);
     }
 
