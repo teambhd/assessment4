@@ -79,23 +79,16 @@ public class FlightPlan {
         ArrayList<ExitPoint> tempListOfExitPoints = new ArrayList<ExitPoint>();
         Boolean exitpointAdded = false;
 
-        if (!airspace.getListOfWaypoints().isEmpty() && !airspace.getListOfExitPoints().isEmpty()) { // if there is a list of waypoints and a list of exit points
-            Random rand = new Random();
+        if (!airspace.getListOfWaypoints().isEmpty() && !airspace.getListOfExitPoints().isEmpty()) { 
 
-            // Initialising Temporary Lists
+            // Initialise a temporary list of all waypoints
             for (int i = 0; i < airspace.getListOfWaypoints().size(); i++) { //loop through all waypoints and add them to tempwaypoints
                 tempListOfWaypoints.add(airspace.getListOfWaypoints().get(i));
             }
 
-            for (int i = 0; i < airspace.getListOfExitPoints().size(); i++) {// loop through all exit points and add them to temppoints
-                tempListOfExitPoints.add(airspace.getListOfExitPoints().get(i));
-            }
-
-            // Adding ExitPoint to Plan
-            int ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
-            
-            for (int i = 0; i < tempListOfExitPoints.size(); i++) {
-                exitPoint = tempListOfExitPoints.get(i);
+            // Add an ExitPoint to the plan, ensuring that a plane isn't set to exit on the same edge as it arrived from      
+            for (int i = 0; i < airspace.getListOfExitPoints().size(); i++) {
+                exitPoint = airspace.getListOfExitPoints().get(i);
                 
                 if ((entryPoint.getY() == 0) && (exitPoint.getY() == 0)) {
                     continue;

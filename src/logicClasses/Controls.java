@@ -239,7 +239,9 @@ public class Controls {
     //MUTATORS AND ACCESSORS
     public void setSelectedFlight(Flight flight1) {
         selectedFlight = flight1;
-        menu.setFlight(flight1);
+        if (menu != null) {
+            menu.setFlight(flight1);
+        }
     }
 
     public Flight getSelectedFlight() {
@@ -249,7 +251,5 @@ public class Controls {
     public void setDifficultyValueOfGame(int value) {
         difficultyValueOfGame = value;
     }
+    
 }
-
-
-
