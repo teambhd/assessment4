@@ -94,11 +94,11 @@ public class FlightPlan {
                     continue;
                 }
 
-                if ((entryPoint.getY() == 150) && (exitPoint.getY() == 150)) {
+                if ((entryPoint.getX() == 150) && (exitPoint.getX() == 150)) {
                     continue;
                 }
 
-                if ((entryPoint.getY() == 1200) && (exitPoint.getY() == 1200)) {
+                if ((entryPoint.getX() == 1200) && (exitPoint.getX() == 1200)) {
                     continue;
                 }
 
