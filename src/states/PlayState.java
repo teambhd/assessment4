@@ -179,8 +179,7 @@ public class PlayState extends BasicGameState {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
-    throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         // Checks whether the user is still choosing the difficulty
         if (settingDifficulty) {
             int posX = Mouse.getX();
@@ -277,8 +276,7 @@ public class PlayState extends BasicGameState {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta)
-    throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         // Checks if the game has been retried and if it has resets the airspace
         if (gameEnded) {
             airspace.resetAirspace();

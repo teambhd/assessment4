@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import states.GameOverState;
 import states.MenuState;
 import states.PauseState;
+import states.MultiPlayState;
 import states.PlayState;
 import states.CreditsState;
 import states.ControlsState;
@@ -21,10 +22,11 @@ public class Game extends StateBasedGame {
     SPLASHSTATE = 0,
     MENUSTATE = 1,
     PLAYSTATE = 2,
-    GAMEOVERSTATE = 3,
-    PAUSESTATE = 4,
-    CREDITSSTATE = 5,
-    CONTROLSSTATE = 6;
+    MULTIPLAYSTATE = 3,
+    GAMEOVERSTATE = 4,
+    PAUSESTATE = 5,
+    CREDITSSTATE = 6,
+    CONTROLSSTATE = 7;
 
     public static final int
     MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
@@ -45,6 +47,7 @@ public class Game extends StateBasedGame {
         enterState(SPLASHSTATE);
         addState(new MenuState(MENUSTATE));
         addState(new PlayState(PLAYSTATE));
+        addState(new MultiPlayState(MULTIPLAYSTATE));
         addState(new GameOverState(GAMEOVERSTATE));
         addState(new PauseState(PAUSESTATE));
         addState(new CreditsState(CREDITSSTATE));
