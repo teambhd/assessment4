@@ -8,7 +8,7 @@ This directory contains the source code for Team BHD's Assessment 4 submission. 
 
 The easiest way to build and run the game is to use the [Apache Ant](http://ant.apache.org) Java build system. It can be downloaded from the website linked above, or installed through a package manager, such as apt-get on Ubuntu, [brew](http://brew.sh) on Mac, or [cinst](http://chocolatey.org) on Windows.
 
-Once Ant is installed the game can be launched by opening a terminal window in the project directory and then executing `ant play`, which will automatically build and run the game (to just build without launching run `ant build`).
+Once Ant is installed the game can be launched by opening a terminal window in the project directory and then executing `ant`, which will automatically build and run the game (to just build without launching run `ant build`).
 
 The included unit tests can be run with `ant test`. Running `ant report` will generate a html version of the test report within the junit directory.
 
