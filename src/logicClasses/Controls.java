@@ -14,7 +14,6 @@ public class Controls {
     public static int
     EASY = 1, NORMAL = 2, HARD = 3;
 
-    private FlightMenu menu;
     private boolean mouseHeldDownOnFlight, headingAlreadyChangedByMouse;
     private Flight selectedFlight;
 
@@ -30,11 +29,8 @@ public class Controls {
 
     // INIT
     public void init(GameContainer gc) throws SlickException {
-        menu = new FlightMenu();
-        menu.init();
-        menu.setInput(gc.getInput());
-    }
 
+    }
 
 
     // METHODS
@@ -108,11 +104,7 @@ public class Controls {
             else {
                 if (selectedFlight != null) {
                     //only change selected flight if not in navigator mode
-                    //OR flight is outside of the circle
-                    if (selectedFlight.getFlightPlan().getChangingPlan()
-                            || (distance(selectedFlight.getX(), selectedFlight.getY(),
-                                         nearestFlight.getX(), nearestFlight.getY())
-                                > (menu.getBearingSize() / 2 + menu.getSliderWidth()))) {
+                    if (selectedFlight.getFlightPlan().getChangingPlan()) {
                         //deselect old flight (if any)
                         selectedFlight.setSelected(false);
                         selectedFlight.getFlightPlan().setChangingPlan(false);
@@ -186,12 +178,7 @@ public class Controls {
      */
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        if (selectedFlight != null) {
-            if (!selectedFlight.getFlightPlan().getChangingPlan()) {
-                g.setColor(Color.white);
-                menu.render(g, gc);
-            }
-        }
+
     }
 
     public void update(GameContainer gc, Airspace airspace) {
@@ -239,10 +226,6 @@ public class Controls {
     //MUTATORS AND ACCESSORS
     public void setSelectedFlight(Flight flight1) {
         selectedFlight = flight1;
-
-        if (menu != null) {
-            menu.setFlight(flight1);
-        }
     }
 
     public Flight getSelectedFlight() {
