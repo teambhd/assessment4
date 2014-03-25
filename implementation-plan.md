@@ -1,6 +1,6 @@
 # Assessment 4 Implementation Plan
 
-*Draft -- 24/Mar/14*
+*Draft 1 -- 24/Mar/14*
 
 ## Menu Screens
 
@@ -9,10 +9,16 @@
 * Update the information on the controls screen, with details of the new keyboard control scheme
 * Also consider whether to add a direct link to the user manual
 
+## States
+
+* Fill out the `MultiPlayState` class
+* Edit (and potentially rename) the `PlayState` class to be consistent with the new multi-player mode
+
 ## Airspace
 
 * Remove left-hand sidebar, and move the clock to the top-centre of the screen
 * Change the background image to match our own design aesthetic
+* Edit both the `SeparationRules` and `MultiPlayState` classes to make collisions non-fatal in multiplayer games
 
 ## Controls
 
@@ -28,7 +34,11 @@
 
 * Add capability for multiple instances to the `ScoreTracking` class
 * Potentially have the `ScoreTracking` class render itself
-* Add point additions and deductions for multi-player events (e.g. plane handover etc.)
+* Add point additions and deductions for multi-player events:
+    * Deduct a large number of points from the controllers of both planes involved in a collision
+    * Deduct a smaller amount of points for each separation violation
+    * Add points for a successful, planned hand-over
+    * Deduct points for an unplanned handover
 
 ## Airports
 
