@@ -21,7 +21,6 @@ public class Airspace {
     private SeparationRules separationRules;
     private Airport airport;
     private int difficultyValueOfGame;
-    private Controls controls;
     private ScoreTracking score;
 
 
@@ -37,7 +36,6 @@ public class Airspace {
         this.numberOfGameLoops = 0; // Stores how many loops there have been in total
         this.numberOfGameLoopsWhenDifficultyIncreases = 3600; // this is how many loops until planes come more quickly, difficulty increase once a minute
         this.randomNumberForFlightGeneration = 500;
-        this.controls = new Controls();
         this.difficultyValueOfGame = 0; // This value will be changed when the user selects a difficulty in the playstate
         this.score = new ScoreTracking();
     }
@@ -54,7 +52,6 @@ public class Airspace {
         this.numberOfGameLoops = 0;
         this.numberOfGameLoopsWhenDifficultyIncreases = 3600;
         this.separationRules.setGameOverViolation(false); // Prevents user immediately entering game over state upon replay
-        this.controls.setSelectedFlight(null); // Prevents information about flight from previous game being displayed
     }
 
     /**
@@ -242,7 +239,6 @@ public class Airspace {
      */
 
     public void init(GameContainer gc) throws SlickException {
-        this.controls.init(gc);
         this.airport.init(gc);
 
         for (int i = 0; i < this.listOfWayppoints.size(); i++) { // Initialising waypoints
@@ -285,7 +281,6 @@ public class Airspace {
         }
 
         this.separationRules.update(this);
-        this.controls.update(gc, this);
     }
 
     public ScoreTracking getScore() {
@@ -318,7 +313,6 @@ public class Airspace {
         }
 
         separationRules.render(g, gc, this);
-        controls.render(gc, g);
     }
 
 
@@ -404,11 +398,6 @@ public class Airspace {
 
     public void removeSpecificFlight(int flight) {
         this.listOfFlightsInAirspace.remove(flight);
-
-        // If flight was selected, de-select it
-        if (!(this.listOfFlightsInAirspace.contains(this.controls.getSelectedFlight()))) {
-            this.controls.setSelectedFlight(null);
-        }
     }
 
     public void removeWaypoint(Waypoint waypoint) {
@@ -429,10 +418,6 @@ public class Airspace {
 
     public void setListOfEntryPoints(List<EntryPoint> listOfEntryPoints) {
         this.listOfEntryPoints = listOfEntryPoints;
-    }
-
-    public Controls getControls() {
-        return this.controls;
     }
 
     public void setDifficultyValueOfGame(int i) {

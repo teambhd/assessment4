@@ -295,21 +295,21 @@ public class PlayState extends BasicGameState {
             if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
                 if ((posX > 100 && posX < 216) && (posY > 300 && posY < 354)) {
                     airspace.setDifficultyValueOfGame(1);
-                    airspace.getControls().setDifficultyValueOfGame(Controls.EASY);
+                    //airspace.getControls().setDifficultyValueOfGame(Controls.EASY);
                     airspace.createAndSetSeparationRules();
                     settingDifficulty = false;
                 }
 
                 if ((posX > 100 && posX < 284) && (posY > 400 && posY < 454)) {
                     airspace.setDifficultyValueOfGame(2);
-                    airspace.getControls().setDifficultyValueOfGame(Controls.NORMAL);
+                    //airspace.getControls().setDifficultyValueOfGame(Controls.NORMAL);
                     airspace.createAndSetSeparationRules();
                     settingDifficulty = false;
                 }
 
                 if ((posX > 100 && posX < 227) && (posY > 500 && posY < 554)) {
                     airspace.setDifficultyValueOfGame(3);
-                    airspace.getControls().setDifficultyValueOfGame(Controls.HARD);
+                    //airspace.getControls().setDifficultyValueOfGame(Controls.HARD);
                     airspace.createAndSetSeparationRules();
                     settingDifficulty = false;
                 }

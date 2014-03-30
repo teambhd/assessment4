@@ -1,6 +1,6 @@
 # Assessment 4 Implementation Plan
 
-*Draft 1 -- 24/Mar/14*
+*Draft 2 -- 30/Mar/14*
 
 ## Menu Screens
 
@@ -18,6 +18,7 @@
 
 * Remove left-hand sidebar, and move the clock to the top-centre of the screen
 * Change the background image to match our own design aesthetic
+* Remove instantiation of `Controls` from the `Airspace` class and into the game states
 * Edit both the `SeparationRules` and `MultiPlayState` classes to make collisions non-fatal in multiplayer games
 
 ## Controls
