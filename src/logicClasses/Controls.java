@@ -34,6 +34,11 @@ public class Controls {
 
     public void update(GameContainer gc, Airspace airspace) {
         // This function handles keyboard inputs and makes the appropriate changes to flights within the airspace
+        
+        if (selectedFlight == null && airspace.isFlightWithOwner(myPlayer) {
+            // Ensure that there is always a plane selected if there's one in the airspace to select
+            selectedFlight = airspace.getListOfFlightsWithOwner(myPlayer)[0];
+        }
     }
 
 

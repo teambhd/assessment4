@@ -326,6 +326,10 @@ public class Airspace {
     public List<Flight> getListOfFlights() {
         return this.listOfFlightsInAirspace;
     }
+    
+    public List<Flight> getListOfFlightsWithOwner(String owner) {
+        // TODO
+    }
 
     public List<Waypoint> getListOfWaypoints() {
         return this.listOfWayppoints;
