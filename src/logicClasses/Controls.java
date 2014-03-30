@@ -5,6 +5,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.GameContainer;
 
+import util.KeyBindings;
+
 
 public class Controls {
 
@@ -17,7 +19,7 @@ public class Controls {
     // CONSTRUCTOR
     
     public Controls(KeyBindings keys, String player) {
-        myPlayer = player // "single", "red" or "blue"
+        myPlayer = player; // "single", "red" or "blue"
         myKeys = keys;
         selectedFlight = null;
     }

@@ -24,6 +24,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.Image;
 
 import util.DeferredFile;
+import util.KeyBindings;
 
 
 public class PlayState extends BasicGameState {
@@ -41,6 +42,7 @@ public class PlayState extends BasicGameState {
     public static float time;
 
     private Airspace airspace;
+    private Controls controls;
     private String stringTime;
     private boolean settingDifficulty, gameEnded;
 
@@ -176,6 +178,9 @@ public class PlayState extends BasicGameState {
         airspace.newExitPoint(1200, 300, "3");
         airspace.newExitPoint(590, 195, "4");
         airspace.init(gc);
+        
+        // Initialise the controls
+        controls = new Controls(KeyBindings.singlePlayerKeys, "single");
     }
 
     @Override
@@ -355,6 +360,8 @@ public class PlayState extends BasicGameState {
             // Updating Airspace
             airspace.newFlight(gc);
             airspace.update(gc);
+            
+            controls.update(gc, airspace);
 
             if (airspace.getSeparationRules().getGameOverViolation() == true) {
                 achievementMessage = achievement.crashAchievement((int)time); //pass the game time as of game over into the crashAchievement
