@@ -327,8 +327,14 @@ public class Airspace {
         return this.listOfFlightsInAirspace;
     }
     
+    public boolean isFlightWithOwner(String owner) {
+        // TODO
+        return true;
+    }
+    
     public List<Flight> getListOfFlightsWithOwner(String owner) {
         // TODO
+        return null;
     }
 
     public List<Waypoint> getListOfWaypoints() {
