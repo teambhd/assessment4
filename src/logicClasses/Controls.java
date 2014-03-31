@@ -52,10 +52,16 @@ public class Controls {
         
         if (input.isKeyPressed(myKeys.get("up"))) {
             // Increase altitude by 1000ft if the flight's not already at its ceiling
+            if (selectedFlight.getTargetAltitude() <= selectedFlight.getMaxAltitude() - 1000) {
+                selectedFlight.setTargetAltitude(selectedFlight.getTargetAltitude() + 1000);
+            }
         }
         
         else if (input.isKeyPressed(myKeys.get("down"))) {
             // Decrease altitude by 1000ft if the flight's not already at its minimum height
+            if (selectedFlight.getTargetAltitude() >= selectedFlight.getMinAltitude() + 1000) {
+                selectedFlight.setTargetAltitude(selectedFlight.getTargetAltitude() - 1000);
+            }
         }
         
         if (input.isKeyPressed(myKeys.get("left"))) {
