@@ -26,24 +26,29 @@ public class Controls {
 
 
     // METHODS
-    
-    // private double distance(double x1, double y1, double x2, double y2) {
-    //     // DON'T PANIC, just pythagoras
-    //     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-    // }
+       
+    public void render(Graphics g, GameContainer gc) throws SlickException {
+        if (selectedFlight != null) {
+            // TODO: Draw a circle around our currently selected flight
+        }
+    }
 
     public void update(GameContainer gc, Airspace airspace) {
         // This function handles keyboard inputs and makes the appropriate changes to flights within the airspace
         
-        // TODO: Ensure that our selected flight still exists within the airspace and is still owned by the correct player
+        // Ensure that our selected flight still exists within the airspace and is still owned by the correct player
+        if (!airspace.getListOfFlightsWithOwner(myPlayer).contains(selectedFlight)) {
+            selectedFlight = null;
+        }
         
+        // Ensure that there is always a plane selected if there's one in the airspace to select
         if (selectedFlight == null && airspace.isFlightWithOwner(myPlayer)) {
-            // Ensure that there is always a plane selected if there's one in the airspace to select
             selectedFlight = airspace.getListOfFlightsWithOwner(myPlayer).get(0);
         }
         
+        // If there's still no selected flight then there are none in the airspace for us to control, 
+        // so we can't go as far as handling input keys
         if (selectedFlight == null) {
-            // If there's still no selected flight then there are none in the airspace for us to control, so we'll just return
             return;
         }
         
@@ -104,8 +109,8 @@ public class Controls {
 
     // MUTATORS AND ACCESSORS
     
-    public void setSelectedFlight(Flight flight1) {
-        selectedFlight = flight1;
+    public void setSelectedFlight(Flight flight) {
+        selectedFlight = flight;
     }
 
     public Flight getSelectedFlight() {
