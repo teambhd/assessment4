@@ -75,11 +75,17 @@ public class Controls {
         }
         
         if (input.isKeyPressed(myKeys.get("accelerate"))) {
-            // TODO
+            // Increase velocity by 50 if the flight's not already at its maximum speed
+            if (selectedFlight.getTargetVelocity() <= selectedFlight.getMaxVelocity() - 50) {
+                selectedFlight.setTargetVelocity(selectedFlight.getTargetVelocity() + 50);
+            }
         }
         
         else if (input.isKeyPressed(myKeys.get("decelerate"))) {
-            // TODO
+            // Decrease velocity by 50 if the flight's not already at its minimum speed
+            if (selectedFlight.getTargetVelocity() >= selectedFlight.getMinVelocity() + 50) {
+                selectedFlight.setTargetVelocity(selectedFlight.getTargetVelocity() - 50);
+            }
         }
         
         if (input.isKeyPressed(myKeys.get("toggle_forwards"))) {
