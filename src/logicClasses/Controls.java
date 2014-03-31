@@ -59,11 +59,13 @@ public class Controls {
         }
         
         if (input.isKeyPressed(myKeys.get("left"))) {
-            // Turn left by 15 degrees
+            // Turn left by 15 degrees (we don't need to handle going past 0 degrees here)
+            selectedFlight.turnFlightLeft(15);
         }
         
         else if (input.isKeyPressed(myKeys.get("right"))) {
-            // Turn right by 15 degrees
+            // Turn right by 15 degrees (we don't need to handle going past 360 degrees here)
+            selectedFlight.turnFlightRight(15);
         }
         
         if (input.isKeyPressed(myKeys.get("accelerate"))) {
