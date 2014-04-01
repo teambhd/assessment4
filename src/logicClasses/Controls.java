@@ -69,14 +69,17 @@ public class Controls {
             }
         }
         
-        if (input.isKeyPressed(myKeys.get("left"))) {
-            // Turn left by 15 degrees (we don't need to handle going past 0 degrees here)
-            selectedFlight.turnFlightLeft(15);
+        // Note that these two handlers use isKeyDown rather than isKeyPressed so as to allow holding down the
+        // turn left and turn right keys for more precise control of direction.
+        
+        if (input.isKeyDown(myKeys.get("left"))) {
+            // Turn left by 2 degrees (we don't need to handle going past 0 degrees here)
+            selectedFlight.turnFlightLeft(2);
         }
         
-        else if (input.isKeyPressed(myKeys.get("right"))) {
-            // Turn right by 15 degrees (we don't need to handle going past 360 degrees here)
-            selectedFlight.turnFlightRight(15);
+        else if (input.isKeyDown(myKeys.get("right"))) {
+            // Turn right by 2 degrees (we don't need to handle going past 360 degrees here)
+            selectedFlight.turnFlightRight(2);
         }
         
         if (input.isKeyPressed(myKeys.get("accelerate"))) {
