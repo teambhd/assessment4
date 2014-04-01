@@ -53,7 +53,8 @@ public class Flight {
     circling = false,
     partCircling = false,
     finalApproach = false;
-
+    
+    private String owner;
 
     // CONSTRUCTOR
     public Flight(Airspace airspace) {
@@ -671,6 +672,14 @@ public class Flight {
 
     public boolean getSelected() {
         return this.selected;
+    }
+    
+    public String getOwner() {
+        return this.owner;
+    }
+    
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
 }

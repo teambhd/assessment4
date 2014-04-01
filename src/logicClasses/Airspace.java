@@ -22,10 +22,11 @@ public class Airspace {
     private Airport airport;
     private int difficultyValueOfGame;
     private ScoreTracking score;
+    private boolean isMultiplayer;
 
 
     // CONSTRUCTOR
-    public Airspace() {
+    public Airspace(boolean multiplayer) {
         this.maximumNumberOfFlightsInAirspace = 10;
         this.listOfFlightsInAirspace = new ArrayList<Flight>();
         this.listOfWayppoints = new ArrayList<Waypoint>();
@@ -37,6 +38,7 @@ public class Airspace {
         this.numberOfGameLoopsWhenDifficultyIncreases = 3600; // this is how many loops until planes come more quickly, difficulty increase once a minute
         this.randomNumberForFlightGeneration = 500;
         this.difficultyValueOfGame = 0; // This value will be changed when the user selects a difficulty in the playstate
+        this.isMultiplayer = multiplayer;
         this.score = new ScoreTracking();
     }
 
@@ -154,6 +156,15 @@ public class Airspace {
                     Flight tempFlight = new Flight(this);
                     tempFlight.setFlightName(this.generateFlightName());
                     tempFlight.setTargetAltitude(tempFlight.getAltitude());
+                    
+                    if (!isMultiplayer) {
+                        tempFlight.setOwner("single");
+                    }
+                    
+                    else {
+                        // TODO: Handle setting a random owner for multiplayer mode
+                    }
+                    
                     double heading;
 
                     if (tempFlight.getFlightPlan().getEntryPoint().isRunway()) {
@@ -328,13 +339,19 @@ public class Airspace {
     }
     
     public boolean isFlightWithOwner(String owner) {
-        // TODO
-        return true;
+        return !this.getListOfFlightsWithOwner(owner).isEmpty();
     }
     
     public List<Flight> getListOfFlightsWithOwner(String owner) {
-        // TODO
-        return null;
+        List<Flight> toReturn = new ArrayList<Flight>();
+        
+        for (Flight f : listOfFlightsInAirspace) {
+            if (f.getOwner() == owner) {
+                toReturn.add(f);
+            }
+        }
+        
+        return toReturn;
     }
 
     public List<Waypoint> getListOfWaypoints() {

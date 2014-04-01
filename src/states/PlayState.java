@@ -58,7 +58,7 @@ public class PlayState extends BasicGameState {
         gameEnded = false;
         settingDifficulty = true;
         time = 0;
-        airspace = new Airspace();
+        airspace = new Airspace(false);
         this.stringTime = "";
         gc.setAlwaysRender(true);
         gc.setUpdateOnlyWhenVisible(true);
