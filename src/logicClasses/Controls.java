@@ -3,6 +3,7 @@ package logicClasses;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -32,7 +33,21 @@ public class Controls {
        
     public void render(Graphics g, GameContainer gc) throws SlickException {
         if (selectedFlight != null) {
-            // TODO: Draw a circle around our currently selected flight
+            // Draw a circle of the appropriate colour around our currently selected flight
+                        
+            if (myPlayer == "red") {
+                g.setColor(Color.red);
+            }
+            
+            else if (myPlayer == "blue") {
+                g.setColor(Color.blue);
+            }
+            
+            else {
+                g.setColor(Color.white);
+            }
+            
+            g.drawOval((int)selectedFlight.getX() - 50, (int)selectedFlight.getY() - 50, 100, 100);
         }
     }
 

@@ -226,6 +226,7 @@ public class PlayState extends BasicGameState {
             // Drawing Airspace and elements within it
             g.setColor(Color.white);
             airspace.render(g, gc);
+            controls.render(g, gc);
             // Drawing Clock and Time
             g.setColor(Color.white);
             clockImage.draw(0, 5);

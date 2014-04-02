@@ -279,7 +279,7 @@ public class Flight {
         }
 
         // Drawing Separation Circle
-        g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
+        // g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
 
         // Drawing information around flight
         // If flight is selected then also display current heading
@@ -305,7 +305,7 @@ public class Flight {
                 g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int)this.x - 22, (int)this.y - 28);
             }
 
-            g.drawOval((int)this.x - 50, (int)this.y - 50, 100, 100);
+            //g.drawOval((int)this.x - 50, (int)this.y - 50, 100, 100);
         }
 
         g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
