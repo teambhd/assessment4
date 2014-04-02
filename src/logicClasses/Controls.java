@@ -47,7 +47,7 @@ public class Controls {
                 g.setColor(Color.white);
             }
             
-            g.drawOval((int)selectedFlight.getX() - 50, (int)selectedFlight.getY() - 50, 100, 100);
+            g.drawOval((int)selectedFlight.getX() - 14, (int)selectedFlight.getY() - 14, 28, 28);
         }
     }
 

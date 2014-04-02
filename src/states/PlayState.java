@@ -182,9 +182,14 @@ public class PlayState extends BasicGameState {
         // Initialise the controls
         controls = new Controls(KeyBindings.singlePlayerKeys, "single");
     }
-
+    
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        
+        if (!g.isAntiAlias()) {
+            g.setAntiAlias(true);
+        }        
+        
         // Checks whether the user is still choosing the difficulty
         if (settingDifficulty) {
             int posX = Mouse.getX();
