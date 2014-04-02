@@ -168,13 +168,13 @@ public class PlayState extends BasicGameState {
         airspace.newWaypoint(900, 420, "I");
         airspace.newWaypoint(240, 250, "J");
         //EntryPoints
-        airspace.newEntryPoint(150, 400);
+        airspace.newEntryPoint(0, 400);
         airspace.newEntryPoint(1200, 200);
         airspace.newEntryPoint(600, 0);
         airspace.newEntryPoint(760, 405);
         // Exit Points
         airspace.newExitPoint(800, 0, "1");
-        airspace.newExitPoint(150, 200, "2");
+        airspace.newExitPoint(0, 200, "2");
         airspace.newExitPoint(1200, 300, "3");
         airspace.newExitPoint(590, 195, "4");
         airspace.init(gc);

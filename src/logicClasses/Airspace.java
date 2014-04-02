@@ -72,7 +72,7 @@ public class Airspace {
      */
 
     public boolean newWaypoint(int x, int y, String name)  {
-        if (x < 1250 && x > 150 && y < 650 && y > -50) {
+        if (x < 1250 && x > 0 && y < 650 && y > -50) {
             // x and y must be within these bounds to be within screen space
             Waypoint tmpWp = new Waypoint(x, y, name);
 
@@ -92,7 +92,7 @@ public class Airspace {
      */
 
     public boolean newExitPoint(int x, int y, String name) {
-        if (x < 1250 && x > 100 && y < 650 && y > -50) {
+        if (x < 1250 && x > -50 && y < 650 && y > -50) {
             // x and y must be within these bounds to be within screen space
             ExitPoint tmpEp = new ExitPoint(x, y, name);
             tmpEp.setPointRef("EXP" + name);
@@ -112,7 +112,7 @@ public class Airspace {
      */
 
     public boolean newEntryPoint(int x, int y)  {
-        if (x < 1250 && x > 100 && y < 650 && y > -50) {
+        if (x < 1250 && x > -50 && y < 650 && y > -50) {
             EntryPoint tmpEp = new EntryPoint(x, y);
 
             if (this.addEntryPoint(tmpEp)) {
@@ -218,7 +218,8 @@ public class Airspace {
      */
 
     public boolean checkIfFlightHasLeftAirspace(Flight flight) {
-        if (flight.getX() > 1250 || flight.getX() < 100 || flight.getY() > 650 || flight.getY() < -50) { // x and y must be within these bounds to be within screen space
+        if (flight.getX() > 1250 || flight.getX() < -50 || flight.getY() > 650 || flight.getY() < -50) { 
+            // x and y must be within these bounds to be within screen space
             return true;
         }
 
