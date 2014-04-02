@@ -238,15 +238,6 @@ public class PlayState extends BasicGameState {
             g.drawString(stringTime, 25, 10);
             // Drawing Score
             g.drawString(airspace.getScore().toString(), 10, 35);
-            {
-                //draw flight information panels
-                int baseY = 60;
-
-                for (Flight f : airspace.getListOfFlights()) {
-                    renderFlightPanel(f, g, baseY);
-                    baseY += 50;
-                }
-            }
             //drawing wind direction
             windImage.setRotation(windImage.getRotation() + ((float)Math.cos(time / 2999.0) + (float)Math.sin(time / 1009.0)) / 3);
             //for now, set wind direction pseudo-randomly
@@ -258,26 +249,6 @@ public class PlayState extends BasicGameState {
                          stateContainer.Game.MAXIMUMWIDTH - font.getWidth(airspace.getScore().scoreAchievement()) - 10, 30);
             g.drawString(achievementMessage,
                          stateContainer.Game.MAXIMUMWIDTH - 10 - font.getWidth(achievementMessage), 40);
-        }
-    }
-
-    private void renderFlightPanel(Flight f, Graphics g, int baseY) {
-        int h = panelFont.getHeight();
-        //draw icon, rotated to match plane
-        flightIcon.setRotation((float)f.getCurrentHeading());
-        flightIcon.draw(7, 7 + baseY);
-        //draw flight name at bottom of box
-        panelFont.drawString(4, 50 - h + baseY, f.getFlightName());
-        String[] data = new String[] {
-            "Plan: " + f.getFlightPlan().toString(),
-            "Speed: " + String.valueOf(Math.round(f.getVelocity())) + " mph",
-            "Altitude: " + String.valueOf(Math.round(f.getCurrentAltitude())) + " ft"
-        };
-        baseY = baseY + 3;
-
-        for (String str : data) {
-            panelFont.drawString(40, baseY, str);
-            baseY += h;
         }
     }
 

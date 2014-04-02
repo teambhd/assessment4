@@ -476,7 +476,6 @@ public class Flight {
 
     public void render(Graphics g, GameContainer gc) throws SlickException {
         this.drawFlight(g, gc);
-        this.flightPlan.render(g, gc);
     }
 
 

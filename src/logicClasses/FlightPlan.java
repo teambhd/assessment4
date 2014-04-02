@@ -22,13 +22,6 @@ public class FlightPlan {
     currentRoute = new ArrayList<Point>(), // Array that stores the current list of waypoints
     waypointsAlreadyVisited; // Array that stores all the waypoints the flight has passed through
     private Flight flight; // The flight object associated with the flight plan
-
-    private Point
-    waypointMouseIsOver, // What waypoint is the mouse currently hovering over
-    waypointClicked;
-    private Boolean
-    changingPlan, // Is the user currently changing the flight plan?
-    draggingWaypoint;// Is the user currently dragging a waypoint?
     private int closestDistance;
     private static final int    //waypoint ID references
     A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6, H = 7, I = 8, J = 9;
@@ -44,8 +37,6 @@ public class FlightPlan {
         flight.setTargetVelocity(v);
         this.currentRoute = buildRoute(airspace, this.entryPoint);
         this.waypointsAlreadyVisited = new ArrayList<Point>();
-        this.changingPlan = false;
-        this.draggingWaypoint = false;
     }
 
     // METHODS
@@ -516,38 +507,13 @@ public class FlightPlan {
     }
 
     /**
-     * isMouseOnWaypoint: Used to tell what waypoint the mouse is currently over
-     */
-
-    private boolean isMouseOnWaypoint() {
-        int mouseX = Mouse.getX(); //Get mouse coordinates
-        int mouseY = Game.MAXIMUMHEIGHT - Mouse.getY();
-
-        if (this.getCurrentRoute().isEmpty()) { //If there are no waypouints
-            return false;
-        }
-
-        for (Waypoint w : flight.getAirspace().getListOfWaypoints()) {
-            if (Math.abs(mouseX - w.getX()) <= 15
-                    && Math.abs(mouseY - w.getY()) <= 15) {
-                waypointMouseIsOver = w;
-                return true;
-            }
-        }
-
-        //else if no waypoints in range
-        this.waypointMouseIsOver = null;
-        return false;
-    }
-
-    /**
      * updateFlightPlan: Handles updating the flight plan when a flight passes through a waypoint
      */
 
     public void updateFlightPlan(ScoreTracking score) {
         int waypointScore = 0;
 
-        if (this.currentRoute.size() > 0) { //Check to see if there are still waypoints to visit and then check if the flight is passing through waypoint
+        if (this.currentRoute.size() > 0) { // Check to see if there are still waypoints to visit and then check if the flight is passing through waypoint
             if (this.flight.checkIfFlightAtWaypoint(currentRoute.get(0))) {
                 this.waypointsAlreadyVisited.add(this.currentRoute.get(0));
                 closestDistance = this.flight.minDistanceFromWaypoint(this.currentRoute.get(0)); // get the closest distance from the waypoint
@@ -561,137 +527,35 @@ public class FlightPlan {
     }
 
     /**
-     * changeFlightPlan: Handles the user changing the flightplan using the mouse in
-     * plan mode
-     */
-
-    public void changeFlightPlan(ScoreTracking score) {
-        if (this.flight.getSelected() && this.currentRoute.size() > 0) {
-            boolean mouseOverWaypoint = this.isMouseOnWaypoint();
-
-            // Checks if user is not currently dragging a waypoint
-            if (!draggingWaypoint) {
-                //Checks if user has clicked on a waypoint
-                if (mouseOverWaypoint && Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-                    this.waypointClicked = this.waypointMouseIsOver;
-                    this.draggingWaypoint = true;
-                }
-            }
-
-            // Checks if user is currently dragging a waypoint
-            else if (draggingWaypoint) {
-                // Checks if user has released mouse from drag over empty airspace
-                if ((!Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) && !mouseOverWaypoint) {
-                    this.waypointClicked = null;
-                    this.draggingWaypoint = false;
-                }
-
-                // Checks if user has released mouse from drag over another waypoint
-                else if ((!Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) && mouseOverWaypoint) {
-                    //Finding waypoint that mouse is over
-                    for (int i = 0; i < this.currentRoute.size(); i++) {
-                        // Checks if new waypoint is not already in the plan and adds if not in plan
-                        if (this.waypointClicked == this.currentRoute.get(i) && (!this.currentRoute.contains(this.waypointMouseIsOver)) && (!this.waypointsAlreadyVisited.contains(this.waypointMouseIsOver))) {
-                            this.currentRoute.remove(i);
-                            this.currentRoute.add(i, this.waypointMouseIsOver);
-                            this.waypointClicked = null;
-                            this.draggingWaypoint = false;
-                            // reduce the score if the user changes the flight plan
-                            score.reduceScoreOnFlightplanChange();
-                        }
-
-                        // else checks if waypoint already in plan and doesn't add if not
-                        else if (this.waypointClicked == this.currentRoute.get(i) && ((this.currentRoute.contains(this.waypointMouseIsOver)) || (this.waypointsAlreadyVisited.contains(this.waypointMouseIsOver)))) {
-                            this.waypointClicked = null;
-                            this.draggingWaypoint = false;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * drawFlightsPlan: Draws the graphics required for the flightplan
      * @param g Slick2d graphics object
      * @param gs Slick2d gamecontainer object
      */
 
-    public void drawFlightsPlan(Graphics g, GameContainer gc) {
-        if (this.currentRoute.size() > 0) {
-            g.setColor(Color.cyan);
-
-            // If not dragging waypoints, just draw lines between all waypoints in plan
-            if (!draggingWaypoint) {
-                for (int i = 1; i < this.currentRoute.size(); i++) {
-                    g.drawLine((float)this.currentRoute.get(i).getX(), (float)this.currentRoute.get(i).getY(), (float)this.currentRoute.get(i - 1).getX(), (float)this.currentRoute.get(i - 1).getY());
-                }
-            }
-
-            else if (draggingWaypoint) {
-                for (int i = 1; i < this.currentRoute.size(); i++) {
-                    // This is needed as i=1 behavours differently to other values of i when first waypoint is being dragged.
-                    if (i == 1) {
-                        if (this.waypointClicked == this.currentRoute.get(0)) {
-                            g.drawLine(Mouse.getX(), 600 - Mouse.getY() , (float)this.currentRoute.get(1).getX(), (float)this.currentRoute.get(1).getY());
-                        }
-
-                        else if (this.waypointClicked == this.currentRoute.get(1)) {
-                            g.drawLine((float)this.currentRoute.get(i + 1).getX(), (float)this.currentRoute.get(i + 1).getY(), Mouse.getX(), 600 - Mouse.getY());
-                            g.drawLine((float)this.currentRoute.get(i - 1).getX(), (float)this.currentRoute.get(i - 1).getY(), Mouse.getX(), 600 - Mouse.getY());
-                            i++;
-                        }
-
-                        else {
-                            g.drawLine((float)this.currentRoute.get(i).getX(), (float)this.currentRoute.get(i).getY(), (float)this.currentRoute.get(i - 1).getX(), (float)this.currentRoute.get(i - 1).getY());
-                        }
-                    }
-
-                    else {
-                        // If Waypoint is being changed draw lines between mouse and waypoint before and after the waypoint being changed.
-                        if (this.waypointClicked == this.currentRoute.get(i)) {
-                            g.drawLine((float)this.currentRoute.get(i + 1).getX(), (float)this.currentRoute.get(i + 1).getY(), Mouse.getX(), 600 - Mouse.getY());
-                            g.drawLine((float)this.currentRoute.get(i - 1).getX(), (float)this.currentRoute.get(i - 1).getY(), Mouse.getX(), 600 - Mouse.getY());
-                            i++;
-                        }
-
-                        else {
-                            g.drawLine((float)this.currentRoute.get(i).getX(), (float)this.currentRoute.get(i).getY(), (float)this.currentRoute.get(i - 1).getX(), (float)this.currentRoute.get(i - 1).getY());
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * markUnavaliableWaypoints: Handles alerting the user to any waypoints that are
-     * invalid for selection
-     * @param g slick2d graphics object
-     * @param gc slick2d gamecontainer object
-     */
-
-    public void markUnavailableWaypoints(Graphics g, GameContainer gc) {
-        for (int i = 0; i < this.waypointsAlreadyVisited.size(); i++) {
-            g.drawLine((float) this.waypointsAlreadyVisited.get(i).getX() - 14, (float) this.waypointsAlreadyVisited.get(i).getY() - 14, (float) this.waypointsAlreadyVisited.get(i).getX() + 14, (float) this.waypointsAlreadyVisited.get(i).getY() + 14);
-            g.drawLine((float) this.waypointsAlreadyVisited.get(i).getX() + 14, (float) this.waypointsAlreadyVisited.get(i).getY() - 14, (float) this.waypointsAlreadyVisited.get(i).getX() - 14, (float) this.waypointsAlreadyVisited.get(i).getY() + 14);
-        }
-    }
-
     public void update(ScoreTracking score) {
         this.updateFlightPlan(score);
-
-        if (this.changingPlan) {
-            this.changeFlightPlan(score);
-        }
     }
 
     public void render(Graphics g, GameContainer gc) throws SlickException {
-        if (this.flight.getSelected()) {
-            if (this.changingPlan) {
-                this.drawFlightsPlan(g, gc);
-                this.markUnavailableWaypoints(g, gc);
+        if (this.currentRoute.size() > 0) {
+            g.setColor(Color.lightGray);
+            
+            // Draw a line from the flight to it's next waypoint
+            g.drawLine(
+                (float)this.flight.getX(),
+                (float)this.flight.getY(),
+                (float)this.currentRoute.get(0).getX(), 
+                (float)this.currentRoute.get(0).getY() 
+            );
+
+            // Draw lines between all waypoints in plan
+            for (int i = 1; i < this.currentRoute.size(); i++) {
+                g.drawLine(
+                    (float)this.currentRoute.get(i).getX(), 
+                    (float)this.currentRoute.get(i).getY(), 
+                    (float)this.currentRoute.get(i - 1).getX(), 
+                    (float)this.currentRoute.get(i - 1).getY()
+                );
             }
         }
     }
@@ -707,24 +571,14 @@ public class FlightPlan {
         return this.currentRoute.get(i);
     }
 
-    public boolean getChangingPlan() {
-        return this.changingPlan;
-    }
-
-    public void setChangingPlan(boolean bool) {
-        this.changingPlan = bool;
-    }
-
-    public boolean getDraggingWaypoint() {
-        return this.draggingWaypoint;
-    }
-
     public EntryPoint getEntryPoint() {
         return this.entryPoint;
     }
+    
     public ExitPoint getExitPoint() {
         return exitPoint;
     }
+    
     @Override
     public String toString() {
         String returnString = "";
