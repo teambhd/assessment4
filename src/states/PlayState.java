@@ -226,8 +226,7 @@ public class PlayState extends BasicGameState {
             //set font for the rest of the render
             g.setFont(font);
             // Drawing Side Images
-            backgroundImage.draw(150, 0);
-            statusBarImage.draw(0, 0);
+            backgroundImage.draw(0, 0);
             // Drawing Airspace and elements within it
             g.setColor(Color.white);
             airspace.render(g, gc);
