@@ -40,7 +40,6 @@ public class Flight {
 
     private Airspace airspace;
     private FlightPlan flightPlan;
-    private boolean selected;
     private final static int RADIUS = 30;
     private int closestDistance = Integer.MAX_VALUE; // this is the maximum distance a plane
     // can be away from the waypoint once it has
@@ -68,7 +67,6 @@ public class Flight {
         this.airspace = airspace;
         this.flightPlan = new FlightPlan(airspace, this);
         this.currentAltitude = generateAltitude();
-        this.selected = false;
     }
 
     // METHODS
@@ -587,14 +585,6 @@ public class Flight {
         this.flightName = flightName;
     }
 
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
     // toString function to display a flight object so we can read it
     @Override
     public String toString() {
@@ -631,10 +621,6 @@ public class Flight {
 
     public Airspace getAirspace() {
         return airspace;
-    }
-
-    public boolean getSelected() {
-        return this.selected;
     }
     
     public String getOwner() {

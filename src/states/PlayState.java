@@ -262,11 +262,6 @@ public class PlayState extends BasicGameState {
     }
 
     private void renderFlightPanel(Flight f, Graphics g, int baseY) {
-        //draw border if flight is selected
-        if (f.getSelected()) {
-            g.drawRoundRect(1, baseY, 135, 50, 3);
-        }
-
         int h = panelFont.getHeight();
         //draw icon, rotated to match plane
         flightIcon.setRotation((float)f.getCurrentHeading());
