@@ -13,11 +13,15 @@ import util.DeferredFile;
 public class ExitPoint extends Point {
 
     static Image exitPointTop, exitPointRight, exitPointLeft, exitPointRunway;
+    
     private boolean runway = false;
 
-    public ExitPoint(double xcoord, double ycoord, String name) {
-        super(xcoord, ycoord, name);
-        //System.out.println("ExitPoint " + pointRef + " set:(" + x + "," + y +").");
+    public ExitPoint(double x, double y, String name) {
+        super(x, y, name);
+        runway = false;
+        if (x != 0 && x != stateContainer.Game.MAXIMUMWIDTH && y != 0 && y != stateContainer.Game.MAXIMUMHEIGHT) {
+            runway = true;
+        }
     }
 
     public boolean isRunway() {
@@ -54,6 +58,8 @@ public class ExitPoint extends Point {
                 loading.add(new DeferredFile("res/graphics/exitpoint_left.png") {
                     public void loadFile(String filename) throws SlickException {
                         exitPointLeft = new Image(filename);
+                        exitPointRunway = exitPointLeft.copy();
+                        exitPointRunway.setRotation(45);
                     }
                 });
             }
@@ -67,12 +73,7 @@ public class ExitPoint extends Point {
      * @throws SlickException
      */
 
-    public void render(Graphics g, Airspace airspace) throws SlickException {
-        if (exitPointLeft != null) {
-            exitPointRunway = exitPointLeft.copy();
-            exitPointRunway.setRotation(45);
-        }
-        
+    public void render(Graphics g, Airspace airspace) throws SlickException {        
         g.setColor(Color.white);
 
         if (y == 0) {
@@ -93,7 +94,6 @@ public class ExitPoint extends Point {
         else {
             exitPointRunway.draw((int)x - 20, (int)y - 20);
             g.drawString(pointRef, (int)x - 35, (int)y - 7);
-            runway = true;
         }
     }
 
