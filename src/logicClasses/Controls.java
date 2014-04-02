@@ -1,5 +1,8 @@
 package logicClasses;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -97,11 +100,35 @@ public class Controls {
         }
         
         if (input.isKeyPressed(myKeys.get("toggle_forwards"))) {
-            // TODO
+            // Switch the current flight, moving forwards through the list of flights 
+            // (and looping back to the first flight if the last flight is already selected)
+            List<Flight> listOfFlights = new ArrayList<Flight>(); 
+            listOfFlights = airspace.getListOfFlightsWithOwner(myPlayer);
+            int indexOfCurrentFlight = listOfFlights.indexOf(selectedFlight);
+            
+            if (indexOfCurrentFlight == listOfFlights.size() - 1) {
+                selectedFlight = listOfFlights.get(0);
+            }
+            
+            else {
+                selectedFlight = listOfFlights.get(indexOfCurrentFlight + 1);
+            }
         }
         
         else if (input.isKeyPressed(myKeys.get("toggle_backwards"))) {
-            // TODO
+            // Switch the current flight, moving backwards through the list of flights 
+            // (and looping if the first flight is already selected)
+            List<Flight> listOfFlights = new ArrayList<Flight>(); 
+            listOfFlights = airspace.getListOfFlightsWithOwner(myPlayer);
+            int indexOfCurrentFlight = listOfFlights.indexOf(selectedFlight);
+            
+            if (indexOfCurrentFlight == 0) {
+                selectedFlight = listOfFlights.get(listOfFlights.size() - 1);
+            }
+            
+            else {
+                selectedFlight = listOfFlights.get(indexOfCurrentFlight - 1);
+            }
         }
         
         if (input.isKeyPressed(myKeys.get("airport"))) {
