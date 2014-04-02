@@ -21,15 +21,7 @@ public class Airport {
 
 
     //CONSTRUCTOR
-
-    public int getRunwayLength() {
-        return runwayLength - 10;
-    }
-
-
-    Airport() {
-    }
-
+    Airport() {}
 
     public void init(GameContainer gc) throws SlickException {
         LoadingList.get().add(new DeferredFile("res/graphics/new/airport.png") {
@@ -37,7 +29,7 @@ public class Airport {
                 airportImage = new Image(filename);
                 x = (stateContainer.Game.MAXIMUMWIDTH - 150) / 2;
                 y = stateContainer.Game.MAXIMUMHEIGHT / 2;
-                runwayLength = airportImage.getHeight();
+                runwayLength = airportImage.getHeight() - 10;
             }
         });
     }
@@ -48,17 +40,16 @@ public class Airport {
         airportImage.drawCentered(150 + x, y);
     }
 
-
     @Override
     public String toString() {
         String s = "Airport Name: " + airportName;
         return s;
     }
 
-
     public float getX() {
         return x;
     }
+    
     public float getY() {
         return y;
     }
@@ -66,6 +57,9 @@ public class Airport {
     public float getRunwayHeading() {
         return runwayHeading;
     }
-
+    
+    public int getRunwayLength() {
+        return runwayLength;
+    }
 
 }

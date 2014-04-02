@@ -75,45 +75,49 @@ public class Controls {
         // Now we can get on to actually handling the keyboard input
         Input input = gc.getInput();
         
-        if (input.isKeyPressed(myKeys.get("up"))) {
-            // Increase altitude by 1000ft if the flight's not already at its ceiling
-            if (selectedFlight.getTargetAltitude() <= selectedFlight.getMaxAltitude() - 1000) {
-                selectedFlight.setTargetAltitude(selectedFlight.getTargetAltitude() + 1000);
+        if (selectedFlight.isCommandable()) {
+        
+            if (input.isKeyPressed(myKeys.get("up"))) {
+                // Increase altitude by 1000ft if the flight's not already at its ceiling
+                if (selectedFlight.getTargetAltitude() <= selectedFlight.getMaxAltitude() - 1000) {
+                    selectedFlight.setTargetAltitude(selectedFlight.getTargetAltitude() + 1000);
+                }
             }
-        }
         
-        else if (input.isKeyPressed(myKeys.get("down"))) {
-            // Decrease altitude by 1000ft if the flight's not already at its minimum height
-            if (selectedFlight.getTargetAltitude() >= selectedFlight.getMinAltitude() + 1000) {
-                selectedFlight.setTargetAltitude(selectedFlight.getTargetAltitude() - 1000);
+            else if (input.isKeyPressed(myKeys.get("down"))) {
+                // Decrease altitude by 1000ft if the flight's not already at its minimum height
+                if (selectedFlight.getTargetAltitude() >= selectedFlight.getMinAltitude() + 1000) {
+                    selectedFlight.setTargetAltitude(selectedFlight.getTargetAltitude() - 1000);
+                }
             }
-        }
         
-        // Note that these two handlers use isKeyDown rather than isKeyPressed so as to allow holding down the
-        // turn left and turn right keys for more precise control of direction.
+            // Note that these two handlers use isKeyDown rather than isKeyPressed so as to allow holding down the
+            // turn left and turn right keys for more precise control of direction.
         
-        if (input.isKeyDown(myKeys.get("left"))) {
-            // Turn left by 2 degrees (we don't need to handle going past 0 degrees here)
-            selectedFlight.turnFlightLeft(2);
-        }
-        
-        else if (input.isKeyDown(myKeys.get("right"))) {
-            // Turn right by 2 degrees (we don't need to handle going past 360 degrees here)
-            selectedFlight.turnFlightRight(2);
-        }
-        
-        if (input.isKeyPressed(myKeys.get("accelerate"))) {
-            // Increase velocity by 50 if the flight's not already at its maximum speed
-            if (selectedFlight.getTargetVelocity() <= selectedFlight.getMaxVelocity() - 50) {
-                selectedFlight.setTargetVelocity(selectedFlight.getTargetVelocity() + 50);
+            if (input.isKeyDown(myKeys.get("left"))) {
+                // Turn left by 2 degrees (we don't need to handle going past 0 degrees here)
+                selectedFlight.turnFlightLeft(2);
             }
-        }
         
-        else if (input.isKeyPressed(myKeys.get("decelerate"))) {
-            // Decrease velocity by 50 if the flight's not already at its minimum speed
-            if (selectedFlight.getTargetVelocity() >= selectedFlight.getMinVelocity() + 50) {
-                selectedFlight.setTargetVelocity(selectedFlight.getTargetVelocity() - 50);
+            else if (input.isKeyDown(myKeys.get("right"))) {
+                // Turn right by 2 degrees (we don't need to handle going past 360 degrees here)
+                selectedFlight.turnFlightRight(2);
             }
+        
+            if (input.isKeyPressed(myKeys.get("accelerate"))) {
+                // Increase velocity by 50 if the flight's not already at its maximum speed
+                if (selectedFlight.getTargetVelocity() <= selectedFlight.getMaxVelocity() - 50) {
+                    selectedFlight.setTargetVelocity(selectedFlight.getTargetVelocity() + 50);
+                }
+            }
+        
+            else if (input.isKeyPressed(myKeys.get("decelerate"))) {
+                // Decrease velocity by 50 if the flight's not already at its minimum speed
+                if (selectedFlight.getTargetVelocity() >= selectedFlight.getMinVelocity() + 50) {
+                    selectedFlight.setTargetVelocity(selectedFlight.getTargetVelocity() - 50);
+                }
+            }
+            
         }
         
         if (input.isKeyPressed(myKeys.get("toggle_forwards"))) {
@@ -149,7 +153,14 @@ public class Controls {
         }
         
         if (input.isKeyPressed(myKeys.get("airport"))) {
-            // TODO
+            // If we're waiting for take-off, then take-off, otherwise attempt to issue the land command
+            if (selectedFlight.isGrounded()) {
+                selectedFlight.takeOff();
+            }
+            
+            else {
+                selectedFlight.land();
+            }
         }
     }
 
