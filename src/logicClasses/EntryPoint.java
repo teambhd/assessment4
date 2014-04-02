@@ -66,7 +66,7 @@ public class EntryPoint extends Point {
             entryPointTop.draw((int)x - 20, (int)y);
         }
 
-        else if (x == 150) {
+        else if (x == 0) {
             entryPointLeft.draw((int)x, (int)y - 20);
         }
 

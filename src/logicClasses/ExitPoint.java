@@ -72,38 +72,26 @@ public class ExitPoint extends Point {
             exitPointRunway = exitPointLeft.copy();
             exitPointRunway.setRotation(45);
         }
-
-        if (y == 0) {
-            exitPointTop.draw((int)x - 20, (int)y);
-        }
-
-        else if (x == 150) {
-            exitPointLeft.draw((int)x, (int)y - 20);
-        }
-
-        else if (x == 1200) {
-            exitPointRight.draw((int)x - 40, (int)y - 20);
-        }
-
-        else {
-            exitPointRunway.draw((int)x - 20, (int)y - 20);
-        }
-
+        
         g.setColor(Color.white);
 
         if (y == 0) {
+            exitPointTop.draw((int)x - 20, (int)y);
             g.drawString(pointRef, (int)x - 15, (int)y);
         }
 
-        else if (x == 150) {
+        else if (x == 0) {
+            exitPointLeft.draw((int)x, (int)y - 20);
             g.drawString(pointRef, (int)x, (int)y - 7);
         }
 
         else if (x == 1200) {
+            exitPointRight.draw((int)x - 40, (int)y - 20);
             g.drawString(pointRef, (int)x - 35, (int)y - 7);
         }
 
         else {
+            exitPointRunway.draw((int)x - 20, (int)y - 20);
             g.drawString(pointRef, (int)x - 35, (int)y - 7);
             runway = true;
         }
