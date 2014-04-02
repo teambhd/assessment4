@@ -16,7 +16,7 @@ public class SeparationRules_Tests {
     @Before
     public void setUp() {
         separationRules = new SeparationRules(1);
-        airspace = new Airspace();
+        airspace = new Airspace(false);
 
         airspace.newWaypoint(350, 150, "A");
         airspace.newWaypoint(400, 470, "B");

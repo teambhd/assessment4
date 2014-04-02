@@ -13,7 +13,7 @@ public class Airspace_Tests {
 
     @Before
     public void setUp() {
-        airspace = new Airspace();
+        airspace = new Airspace(false);
         // Waypoints
         airspace.newWaypoint(350, 150, "A");
         airspace.newWaypoint(400, 470, "B");
@@ -50,7 +50,6 @@ public class Airspace_Tests {
         assertTrue(airspace.getNumberOfGameLoops() == 0);
         assertTrue(airspace.getNumberOfGameLoopsWhenDifficultyIncreases() == 3600);
         assertTrue(airspace.getSeparationRules().getGameOverViolation() == false);
-        assertTrue(airspace.getControls().getSelectedFlight() == null);
     }
 
 

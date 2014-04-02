@@ -17,7 +17,7 @@ public class FlightPlan_Tests {
 
     @Before
     public void setUp() {
-        airspace = new Airspace();
+        airspace = new Airspace(false);
         // Waypoints
         airspace.newWaypoint(350, 150, "A");
         airspace.newWaypoint(400, 470, "B");
@@ -96,7 +96,7 @@ public class FlightPlan_Tests {
     @Test
     public void buildRouteTest3() {
         // Testing that it doesn't build a route if no airspace has no waypoints
-        Airspace airspaceMissingExitPoints = new Airspace();
+        Airspace airspaceMissingExitPoints = new Airspace(false);
         //EntryPoints
         airspaceMissingExitPoints.newEntryPoint(150, 400);
         airspaceMissingExitPoints.newEntryPoint(1200, 200);
@@ -120,7 +120,7 @@ public class FlightPlan_Tests {
     @Test
     public void buildRouteTest4() {
         // Testing that it doesn't build a route if no airspace has no exitpoints
-        Airspace airspaceMissingWaypoints = new Airspace();
+        Airspace airspaceMissingWaypoints = new Airspace(false);
         //EntryPoints
         airspaceMissingWaypoints.newEntryPoint(150, 400);
         airspaceMissingWaypoints.newEntryPoint(1200, 200);

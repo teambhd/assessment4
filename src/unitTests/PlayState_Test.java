@@ -16,7 +16,7 @@ public class PlayState_Test {
     public void setup() {
         int playState = 2;
         playStateInstance =  new PlayState(playState);
-        airspaceInstance = new Airspace();
+        airspaceInstance = new Airspace(false);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class PlayState_Test {
     @Test
     public void testSetAirspace() {
         // This test also tests getAirspace
-        Airspace airspace = new Airspace();
+        Airspace airspace = new Airspace(false);
         playStateInstance.setAirspace(airspaceInstance);
         Airspace actualAirspace = playStateInstance.getAirspace();
         assertEquals(airspace.toString(), actualAirspace.toString());

@@ -14,20 +14,22 @@ import org.junit.Test;
 
 import stateContainer.Game;
 
+import util.KeyBindings;
+
 public class Controls_Tests {
 
     private Controls controlsInstance;
 
     @Before
     public void Setup() {
-        controlsInstance = new Controls();
+        controlsInstance = new Controls(KeyBindings.singlePlayerKeys, "single");
     }
 
     @Test
     public void testGetSelectedFlight() {
         // This also tests 'setSelectedFlight()'
         // No need to repeat test!
-        Airspace newAirspace = new Airspace();
+        Airspace newAirspace = new Airspace(false);
         newAirspace.addEntryPoint(new EntryPoint(10, 10));
         newAirspace.addEntryPoint(new EntryPoint(20, 20));
         newAirspace.addEntryPoint(new EntryPoint(20, 0));
@@ -35,15 +37,6 @@ public class Controls_Tests {
         Flight newFlight = new Flight(newAirspace);
         controlsInstance.setSelectedFlight(newFlight);
         assertEquals(newFlight, controlsInstance.getSelectedFlight());
-    }
-
-    @Test
-    public void testSetDifficultyValueOfGame() {
-        Airspace airspace = new Airspace();
-        airspace.setDifficultyValueOfGame(1);
-        airspace.getControls().setDifficultyValueOfGame(1);// Set the difficulty of the airspace so can retrieve it
-        int actualDifficulty = airspace.getDifficultyValueOfGame();
-        assertEquals(1, actualDifficulty);
     }
 
     @After
