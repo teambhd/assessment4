@@ -243,36 +243,6 @@ public class Flight {
         }
     }
 
-    // DRAWING METHODS
-
-    /**
-     * drawFlight: draws the flight at it's current x,y and draws its information around within a circle.
-     * Different images for the flight are used depending on how fast the plane is.
-     * @param g - Graphics libraries required by slick2d.
-     * @param gc - GameContainer required by slick2d.
-     */
-
-    public void drawFlight(Graphics g, GameContainer gc) {
-        g.setColor(Color.white);
-        g.setWorldClip(150, 0, Game.MAXIMUMWIDTH - 150, Game.MAXIMUMHEIGHT);
-        float shadowScale = (float)(36 - (this.currentAltitude / 1000)) / 10;  // Scale the shadow in accordance to the altitude of the flight
-        shadowImage.setRotation((int) currentHeading);
-        shadowImage.draw((int) this.x - 35, (int) this.y, shadowScale);
-
-        regularFlightImage.setRotation((int) currentHeading);
-        regularFlightImage.draw((int) this.x - 10, (int) this.y - 10);
-
-        // Drawing information around flight, first the next waypoint, then the flight's altitude
-        if (this.flightPlan.getCurrentRoute().size() > 0) {
-            g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int) this.x + 18, (int)this.y - 18);
-        }
-        
-        g.drawString(Math.round(this.currentAltitude) + "ft", (int) this.x + 17, (int) this.y);
-
-        g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
-    }
-
-
     // UPDATE METHODS
 
     /**
@@ -475,9 +445,22 @@ public class Flight {
 
 
     public void render(Graphics g, GameContainer gc) throws SlickException {
-        this.drawFlight(g, gc);
-    }
+        float shadowScale = (float)(36 - (this.currentAltitude / 1000)) / 10;  // Scale the shadow in line with the flight's altitude
+        shadowImage.setRotation((int) currentHeading);
+        shadowImage.draw((int) this.x - 35, (int) this.y, shadowScale);
 
+        regularFlightImage.setRotation((int) currentHeading);
+        regularFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+
+        // Drawing information around flight, first the next waypoint, then the flight's altitude
+        g.setColor(Color.white);
+        
+        if (this.flightPlan.getCurrentRoute().size() > 0) {
+            g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int) this.x + 18, (int)this.y - 18);
+        }
+        
+        g.drawString(Math.round(this.currentAltitude) + "ft", (int) this.x + 17, (int) this.y);
+    }
 
     // MUTATORS AND ACCESSORS
     public double getX() {
