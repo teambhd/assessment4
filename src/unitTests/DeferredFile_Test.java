@@ -20,7 +20,7 @@ public class DeferredFile_Test {
 
     @Before
     public void setUp() throws Exception {
-        LoadingList.get().add(deferredFileInstance = new DeferredFile("res/graphics/new/airport.png") {
+        LoadingList.get().add(deferredFileInstance = new DeferredFile("res/graphics/airport.png") {
             public void loadFile(String filename) throws SlickException {
             }
         });
@@ -29,7 +29,7 @@ public class DeferredFile_Test {
 
     @Test
     public void testGetDescription() {
-        assertEquals("res/graphics/new/airport.png", deferredFileInstance.getDescription());
+        assertEquals("res/graphics/airport.png", deferredFileInstance.getDescription());
     }
 
     @Test

@@ -25,8 +25,8 @@ public final class SplashState extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame s)
     throws SlickException {
-        splash = new Image("res/graphics/new/startup_bg.jpg");
-        indicator = new Image("res/graphics/new/startup_plane.png");
+        splash = new Image("res/graphics/startup_bg.png");
+        indicator = new Image("res/graphics/startup_plane.png");
     }
 
     @Override

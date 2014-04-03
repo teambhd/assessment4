@@ -62,8 +62,6 @@ public class PlayState extends BasicGameState {
         this.stringTime = "";
         gc.setAlwaysRender(true);
         gc.setUpdateOnlyWhenVisible(true);
-        // Set mouse cursor
-        //gc.setMouseCursor("res/graphics/cross.png",12,12);
         // Font
         {
             LoadingList loading = LoadingList.get();
@@ -94,27 +92,17 @@ public class PlayState extends BasicGameState {
                 }
             });
             //Images
-            loading.add(new DeferredFile("res/graphics/new/control_bar_vertical.png") {
-                public void loadFile(String filename) throws SlickException {
-                    statusBarImage = new Image(filename);
-                }
-            });
             loading.add(new DeferredFile("res/graphics/clock.png") {
                 public void loadFile(String filename) throws SlickException {
                     clockImage = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/graphics/new/wind_indicator.png") {
+            loading.add(new DeferredFile("res/graphics/wind_indicator.png") {
                 public void loadFile(String filename) throws SlickException {
                     windImage = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/graphics/new/control_bar_plane.png") {
-                public void loadFile(String filename) throws SlickException {
-                    flightIcon = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/graphics/new/background.png") {
+            loading.add(new DeferredFile("res/graphics/background.png") {
                 public void loadFile(String filename) throws SlickException {
                     backgroundImage = new Image(filename);
                 }

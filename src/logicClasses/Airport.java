@@ -24,7 +24,7 @@ public class Airport {
     Airport() {}
 
     public void init(GameContainer gc) throws SlickException {
-        LoadingList.get().add(new DeferredFile("res/graphics/new/airport.png") {
+        LoadingList.get().add(new DeferredFile("res/graphics/airport.png") {
             public void loadFile(String filename) throws SlickException {
                 airportImage = new Image(filename);
                 x = (stateContainer.Game.MAXIMUMWIDTH - 150) / 2;
