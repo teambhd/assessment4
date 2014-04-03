@@ -10,7 +10,6 @@ import states.MenuState;
 import states.PauseState;
 import states.MultiPlayState;
 import states.PlayState;
-import states.CreditsState;
 import states.ControlsState;
 import states.SplashState;
 
@@ -25,8 +24,7 @@ public class Game extends StateBasedGame {
     MULTIPLAYSTATE = 3,
     GAMEOVERSTATE = 4,
     PAUSESTATE = 5,
-    CREDITSSTATE = 6,
-    CONTROLSSTATE = 7;
+    CONTROLSSTATE = 6;
 
     public static final int
     MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
@@ -50,7 +48,6 @@ public class Game extends StateBasedGame {
         addState(new MultiPlayState(MULTIPLAYSTATE));
         addState(new GameOverState(GAMEOVERSTATE));
         addState(new PauseState(PAUSESTATE));
-        addState(new CreditsState(CREDITSSTATE));
         addState(new ControlsState(CONTROLSSTATE));
     }
 

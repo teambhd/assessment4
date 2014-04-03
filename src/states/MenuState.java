@@ -61,16 +61,6 @@ public class MenuState extends BasicGameState {
                 quitHover = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/new/credits.png") {
-            public void loadFile(String filename) throws SlickException {
-                creditsButton = new Image(filename);
-            }
-        });
-        loading.add(new DeferredFile("res/menu_graphics/new/credits_hover.png") {
-            public void loadFile(String filename) throws SlickException {
-                creditsHover = new Image(filename);
-            }
-        });
         loading.add(new DeferredFile("res/menu_graphics/new/controls.png") {
             public void loadFile(String filename) throws SlickException {
                 controlsButton = new Image(filename);
@@ -88,8 +78,7 @@ public class MenuState extends BasicGameState {
             public void load() {
                 play = new HoverImage(playButton, playHover, 439, 349);
                 quit = new HoverImage(quitButton, quitHover, 1078, 534);
-                credits = new HoverImage(creditsButton, creditsHover, 20, 534);
-                controls = new HoverImage(controlsButton, controlsHover, 490, 534);
+                controls = new HoverImage(controlsButton, controlsHover, 5, 534);
             }
         });
     }
@@ -103,7 +92,6 @@ public class MenuState extends BasicGameState {
         //draw buttons
         play.render(posX, posY);
         quit.render(posX, posY);
-        credits.render(posX, posY);
         controls.render(posX, posY);
     }
 
@@ -126,10 +114,6 @@ public class MenuState extends BasicGameState {
 
                 if (quit.isMouseOver(posX, posY)) {
                     System.exit(0);
-                }
-
-                if (credits.isMouseOver(posX, posY)) {
-                    sbg.enterState(stateContainer.Game.CREDITSSTATE);
                 }
             }
 
