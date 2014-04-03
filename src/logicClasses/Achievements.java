@@ -16,6 +16,7 @@ public class Achievements {
     private boolean noPlaneLossAchievementGained = false;
     private boolean planesLandedAchievementGained = false;
     private boolean flightPlanChangedAchievementGained = false;
+    private boolean completeAchievementGained = false;
 
     //CONSTRUCTOR
 
@@ -47,8 +48,9 @@ public class Achievements {
     }
 
     public void completeAchievement() {
-        if (numberOfAchievements >= MAXACHIEVEMENTS) {
+        if (!completeAchievementGained && numberOfAchievements >= MAXACHIEVEMENTS) {
             System.out.println("complete achievement gained");
+            completeAchievementGained = true;
             //then display achievement
         }
 

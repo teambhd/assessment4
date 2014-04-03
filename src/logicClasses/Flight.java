@@ -219,16 +219,6 @@ public class Flight {
         setTargetAltitude(minAltitude);
     }
 
-    public boolean altToLand() {
-        if (currentAltitude <= 720) {
-            return true;
-        }
-
-        else {
-            return false;
-        }
-    }
-
     public void land() {
         // if next point is an exit point
         if (!landing) {
@@ -397,20 +387,17 @@ public class Flight {
                     if (withinTolerance(currentHeading, airspace.getAirport().getRunwayHeading(), 5)) {
                         //{!} test still lined up and far enough away
                         setTargetAltitude(500);
-                        //System.out.println(this.getFlightName() + " starts circling");
                         circling = true;
                         partCircling = false;
                     }
 
                     else {
                         landing = false;
-                        //System.out.println(this.getFlightName() + " aborts");
                     }
                 }
 
             if (circling) {
                 if (withinTolerance(currentHeading, targetHeading, turnRate)) {
-                    //System.out.println(this.getFlightName() + "finishes a part-circle");
                     partCircling = false;
 
                     if (currentAltitude == targetAltitude && withinTolerance(currentHeading, airspace.getAirport().getRunwayHeading(), 30)) {
@@ -421,14 +408,12 @@ public class Flight {
                         double heading = Math.atan2(flightPlan.getExitPoint().getY() - y, flightPlan.getExitPoint().getX() - x) + PI / 2;
                         heading = (heading < 0) ? heading + (2 * PI) : heading;
                         giveHeading((int)Math.round(Math.toDegrees(heading)));
-                        //System.out.println(this.getFlightName() + " starts final approach");
                     }
                 }
 
                 if (circling && !partCircling) {
                     partCircling = true;
                     giveHeading((int)Math.round(currentHeading + 120));
-                    //System.out.println(this.getFlightName() + " starts new part-circle");
                 }
             }
         }
@@ -437,12 +422,12 @@ public class Flight {
     public boolean withinTolerance(double x1, double x2, double tolerance) {
         return Math.abs(x1 - x2) <= tolerance;
     }
+    
     /**
      * render: draw's all elements of the flight and it's information.
      * @param g - Graphics libraries required by slick2d.
      * @param gc - GameContainer required by slick2d.
      */
-
 
     public void render(Graphics g, GameContainer gc) throws SlickException {
         float shadowScale = (float)(36 - (this.currentAltitude / 1000)) / 10;  // Scale the shadow in line with the flight's altitude
@@ -512,11 +497,11 @@ public class Flight {
     }
 
     public boolean isGrounded() {
-        return (getAltitude() == 0);
+        return getAltitude() == 0;
     }
 
     public Boolean isCommandable() {
-        return (!isGrounded() && !landing);
+        return !isGrounded() && !landing;
     }
 
     public int getMinVelocity() {
