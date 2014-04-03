@@ -1,6 +1,7 @@
 package logicClasses;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -76,20 +77,20 @@ public class FlightPlan {
             for (int i = 0; i < airspace.getListOfWaypoints().size(); i++) { //loop through all waypoints and add them to tempwaypoints
                 tempListOfWaypoints.add(airspace.getListOfWaypoints().get(i));
             }
-
+            
+            ArrayList<ExitPoint> shuffledList = new ArrayList<ExitPoint>(airspace.getListOfExitPoints());
+            Collections.shuffle(shuffledList);
             // Add an ExitPoint to the plan, ensuring that a plane isn't set to exit on the same edge as it arrived from
-            for (int i = 0; i < airspace.getListOfExitPoints().size(); i++) {
-                exitPoint = airspace.getListOfExitPoints().get(i);
-
-                if ((entryPoint.getY() == 0) && (exitPoint.getY() == 0)) {
+            for (ExitPoint exitPoint : shuffledList) {
+                if (entryPoint.getY() == 0 && exitPoint.getY() == 0) {
                     continue;
                 }
 
-                if ((entryPoint.getX() == 150) && (exitPoint.getX() == 150)) {
+                if (entryPoint.getX() == 150 && exitPoint.getX() == 150) {
                     continue;
                 }
 
-                if ((entryPoint.getX() == 1200) && (exitPoint.getX() == 1200)) {
+                if (entryPoint.getX() == 1200 && exitPoint.getX() == 1200) {
                     continue;
                 }
 
@@ -99,7 +100,6 @@ public class FlightPlan {
 
                 tempRoute.add(exitPoint);
                 break;
-
             }
 
             for (int i = 0; i < airspace.getListOfEntryPoints().size(); i ++) {
