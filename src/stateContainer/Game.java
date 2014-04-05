@@ -26,8 +26,7 @@ public class Game extends StateBasedGame {
     PAUSESTATE = 5,
     CONTROLSSTATE = 6;
 
-    public static final int
-    MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
+    public static final int WIDTH = 1200, HEIGHT = 600;
 
 
     /**
@@ -56,7 +55,7 @@ public class Game extends StateBasedGame {
 
         try {
             appgc = new AppGameContainer(new Game(NAME));
-            appgc.setDisplayMode(MAXIMUMWIDTH, MAXIMUMHEIGHT, false);
+            appgc.setDisplayMode(WIDTH, HEIGHT, false);
             appgc.setTargetFrameRate(60);
             appgc.setIcon("res/graphics/icon.png");
             appgc.start();

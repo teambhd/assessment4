@@ -181,7 +181,7 @@ public class PlayState extends BasicGameState {
         // Checks whether the user is still choosing the difficulty
         if (settingDifficulty) {
             int posX = Mouse.getX();
-            int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            int posY = stateContainer.Game.HEIGHT - Mouse.getY();
             //Fixing posY to reflect graphics coords
             difficultyBackground.draw(0, 0);
 
@@ -233,9 +233,9 @@ public class PlayState extends BasicGameState {
             g.drawString(String.valueOf(Math.round(windImage.getRotation())), 65, 565);
             // Drawing Achievements
             g.drawString(airspace.getScore().scoreAchievement(),
-                         stateContainer.Game.MAXIMUMWIDTH - font.getWidth(airspace.getScore().scoreAchievement()) - 10, 30);
+                         stateContainer.Game.WIDTH - font.getWidth(airspace.getScore().scoreAchievement()) - 10, 30);
             g.drawString(achievementMessage,
-                         stateContainer.Game.MAXIMUMWIDTH - 10 - font.getWidth(achievementMessage), 40);
+                         stateContainer.Game.WIDTH - 10 - font.getWidth(achievementMessage), 40);
         }
     }
 
@@ -254,7 +254,7 @@ public class PlayState extends BasicGameState {
 
         if (settingDifficulty) {
             int posX = Mouse.getX();
-            int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            int posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
             if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
                 if ((posX > 100 && posX < 216) && (posY > 300 && posY < 354)) {

@@ -88,7 +88,7 @@ public class PauseState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         int posX = Mouse.getX(),
-            posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
         if (pageNumber == 1) {
             pauseBackgroundPage1.draw(0, 0);
@@ -134,7 +134,7 @@ public class PauseState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         int posX = Mouse.getX(),
-            posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();
         Input input = gc.getInput();
 
         if (input.isKeyPressed(Input.KEY_P)) {

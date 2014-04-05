@@ -18,43 +18,32 @@ public class EntryPoint extends Point {
     public EntryPoint(double x, double y) {
         super(x, y);
         runway = false;
-        if (x != 0 && x != stateContainer.Game.MAXIMUMWIDTH && y != 0 && y != stateContainer.Game.MAXIMUMHEIGHT) {
+        if (x != 0 && x != stateContainer.Game.WIDTH && y != 0 && y != stateContainer.Game.HEIGHT) {
             runway = true;
         }
     }
+    
+    /**
+     * init: Initialises the variables and resources required for the EntryPoint object render (Sets EntryPoint Images)
+     * @param gc Game container required by Slick2d
+     * @throws SlickException
+     */
 
     public void init(GameContainer gc) throws SlickException {
-        /**
-         * init: Initialises the variables and resources required for the EntryPoint object render (Sets EntryPoint Images)
-         * @param gc Game container required by Slick2d
-         * @throws SlickException
-         */
-        {
-            LoadingList loading = LoadingList.get();
+        LoadingList loading = LoadingList.get();
 
-            if (entryPointTop == null)
-                loading.add(new DeferredFile("res/graphics/entrypoint_top.png") {
-                public void loadFile(String filename) throws SlickException {
-                    entryPointTop = new Image(filename);
-                }
-            });
-
-            if (entryPointRight == null)
-                loading.add(new DeferredFile("res/graphics/entrypoint_right.png") {
-                public void loadFile(String filename) throws SlickException {
-                    entryPointRight = new Image(filename);
-                    entryPointRunway = entryPointRight.copy();
-                    entryPointRunway.setRotation(45);
-                }
-            });
-
-            if (entryPointLeft == null)
-                loading.add(new DeferredFile("res/graphics/entrypoint_left.png") {
-                public void loadFile(String filename) throws SlickException {
-                    entryPointLeft = new Image(filename);
-                }
-            });
-        }
+        if (entryPointTop == null)
+            loading.add(new DeferredFile("res/graphics/entrypoint.png") {
+            public void loadFile(String filename) throws SlickException {
+                entryPointTop = new Image(filename);
+                entryPointRight = entryPointTop.copy();
+                entryPointRight.setRotation(90);
+                entryPointLeft = entryPointTop.copy();
+                entryPointLeft.setRotation(270);
+                entryPointRunway = entryPointTop.copy();
+                entryPointRunway.setRotation(135);
+            }
+        });
     }
     
     public boolean isRunway() {
@@ -76,7 +65,7 @@ public class EntryPoint extends Point {
             entryPointLeft.draw((int)x, (int)y - 20);
         }
 
-        else if (x == 1200) {
+        else if (x == stateContainer.Game.WIDTH) {
             entryPointRight.draw((int)x - 40, (int)y - 20);
         }
 

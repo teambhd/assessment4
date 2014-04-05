@@ -27,8 +27,8 @@ public class Airport {
         LoadingList.get().add(new DeferredFile("res/graphics/airport.png") {
             public void loadFile(String filename) throws SlickException {
                 airportImage = new Image(filename);
-                x = (stateContainer.Game.MAXIMUMWIDTH - 150) / 2;
-                y = stateContainer.Game.MAXIMUMHEIGHT / 2;
+                x = (stateContainer.Game.WIDTH - 150) / 2;
+                y = stateContainer.Game.HEIGHT / 2;
                 runwayLength = airportImage.getHeight() - 10;
             }
         });

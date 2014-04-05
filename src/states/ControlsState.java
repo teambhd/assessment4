@@ -89,7 +89,7 @@ public class ControlsState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
     throws SlickException {
         int posX = Mouse.getX(),
-            posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();
         //Fixing posY to reflect graphics coords
 
         if (pageNumber == 1) {
@@ -149,7 +149,7 @@ public class ControlsState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta)
     throws SlickException {
         int posX = Mouse.getX(),
-            posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             if (posX > 20 && posX < 40 && posY > 20 && posY < 40) {

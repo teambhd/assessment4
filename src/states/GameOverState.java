@@ -77,7 +77,7 @@ public class GameOverState extends BasicGameState {
     throws SlickException {
         gameOverBackground.draw(0, 0);
         int posX = Mouse.getX();
-        int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+        int posY = stateContainer.Game.HEIGHT - Mouse.getY();
         //Fixing posY to reflect graphics coords
 
         if (posX > 728 && posX < 844 && posY > 380 && posY < 426) {
@@ -111,7 +111,7 @@ public class GameOverState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
         int posX = Mouse.getX(),
-            posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             if (posX > 354 && posX < 582 && posY > 380 && posY < 424) {

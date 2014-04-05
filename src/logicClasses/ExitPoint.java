@@ -19,7 +19,7 @@ public class ExitPoint extends Point {
     public ExitPoint(double x, double y, String name) {
         super(x, y, name);
         runway = false;
-        if (x != 0 && x != stateContainer.Game.MAXIMUMWIDTH && y != 0 && y != stateContainer.Game.MAXIMUMHEIGHT) {
+        if (x != 0 && x != stateContainer.Game.WIDTH && y != 0 && y != stateContainer.Game.HEIGHT) {
             runway = true;
         }
     }
@@ -35,34 +35,20 @@ public class ExitPoint extends Point {
      */
 
     public void init(GameContainer gc) throws SlickException {
-        {
-            LoadingList loading = LoadingList.get();
+        LoadingList loading = LoadingList.get();
 
-            if (exitPointTop == null) {
-                loading.add(new DeferredFile("res/graphics/exitpoint_top.png") {
-                    public void loadFile(String filename) throws SlickException {
-                        exitPointTop = new Image(filename);
-                    }
-                });
-            }
-
-            if (exitPointRight == null) {
-                loading.add(new DeferredFile("res/graphics/exitpoint_right.png") {
-                    public void loadFile(String filename) throws SlickException {
-                        exitPointRight = new Image(filename);
-                    }
-                });
-            }
-
-            if (exitPointLeft == null) {
-                loading.add(new DeferredFile("res/graphics/exitpoint_left.png") {
-                    public void loadFile(String filename) throws SlickException {
-                        exitPointLeft = new Image(filename);
-                        exitPointRunway = exitPointLeft.copy();
-                        exitPointRunway.setRotation(45);
-                    }
-                });
-            }
+        if (exitPointTop == null) {
+            loading.add(new DeferredFile("res/graphics/exitpoint.png") {
+                public void loadFile(String filename) throws SlickException {
+                    exitPointTop = new Image(filename);
+                    exitPointRight = exitPointTop.copy();
+                    exitPointRight.setRotation(90);
+                    exitPointLeft = exitPointTop.copy();
+                    exitPointLeft.setRotation(270);
+                    exitPointRunway = exitPointTop.copy();
+                    exitPointRunway.setRotation(315);
+                }
+            });
         }
     }
 
@@ -86,7 +72,7 @@ public class ExitPoint extends Point {
             g.drawString(pointRef, (int)x, (int)y - 7);
         }
 
-        else if (x == 1200) {
+        else if (x == stateContainer.Game.WIDTH) {
             exitPointRight.draw((int)x - 40, (int)y - 20);
             g.drawString(pointRef, (int)x - 35, (int)y - 7);
         }

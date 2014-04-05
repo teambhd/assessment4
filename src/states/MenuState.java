@@ -86,7 +86,7 @@ public class MenuState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
     throws SlickException {
         int posX = Mouse.getX(),
-            posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();
         // Mapping Mouse coords onto graphics coords
         menuBackground.draw(0, 0);
         //draw buttons
@@ -97,7 +97,7 @@ public class MenuState extends BasicGameState {
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         int posX = Mouse.getX(),
-            posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();
         // Mapping Mouse coords onto graphics coords
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
