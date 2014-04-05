@@ -14,8 +14,7 @@ import stateContainer.Game;
 public class Flight {
 
     // FIELDS
-    private static Image
-    regularFlightImage, slowFlightImage, fastFlightImage, shadowImage;
+    private static Image whiteFlightImage, redFlightImage, blueFlightImage, shadowImage;
     private static double gameScale = 1 / 1000.0;
 
     private int
@@ -352,20 +351,20 @@ public class Flight {
      */
 
     public void init(GameContainer gc) throws SlickException {
-        if (regularFlightImage == null) {
-            regularFlightImage = new Image("res/graphics/flight.png");
+        if (whiteFlightImage == null) {
+            whiteFlightImage = new Image("res/graphics/flight.png");
         }
 
         if (shadowImage == null) {
             shadowImage = new Image("res/graphics/flight_shadow.png");
         }
 
-        if (slowFlightImage == null) {
-            slowFlightImage = new Image("res/graphics/flight_slow.png");
+        if (redFlightImage == null) {
+            redFlightImage = new Image("res/graphics/flight_red.png");
         }
 
-        if (fastFlightImage == null) {
-            fastFlightImage = new Image("res/graphics/flight_fast.png");
+        if (blueFlightImage == null) {
+            blueFlightImage = new Image("res/graphics/flight_blue.png");
         }
     }
 
@@ -434,8 +433,8 @@ public class Flight {
         shadowImage.setRotation((int) currentHeading);
         shadowImage.draw((int) this.x - 35, (int) this.y, shadowScale);
 
-        regularFlightImage.setRotation((int) currentHeading);
-        regularFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+        whiteFlightImage.setRotation((int) currentHeading);
+        whiteFlightImage.draw((int) this.x - 10, (int) this.y - 10);
 
         // Drawing information around flight, first the next waypoint, then the flight's altitude
         g.setColor(Color.white);
