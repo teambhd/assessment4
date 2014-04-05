@@ -34,12 +34,12 @@ public class GameOverState extends BasicGameState {
     throws SlickException {
         {
             LoadingList loading = LoadingList.get();
-            loading.add(new DeferredFile("res/menu_graphics/new/gameover_screen.png") {
+            loading.add(new DeferredFile("res/menu_graphics/gameover_screen.png") {
                 public void loadFile(String filename) throws SlickException {
                     gameOverBackground = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/playagain_button.png") {
+            loading.add(new DeferredFile("res/menu_graphics/playagain_button.png") {
                 public void loadFile(String filename) throws SlickException {
                     playAgainButton = new Image(filename);
                 }
@@ -49,12 +49,12 @@ public class GameOverState extends BasicGameState {
                     quitButton = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/menu_button.png") {
+            loading.add(new DeferredFile("res/menu_graphics/menu_button.png") {
                 public void loadFile(String filename) throws SlickException {
                     menuButton = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/playagain_hover.png") {
+            loading.add(new DeferredFile("res/menu_graphics/playagain_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     playAgainHover = new Image(filename);
                 }
@@ -64,7 +64,7 @@ public class GameOverState extends BasicGameState {
                     quitHover = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/menu_hover.png") {
+            loading.add(new DeferredFile("res/menu_graphics/menu_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     menuHover = new Image(filename);
                 }

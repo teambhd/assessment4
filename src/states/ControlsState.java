@@ -32,42 +32,42 @@ public class ControlsState extends BasicGameState {
         pageNumber = 1;
         {
             LoadingList loading = LoadingList.get();
-            loading.add(new DeferredFile("res/menu_graphics/new/controls1.png") {
+            loading.add(new DeferredFile("res/menu_graphics/controls1.png") {
                 public void loadFile(String filename) throws SlickException {
                     controlsBackgroundPage1 = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/controls2.png") {
+            loading.add(new DeferredFile("res/menu_graphics/controls2.png") {
                 public void loadFile(String filename) throws SlickException {
                     controlsBackgroundPage2 = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/back.png") {
+            loading.add(new DeferredFile("res/menu_graphics/back.png") {
                 public void loadFile(String filename) throws SlickException {
                     backButton = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/back_hover.png") {
+            loading.add(new DeferredFile("res/menu_graphics/back_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     backHover = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/next_page.png") {
+            loading.add(new DeferredFile("res/menu_graphics/next_page.png") {
                 public void loadFile(String filename) throws SlickException {
                     nextPageButton = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/next_page_hover.png") {
+            loading.add(new DeferredFile("res/menu_graphics/next_page_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     nextPageHover = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/previous_page.png") {
+            loading.add(new DeferredFile("res/menu_graphics/previous_page.png") {
                 public void loadFile(String filename) throws SlickException {
                     previousPageButton = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/new/previous_page_hover.png") {
+            loading.add(new DeferredFile("res/menu_graphics/previous_page_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     previousPageHover = new Image(filename);
                 }

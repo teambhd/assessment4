@@ -36,37 +36,37 @@ public class MenuState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg)
     throws SlickException {
         LoadingList loading = LoadingList.get();
-        loading.add(new DeferredFile("res/menu_graphics/new/menu_screen.png") {
+        loading.add(new DeferredFile("res/menu_graphics/menu_screen.png") {
             public void loadFile(String filename) throws SlickException {
                 menuBackground = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/new/play_button.png") {
+        loading.add(new DeferredFile("res/menu_graphics/play_button.png") {
             public void loadFile(String filename) throws SlickException {
                 playButton = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/new/play_hover.png") {
+        loading.add(new DeferredFile("res/menu_graphics/play_hover.png") {
             public void loadFile(String filename) throws SlickException {
                 playHover = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/new/quit_button.png") {
+        loading.add(new DeferredFile("res/menu_graphics/quit_button.png") {
             public void loadFile(String filename) throws SlickException {
                 quitButton = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/new/quit_hover.png") {
+        loading.add(new DeferredFile("res/menu_graphics/quit_hover.png") {
             public void loadFile(String filename) throws SlickException {
                 quitHover = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/new/controls.png") {
+        loading.add(new DeferredFile("res/menu_graphics/controls.png") {
             public void loadFile(String filename) throws SlickException {
                 controlsButton = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/new/controls_hover.png") {
+        loading.add(new DeferredFile("res/menu_graphics/controls_hover.png") {
             public void loadFile(String filename) throws SlickException {
                 controlsHover = new Image(filename);
             }
