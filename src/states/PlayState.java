@@ -37,8 +37,7 @@ public class PlayState extends BasicGameState {
                 cursorImg;
     private static Sound endOfGameSound;
     private static Music gameplayMusic;
-    private static TrueTypeFont
-    font, panelFont;
+    private static TrueTypeFont font;
     public static float time;
 
     private Airspace airspace;
@@ -65,14 +64,13 @@ public class PlayState extends BasicGameState {
         // Font
         {
             LoadingList loading = LoadingList.get();
-            loading.add(new DeferredFile("res/blue_highway_font/bluehigh.ttf") {
+            loading.add(new DeferredFile("res/fonts/fira-sans.ttf") {
                 public void loadFile(String filename) {
                     InputStream inputStream = ResourceLoader.getResourceAsStream(filename);
 
                     try {
                         Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-                        font = new TrueTypeFont(awtFont.deriveFont(20f), true);
-                        panelFont = new TrueTypeFont(awtFont.deriveFont(14f), true);
+                        font = new TrueTypeFont(awtFont.deriveFont(16f), true);
                     }
 
                     catch (Exception e) {
