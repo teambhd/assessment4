@@ -228,7 +228,7 @@ public class PlayState extends BasicGameState {
             //for now, set wind direction pseudo-randomly
             windImage.draw(14, 550);
             g.drawString("Wind:", 60, 550);
-            g.drawString(String.valueOf(Math.round(windImage.getRotation())), 65, 565);
+            g.drawString(String.valueOf(Math.abs(Math.round(windImage.getRotation()))), 65, 565);
             // Drawing Achievements
             g.drawString(airspace.getScore().scoreAchievement(),
                          stateContainer.Game.WIDTH - font.getWidth(airspace.getScore().scoreAchievement()) - 10, 30);
