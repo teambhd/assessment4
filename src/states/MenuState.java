@@ -36,7 +36,7 @@ public class MenuState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg)
     throws SlickException {
         LoadingList loading = LoadingList.get();
-        loading.add(new DeferredFile("res/menu_graphics/menu_screen.png") {
+        loading.add(new DeferredFile("res/menu_graphics/background.png") {
             public void loadFile(String filename) throws SlickException {
                 menuBackground = new Image(filename);
             }
@@ -77,8 +77,8 @@ public class MenuState extends BasicGameState {
             }
             public void load() {
                 play = new HoverImage(playButton, playHover, 439, 349);
-                quit = new HoverImage(quitButton, quitHover, 1078, 534);
-                controls = new HoverImage(controlsButton, controlsHover, 5, 534);
+                controls = new HoverImage(controlsButton, controlsHover, 5, 535);
+                quit = new HoverImage(quitButton, quitHover, 1078, 540);
             }
         });
     }
