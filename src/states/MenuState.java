@@ -77,8 +77,8 @@ public class MenuState extends BasicGameState {
             }
             public void load() {
                 play = new HoverImage(playButton, playHover, 439, 349);
-                controls = new HoverImage(controlsButton, controlsHover, 5, 535);
-                quit = new HoverImage(quitButton, quitHover, 1078, 540);
+                controls = new HoverImage(controlsButton, controlsHover, 20, 530);
+                quit = new HoverImage(quitButton, quitHover, stateContainer.Game.WIDTH - (quitButton.getWidth() + 15), 530);
             }
         });
     }

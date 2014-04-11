@@ -72,12 +72,12 @@ public class ControlsState extends BasicGameState {
                     previousPageHover = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/quit_button.png") {
+            loading.add(new DeferredFile("res/text_graphics/quit.png") {
                 public void loadFile(String filename) throws SlickException {
                     quitButton = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/quit_hover.png") {
+            loading.add(new DeferredFile("res/text_graphics/quit_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     quitHover = new Image(filename);
                 }
