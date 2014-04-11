@@ -8,6 +8,8 @@
 
 * Loading screen plane created by [Sallee Design](http://salleedesign.com/resources/plane-psd/)
 
+* The background image on the main menu screen is a cropped version of [San Francisco Airport, Runway 28L](https://www.flickr.com/photos/michaelestigoy/6451426469) by [Michael Estigoy](https://www.flickr.com/photos/michaelestigoy/). It is released under a [Creative Commons license](https://creativecommons.org/licenses/by-nc/2.0/).
+
 ## Fonts
 
 * The font used on the menu screens is [A Love of Thunder](http://www.dafont.com/a-love-of-thunder.font) by Cumberland Fontworks, which has been released freely for non-commercial use.
