@@ -1,7 +1,9 @@
+#!/usr/bin/env sh
+
+# Ensure that the text_graphics directory exists
 mkdir -p ../src/res/text_graphics
 
 # The title text
-
 montage -background none \
 -fill white \
 -font ../src/res/fonts/a-love-of-thunder.ttf  \
