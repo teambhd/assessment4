@@ -91,8 +91,8 @@ public class MenuState extends BasicGameState {
                 return "set up menuState buttons";
             }
             public void load() {
-                play = new HoverImage(playButton, playHover, ((stateContainer.Game.WIDTH - playButton.getWidth()) / 2) - 5, 400);
-                versus = new HoverImage(versusButton, versusHover, ((stateContainer.Game.WIDTH - versusButton.getWidth()) / 2) - 5, 480);
+                play = new HoverImage(playButton, playHover, ((stateContainer.Game.WIDTH - playButton.getWidth()) / 2) - 5, 420);
+                versus = new HoverImage(versusButton, versusHover, ((stateContainer.Game.WIDTH - versusButton.getWidth()) / 2) - 5, 500);
                 controls = new HoverImage(controlsButton, controlsHover, 20, 530);
                 quit = new HoverImage(quitButton, quitHover, stateContainer.Game.WIDTH - (quitButton.getWidth() + 15), 530);
             }

@@ -8,7 +8,7 @@ montage -background none \
 -fill white \
 -font ../src/res/fonts/a-love-of-thunder.ttf  \
 -pointsize 120 \
-label:"Don't Crash" \
+label:"don't crash" \
 +set label -shadow \
 -background none \
 -geometry +0+0 \
