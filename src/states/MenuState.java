@@ -18,12 +18,12 @@ import util.HoverImage;
 public class MenuState extends BasicGameState {
 
     private static Image
-    menuBackground,
-    playButton, quitButton, creditsButton, controlsButton,
-    playHover, quitHover, creditsHover, controlsHover;
+    menuBackground, titleImage,
+    playButton, quitButton, creditsButton, controlsButton, versusButton,
+    playHover, quitHover, creditsHover, controlsHover, versusHover;
 
     private HoverImage
-    play, quit, credits, controls;
+    play, quit, credits, controls, versus;
 
     private boolean mouseBeenReleased;
 
@@ -39,6 +39,11 @@ public class MenuState extends BasicGameState {
         loading.add(new DeferredFile("res/menu_graphics/background.png") {
             public void loadFile(String filename) throws SlickException {
                 menuBackground = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/title.png") {
+            public void loadFile(String filename) throws SlickException {
+                titleImage = new Image(filename);
             }
         });
         loading.add(new DeferredFile("res/text_graphics/challenge.png") {
@@ -71,12 +76,23 @@ public class MenuState extends BasicGameState {
                 controlsHover = new Image(filename);
             }
         });
+        loading.add(new DeferredFile("res/text_graphics/versus.png") {
+            public void loadFile(String filename) throws SlickException {
+                versusButton = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/versus_hover.png") {
+            public void loadFile(String filename) throws SlickException {
+                versusHover = new Image(filename);
+            }
+        });
         loading.add(new DeferredResource() {
             public String getDescription() {
                 return "set up menuState buttons";
             }
             public void load() {
-                play = new HoverImage(playButton, playHover, 439, 349);
+                play = new HoverImage(playButton, playHover, ((stateContainer.Game.WIDTH - playButton.getWidth()) / 2) - 5, 400);
+                versus = new HoverImage(versusButton, versusHover, ((stateContainer.Game.WIDTH - versusButton.getWidth()) / 2) - 5, 480);
                 controls = new HoverImage(controlsButton, controlsHover, 20, 530);
                 quit = new HoverImage(quitButton, quitHover, stateContainer.Game.WIDTH - (quitButton.getWidth() + 15), 530);
             }
@@ -85,14 +101,21 @@ public class MenuState extends BasicGameState {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
     throws SlickException {
+        // Map mouse co-ordinates onto graphics co-ordinatess
         int posX = Mouse.getX(),
             posY = stateContainer.Game.HEIGHT - Mouse.getY();
-        // Mapping Mouse coords onto graphics coords
+        
+        // Draw the page background
         menuBackground.draw(0, 0);
-        //draw buttons
+        
+        // Draw the game title
+        titleImage.draw(((stateContainer.Game.WIDTH - titleImage.getWidth()) / 2) - 5, 0);
+        
+        // Draw the buttons
         play.render(posX, posY);
-        quit.render(posX, posY);
+        versus.render(posX, posY);
         controls.render(posX, posY);
+        quit.render(posX, posY);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {

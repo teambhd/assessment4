@@ -7,7 +7,7 @@ mkdir -p ../src/res/text_graphics
 montage -background none \
 -fill white \
 -font ../src/res/fonts/a-love-of-thunder.ttf  \
--pointsize 72 \
+-pointsize 120 \
 label:"Don't Crash" \
 +set label -shadow \
 -background none \
