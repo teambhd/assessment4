@@ -220,15 +220,14 @@ public class Flight {
 
     public void land() {
         // if next point is an exit point
-        if (!landing) {
-            if (getFlightPlan().getPointByIndex(0) == getFlightPlan().getExitPoint() && getFlightPlan().getExitPoint().isRunway()) {
-                landing = true;
-                //point towards exitpoint
-                double heading = Math.atan2(flightPlan.getExitPoint().getY() - y, flightPlan.getExitPoint().getX() - x) + PI / 2;
-                heading = (heading < 0) ? heading + (2 * PI) : heading;
-                giveHeading((int)Math.round(Math.toDegrees(heading)));
-                setTargetVelocity(velocity);
-            }
+        if (!landing && getFlightPlan().getCurrentRoute().size() == 1 && getFlightPlan().getExitPoint().isRunway()) {
+            System.out.println("land() function called and next waypoint is the runway");
+            landing = true;
+            //point towards exitpoint
+            double heading = Math.atan2(flightPlan.getExitPoint().getY() - y, flightPlan.getExitPoint().getX() - x) + PI / 2;
+            heading = (heading < 0) ? heading + (2 * PI) : heading;
+            giveHeading((int)Math.round(Math.toDegrees(heading)));
+            setTargetVelocity(velocity);
         }
     }
 

@@ -14,18 +14,8 @@ public class ExitPoint extends Point {
 
     static Image exitPointTop, exitPointRight, exitPointLeft, exitPointRunway;
     
-    private boolean runway = false;
-
     public ExitPoint(double x, double y, String name) {
         super(x, y, name);
-        runway = false;
-        if (x != 0 && x != stateContainer.Game.WIDTH && y != 0 && y != stateContainer.Game.HEIGHT) {
-            runway = true;
-        }
-    }
-
-    public boolean isRunway() {
-        return runway;
     }
 
     /**
@@ -81,6 +71,14 @@ public class ExitPoint extends Point {
             exitPointRunway.draw((int)x - 20, (int)y - 20);
             g.drawString(pointRef, (int)x - 35, (int)y - 7);
         }
+    }
+    
+    /**
+     * isRunway: Returns true if the ExitPoint is not on any of the screen edges, and therefore must be a runway
+     */
+    
+    public boolean isRunway() {
+        return x != 0 && x != stateContainer.Game.WIDTH && y != 0 && y != stateContainer.Game.HEIGHT;
     }
 
 }

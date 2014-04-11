@@ -99,6 +99,7 @@ public class FlightPlan {
                 }
 
                 tempRoute.add(exitPoint);
+                this.exitPoint = exitPoint;
                 break;
             }
 
@@ -507,13 +508,14 @@ public class FlightPlan {
     }
 
     /**
-     * updateFlightPlan: Handles updating the flight plan when a flight passes through a waypoint
+     * update: Handles updating the flight plan when a flight passes through a waypoint
      */
 
-    public void updateFlightPlan(ScoreTracking score) {
+    public void update(ScoreTracking score) {
         int waypointScore = 0;
 
-        if (this.currentRoute.size() > 0) { // Check to see if there are still waypoints to visit and then check if the flight is passing through waypoint
+        if (this.currentRoute.size() > 0) { 
+            // Check to see if there are still waypoints to visit and then check if the flight is passing through waypoint
             if (this.flight.checkIfFlightAtWaypoint(currentRoute.get(0))) {
                 this.waypointsAlreadyVisited.add(this.currentRoute.get(0));
                 closestDistance = this.flight.minDistanceFromWaypoint(this.currentRoute.get(0)); // get the closest distance from the waypoint
@@ -524,16 +526,6 @@ public class FlightPlan {
 
             score.updateScore(waypointScore);
         }
-    }
-
-    /**
-     * drawFlightsPlan: Draws the graphics required for the flightplan
-     * @param g Slick2d graphics object
-     * @param gs Slick2d gamecontainer object
-     */
-
-    public void update(ScoreTracking score) {
-        this.updateFlightPlan(score);
     }
 
     public void render(Graphics g, GameContainer gc) throws SlickException {
@@ -576,7 +568,7 @@ public class FlightPlan {
     }
     
     public ExitPoint getExitPoint() {
-        return exitPoint;
+        return this.exitPoint;
     }
     
     @Override

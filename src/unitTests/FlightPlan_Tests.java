@@ -136,7 +136,7 @@ public class FlightPlan_Tests {
         int previousSize = flight1.getFlightPlan().getCurrentRoute().size();
         flight1.setX(flight1.getFlightPlan().getCurrentRoute().get(0).getX());
         flight1.setY(flight1.getFlightPlan().getCurrentRoute().get(0).getY());
-        flight1.getFlightPlan().updateFlightPlan(new ScoreTracking());  // {!} need to test these properly
+        flight1.getFlightPlan().update(new ScoreTracking());  // {!} need to test these properly
         assertEquals(previousSize - 1, flight1.getFlightPlan().getCurrentRoute().size(), 0);
     }
 
@@ -146,19 +146,8 @@ public class FlightPlan_Tests {
         int previousSize = flight1.getFlightPlan().getCurrentRoute().size();
         flight1.setX(flight1.getFlightPlan().getCurrentRoute().get(0).getX() + 100);
         flight1.setY(flight1.getFlightPlan().getCurrentRoute().get(0).getY() + 100);
-        flight1.getFlightPlan().updateFlightPlan(new ScoreTracking()); // {!} need to test these properly
+        flight1.getFlightPlan().update(new ScoreTracking()); // {!} need to test these properly
         assertEquals(previousSize, flight1.getFlightPlan().getCurrentRoute().size(), 0);
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }
