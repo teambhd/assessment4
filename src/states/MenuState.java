@@ -41,32 +41,32 @@ public class MenuState extends BasicGameState {
                 menuBackground = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/play_button.png") {
+        loading.add(new DeferredFile("res/text_graphics/challenge.png") {
             public void loadFile(String filename) throws SlickException {
                 playButton = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/play_hover.png") {
+        loading.add(new DeferredFile("res/text_graphics/challenge_hover.png") {
             public void loadFile(String filename) throws SlickException {
                 playHover = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/quit_button.png") {
+        loading.add(new DeferredFile("res/text_graphics/quit.png") {
             public void loadFile(String filename) throws SlickException {
                 quitButton = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/quit_hover.png") {
+        loading.add(new DeferredFile("res/text_graphics/quit_hover.png") {
             public void loadFile(String filename) throws SlickException {
                 quitHover = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/controls.png") {
+        loading.add(new DeferredFile("res/text_graphics/help.png") {
             public void loadFile(String filename) throws SlickException {
                 controlsButton = new Image(filename);
             }
         });
-        loading.add(new DeferredFile("res/menu_graphics/controls_hover.png") {
+        loading.add(new DeferredFile("res/text_graphics/help_hover.png") {
             public void loadFile(String filename) throws SlickException {
                 controlsHover = new Image(filename);
             }
