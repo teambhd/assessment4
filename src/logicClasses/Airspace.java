@@ -239,21 +239,7 @@ public class Airspace {
 
 
 
-    // INIT, RENDER, UPDATE
-
-    /**
-     * init: Initialises all the resources required for the airspace class, and any other classes that are rendered within it
-     * @param gc GameContainer
-     * @throws SlickException
-     */
-
-    public void init() throws SlickException {
-        this.airport.init();
-        Flight.init();
-        Waypoint.init();
-        ExitPoint.init();
-        EntryPoint.init();        
-    }
+    // RENDER, UPDATE
 
     /**
      * update: Update all logic in the airspace class

@@ -10,40 +10,38 @@ import util.DeferredFile;
 
 public class Airport {
 
-    //FIELDS
     private static Image airportImage;
 
-    private String airportName = "Nothing"; // {!} needs a name
-
-    private float x, y;
+    // TODO: these values need setting in the constructor so as to allow multiple independent airports
+    private float x = 675;
+    private float y = 300; 
     private float runwayHeading = 320;
-    private int runwayLength;
-
+    
+    private int runwayLength = 303;
+    
 
     //CONSTRUCTOR
     Airport() {}
 
-    public void init() throws SlickException {
-        LoadingList.get().add(new DeferredFile("res/graphics/airport.png") {
-            public void loadFile(String filename) throws SlickException {
-                airportImage = new Image(filename);
-                x = (stateContainer.Game.WIDTH - 150) / 2;
-                y = stateContainer.Game.HEIGHT / 2;
-                runwayLength = airportImage.getHeight() - 10;
-            }
-        });
+    public static void init() throws SlickException {
+        if (airportImage == null) {
+            LoadingList.get().add(new DeferredFile("res/graphics/airport.png") {
+                public void loadFile(String filename) throws SlickException {
+                    airportImage = new Image(filename);
+                }
+            });
+        }
     }
 
     public void render(Graphics g) throws SlickException {
         // Airport image centred in middle of airspace
         airportImage.setRotation(runwayHeading);
-        airportImage.drawCentered(150 + x, y);
+        airportImage.drawCentered(x, y);
     }
 
     @Override
     public String toString() {
-        String s = "Airport Name: " + airportName;
-        return s;
+        return "Airport located at (" + x + ", " + y + ")";
     }
 
     public float getX() {

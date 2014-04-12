@@ -57,13 +57,23 @@ public class PlayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        
+        // Set some container options
+        gc.setAlwaysRender(true);
+        gc.setUpdateOnlyWhenVisible(true);
+        
+        // Initialise all the required classes (mainly this loads required images)        
+        logicClasses.Airport.init();
+        logicClasses.Flight.init();
+        logicClasses.Waypoint.init();
+        logicClasses.ExitPoint.init();
+        logicClasses.EntryPoint.init();        
+        
         gameEnded = false;
         settingDifficulty = true;
         time = 0;
-        airspace = new Airspace(false);
         this.stringTime = "";
-        gc.setAlwaysRender(true);
-        gc.setUpdateOnlyWhenVisible(true);
+        
         // Font
         {
             LoadingList loading = LoadingList.get();
@@ -155,6 +165,7 @@ public class PlayState extends BasicGameState {
             });
         }
         //initialise the airspace object;
+        airspace = new Airspace(false);
         //Waypoints
         airspace.newWaypoint(350, 150, "A");
         airspace.newWaypoint(400, 470, "B");
@@ -176,7 +187,6 @@ public class PlayState extends BasicGameState {
         airspace.newExitPoint(0, 200, "2");
         airspace.newExitPoint(1200, 300, "3");
         airspace.newExitPoint(590, 195, "4");
-        airspace.init();
         
         // Initialise the controls
         controls = new Controls(KeyBindings.singlePlayerKeys, "single");
