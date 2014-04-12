@@ -34,7 +34,7 @@ public class Airport {
         });
     }
 
-    public void render(Graphics g, GameContainer gc) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         // Airport image centred in middle of airspace
         airportImage.setRotation(runwayHeading);
         airportImage.drawCentered(150 + x, y);

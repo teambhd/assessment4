@@ -80,12 +80,11 @@ public class SeparationRules {
      * render: This calculates whether any flights in the airspace are breaking warning separation rules
      * If two flight are breaking warning separation rules, a line is drawn between them.
      * @param g - Graphics libraries required by slick2d.
-     * @param gc - GameContainer required by slick2d.
      * @param airspace - The airspace object is passed as the render method requires knowledge of
      * flights in the airspace, which is stored within the airspace.
      */
 
-    public void render(Graphics g, GameContainer gc, Airspace airspace) {
+    public void render(Graphics g, Airspace airspace) {
         for (int i = 0; i < airspace.getListOfFlights().size(); i++) {
             for (int j = i + 1; j < airspace.getListOfFlights().size(); j++) {
                 if (this.lateralDistanceBetweenFlights(airspace.getListOfFlights().get(i),

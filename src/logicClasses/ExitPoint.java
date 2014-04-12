@@ -45,11 +45,10 @@ public class ExitPoint extends Point {
     /**
      * render: Render method for the ExitPoint object, position determines orientation of image and String of name
      * @param g Graphics required by Slick2d
-     * @param airspace Airspace object
      * @throws SlickException
      */
 
-    public void render(Graphics g, Airspace airspace) throws SlickException {        
+    public void render(Graphics g) throws SlickException {        
         g.setColor(Color.white);
 
         if (y == 0) {

@@ -298,6 +298,7 @@ public class Airspace {
     public ScoreTracking getScore() {
         return score;
     }
+    
     /**
      * render: Render all of the graphics in the airspace
      * @param g Graphics
@@ -305,15 +306,16 @@ public class Airspace {
      *
      * @throws SlickException
      */
+    
     public void render(Graphics g, GameContainer gc) throws SlickException {
-        this.airport.render(g, gc);
+        this.airport.render(g);
 
         for (Waypoint w : listOfWayppoints) { // Draws waypoints
-            w.render(g, this);
+            w.render(g);
         }
 
         for (ExitPoint e : listOfExitPoints) { // Draws exit points
-            e.render(g, this);
+            e.render(g);
         }
 
         for (EntryPoint e : listOfEntryPoints) { // Draws entry points
@@ -321,10 +323,10 @@ public class Airspace {
         }
 
         for (Flight f : listOfFlightsInAirspace) { // Draws flights in airspace
-            f.render(g, gc);
+            f.render(g);
         }
 
-        separationRules.render(g, gc, this);
+        separationRules.render(g, this);
     }
 
 
@@ -412,9 +414,10 @@ public class Airspace {
         }
 
         else {
+            // If the flight to be added is to start on the runway, and there's already a plane there, then it can't be added
+            // TODO: Change this code to allow for multiple airports
             for (Flight a : listOfFlightsInAirspace) {
                 if (a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()) {
-                    System.out.println("Flight already on runway!");
                     return false;
                 }
             }

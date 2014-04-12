@@ -424,10 +424,9 @@ public class Flight {
     /**
      * render: draw's all elements of the flight and it's information.
      * @param g - Graphics libraries required by slick2d.
-     * @param gc - GameContainer required by slick2d.
      */
 
-    public void render(Graphics g, GameContainer gc) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         float shadowScale = (float)(36 - (this.currentAltitude / 1000)) / 10;  // Scale the shadow in line with the flight's altitude
         shadowImage.setRotation((int) currentHeading);
         shadowImage.draw((int) this.x - 35, (int) this.y, shadowScale);

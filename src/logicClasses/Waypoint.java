@@ -51,11 +51,10 @@ public class Waypoint extends Point {
     /**
      * render: Render the graphics for the Waypoint class (Draws all Waypoints)
      * @param g slick2d graphics object
-     * @param airspace object
      * @throws SlickException Slick2d exception handler
      */
 
-    public void render(Graphics g, Airspace airspace) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         waypointImage.draw((int)x - 14, (int)y - 14, 30, 30);
         g.setColor(Color.black);
         g.drawString(pointRef, (int)x - 3, (int)y - 9);
