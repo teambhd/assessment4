@@ -24,7 +24,7 @@ public class Waypoint extends Point {
      * @throws SlickException Slick2d exception handler
      */
 
-    public void init() throws SlickException {
+    public static void init() throws SlickException {
         LoadingList loading = LoadingList.get();
 
         if (waypointImage == null) {

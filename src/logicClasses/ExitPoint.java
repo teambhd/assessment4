@@ -11,7 +11,7 @@ import util.DeferredFile;
 
 public class ExitPoint extends Point {
 
-    static Image exitPointTop, exitPointRight, exitPointLeft, exitPointRunway;
+    private static Image exitPointTop, exitPointRight, exitPointLeft, exitPointRunway;
     
     public ExitPoint(double x, double y, String name) {
         super(x, y, name);
@@ -22,7 +22,7 @@ public class ExitPoint extends Point {
      * @throws SlickException
      */
 
-    public void init() throws SlickException {
+    public static void init() throws SlickException {
         LoadingList loading = LoadingList.get();
 
         if (exitPointTop == null) {

@@ -181,8 +181,6 @@ public class Airspace {
 
                     if (addFlight(tempFlight)) {
                         this.numberOfGameLoopsSinceLastFlightAdded = 0;
-                        this.listOfFlightsInAirspace.get(
-                            this.listOfFlightsInAirspace.size() - 1).init();
                         return true;
                     }
                 }
@@ -251,18 +249,10 @@ public class Airspace {
 
     public void init() throws SlickException {
         this.airport.init();
-
-        for (int i = 0; i < this.listOfWayppoints.size(); i++) { // Initialising waypoints
-            this.listOfWayppoints.get(i).init();
-        }
-
-        for (int i = 0; i < this.listOfExitPoints.size(); i++) { // Initailising exit points
-            this.listOfExitPoints.get(i).init();
-        }
-
-        for (int i = 0; i < this.listOfEntryPoints.size(); i++) { // Initialising entry point
-            this.listOfEntryPoints.get(i).init();
-        }
+        Flight.init();
+        Waypoint.init();
+        ExitPoint.init();
+        EntryPoint.init();        
     }
 
     /**

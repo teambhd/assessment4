@@ -27,8 +27,7 @@ public class ControlsState extends BasicGameState {
 
 
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg)
-    throws SlickException {
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         pageNumber = 1;
         {
             LoadingList loading = LoadingList.get();

@@ -22,7 +22,7 @@ public class EntryPoint extends Point {
      * @throws SlickException
      */
 
-    public void init() throws SlickException {
+    public static void init() throws SlickException {
         LoadingList loading = LoadingList.get();
 
         if (entryPointTop == null)

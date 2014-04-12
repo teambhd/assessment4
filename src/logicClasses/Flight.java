@@ -9,8 +9,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.loading.LoadingList;
 
-import stateContainer.Game;
+import util.DeferredFile;
 
 public class Flight {
 
@@ -70,7 +71,46 @@ public class Flight {
     }
 
     // METHODS
+    
+    /**
+     * init: initialises resources such as images.
+     */
 
+    public static void init() throws SlickException {
+        LoadingList loading = LoadingList.get();
+                
+        if (whiteFlightImage == null) {
+            loading.add(new DeferredFile("res/graphics/flight.png") {
+                public void loadFile(String filename) throws SlickException {
+                    whiteFlightImage = new Image(filename);
+                }
+            });
+        }
+        
+        if (shadowImage == null) {
+            loading.add(new DeferredFile("res/graphics/flight_shadow.png") {
+                public void loadFile(String filename) throws SlickException {
+                    shadowImage = new Image(filename);
+                }
+            });
+        }
+
+        if (redFlightImage == null) {
+            loading.add(new DeferredFile("res/graphics/flight_red.png") {
+                public void loadFile(String filename) throws SlickException {
+                    redFlightImage = new Image(filename);
+                }   
+            });         
+        }
+        
+        if (blueFlightImage == null) {
+            loading.add(new DeferredFile("res/graphics/flight_blue.png") {
+                public void loadFile(String filename) throws SlickException {
+                    blueFlightImage = new Image(filename);
+                }
+            });            
+        }        
+    }
 
     /**
      * generateAltitude: Randomly assigns one of three different altitudes to a flight
@@ -343,29 +383,8 @@ public class Flight {
     }
 
 
-    // UPDATE, RENDER, INIT
+    // UPDATE, RENDER
 
-    /**
-     * init: initialises resources such as images.
-     */
-
-    public void init() throws SlickException {        
-        if (whiteFlightImage == null) {
-            whiteFlightImage = new Image("res/graphics/flight.png");
-        }
-
-        if (shadowImage == null) {
-            shadowImage = new Image("res/graphics/flight_shadow.png");
-        }
-
-        if (redFlightImage == null) {
-            redFlightImage = new Image("res/graphics/flight_red.png");
-        }
-
-        if (blueFlightImage == null) {
-            blueFlightImage = new Image("res/graphics/flight_blue.png");
-        }
-    }
 
 
     /**
