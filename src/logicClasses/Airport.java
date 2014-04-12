@@ -1,5 +1,5 @@
 package logicClasses;
-import org.newdawn.slick.GameContainer;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -23,7 +23,7 @@ public class Airport {
     //CONSTRUCTOR
     Airport() {}
 
-    public void init(GameContainer gc) throws SlickException {
+    public void init() throws SlickException {
         LoadingList.get().add(new DeferredFile("res/graphics/airport.png") {
             public void loadFile(String filename) throws SlickException {
                 airportImage = new Image(filename);

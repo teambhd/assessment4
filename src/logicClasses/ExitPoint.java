@@ -1,7 +1,6 @@
 package logicClasses;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -20,11 +19,10 @@ public class ExitPoint extends Point {
 
     /**
      * init: Initialises the variables and resources required for the ExitPoint object render (Sets ExitPoint Images)
-     * @param gc Game container required by Slick2d
      * @throws SlickException
      */
 
-    public void init(GameContainer gc) throws SlickException {
+    public void init() throws SlickException {
         LoadingList loading = LoadingList.get();
 
         if (exitPointTop == null) {

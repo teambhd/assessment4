@@ -1,6 +1,5 @@
 package logicClasses;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -23,7 +22,7 @@ public class EntryPoint extends Point {
      * @throws SlickException
      */
 
-    public void init(GameContainer gc) throws SlickException {
+    public void init() throws SlickException {
         LoadingList loading = LoadingList.get();
 
         if (entryPointTop == null)

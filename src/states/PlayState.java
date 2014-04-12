@@ -176,7 +176,7 @@ public class PlayState extends BasicGameState {
         airspace.newExitPoint(0, 200, "2");
         airspace.newExitPoint(1200, 300, "3");
         airspace.newExitPoint(590, 195, "4");
-        airspace.init(gc);
+        airspace.init();
         
         // Initialise the controls
         controls = new Controls(KeyBindings.singlePlayerKeys, "single");
@@ -211,7 +211,7 @@ public class PlayState extends BasicGameState {
             backgroundImage.draw(0, 0);
             // Drawing Airspace and elements within it
             g.setColor(Color.white);
-            airspace.render(g, gc);
+            airspace.render(g);
             controls.render(g, gc);
             // Drawing Clock and Time
             g.setColor(Color.white);

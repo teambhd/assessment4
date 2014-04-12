@@ -250,19 +250,19 @@ public class Airspace {
      * @throws SlickException
      */
 
-    public void init(GameContainer gc) throws SlickException {
-        this.airport.init(gc);
+    public void init() throws SlickException {
+        this.airport.init();
 
         for (int i = 0; i < this.listOfWayppoints.size(); i++) { // Initialising waypoints
-            this.listOfWayppoints.get(i).init(gc);
+            this.listOfWayppoints.get(i).init();
         }
 
         for (int i = 0; i < this.listOfExitPoints.size(); i++) { // Initailising exit points
-            this.listOfExitPoints.get(i).init(gc);
+            this.listOfExitPoints.get(i).init();
         }
 
         for (int i = 0; i < this.listOfEntryPoints.size(); i++) { // Initialising entry point
-            this.listOfEntryPoints.get(i).init(gc);
+            this.listOfEntryPoints.get(i).init();
         }
     }
 
@@ -307,7 +307,7 @@ public class Airspace {
      * @throws SlickException
      */
     
-    public void render(Graphics g, GameContainer gc) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         this.airport.render(g);
 
         for (Waypoint w : listOfWayppoints) { // Draws waypoints
