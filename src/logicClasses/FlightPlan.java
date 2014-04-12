@@ -66,21 +66,17 @@ public class FlightPlan {
      */
 
     public ArrayList<Point> buildRoute(Airspace airspace, EntryPoint entryPoint) {
-        ArrayList<Point> tempRoute = new ArrayList<Point>();  // Create the array lists for route and points
-        ArrayList<Point> tempListOfWaypoints = new ArrayList<Point>();
-        ArrayList<ExitPoint> tempListOfExitPoints = new ArrayList<ExitPoint>();
-        Boolean exitpointAdded = false;
-
+        
+        // Create the array lists for route and points
+        ArrayList<Point> tempRoute = new ArrayList<Point>();
+        
         if (!airspace.getListOfWaypoints().isEmpty() && !airspace.getListOfExitPoints().isEmpty()) {
-
-            // Initialise a temporary list of all waypoints
-            for (int i = 0; i < airspace.getListOfWaypoints().size(); i++) { //loop through all waypoints and add them to tempwaypoints
-                tempListOfWaypoints.add(airspace.getListOfWaypoints().get(i));
-            }
+            
+            // Add an ExitPoint to the plan, ensuring that a plane isn't set to exit on the same edge as it arrived from
             
             ArrayList<ExitPoint> shuffledList = new ArrayList<ExitPoint>(airspace.getListOfExitPoints());
             Collections.shuffle(shuffledList);
-            // Add an ExitPoint to the plan, ensuring that a plane isn't set to exit on the same edge as it arrived from
+            
             for (ExitPoint exitPoint : shuffledList) {
                 if (entryPoint.getY() == 0 && exitPoint.getY() == 0) {
                     continue;
@@ -102,6 +98,11 @@ public class FlightPlan {
                 this.exitPoint = exitPoint;
                 break;
             }
+            
+            
+            // Add some intermediate waypoints to the flight plan
+            
+            ArrayList<Point> tempListOfWaypoints = new ArrayList<Point>(airspace.getListOfWaypoints());
 
             for (int i = 0; i < airspace.getListOfEntryPoints().size(); i ++) {
                 if (entryPoint == airspace.getListOfEntryPoints().get(i)) {
