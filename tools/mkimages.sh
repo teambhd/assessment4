@@ -123,3 +123,74 @@ label:'versus mode' \
 -geometry +0+0 \
 -define png:bit-depth=8 \
 ../src/res/text_graphics/versus_hover.png
+
+# The button for the Easy difficulty mode
+montage -background none \
+-fill white \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 48 \
+label:'easy' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/easy.png
+
+montage -background none \
+-fill "#E2CD7D" \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 48 \
+label:'easy' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/easy_hover.png
+
+# The button for the Medium difficulty mode
+montage -background none \
+-fill white \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 48 \
+label:'medium' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/medium.png
+
+montage -background none \
+-fill "#E2CD7D" \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 48 \
+label:'medium' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/medium_hover.png
+
+# The button for the Hard difficulty mode
+montage -background none \
+-fill white \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 48 \
+label:'hard' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/hard.png
+
+montage -background none \
+-fill "#E2CD7D" \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 48 \
+label:'hard' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/hard_hover.png
+
+

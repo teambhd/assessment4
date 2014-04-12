@@ -9,6 +9,7 @@ import logicClasses.Controls;
 import logicClasses.Flight;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.loading.DeferredResource;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -24,17 +25,19 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.Image;
 
 import util.DeferredFile;
+import util.HoverImage;
 import util.KeyBindings;
 
 
 public class PlayState extends BasicGameState {
     private static Image
-    easyButton, mediumButton, hardButton,
-                easyHover, mediumHover, hardHover,
-                backgroundImage, difficultyBackground,
-                statusBarImage, clockImage, windImage,
-                flightIcon,
-                cursorImg;
+    easyImage, mediumImage, hardImage,
+    easyHover, mediumHover, hardHover,
+    backgroundImage, difficultyBackground,
+    statusBarImage, clockImage, windImage;
+            
+    private HoverImage easyButton, mediumButton, hardButton;
+    
     private static Sound endOfGameSound;
     private static Music gameplayMusic;
     private static TrueTypeFont font;
@@ -110,34 +113,44 @@ public class PlayState extends BasicGameState {
                     difficultyBackground = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/easy.png") {
+            loading.add(new DeferredFile("res/text_graphics/easy.png") {
                 public void loadFile(String filename) throws SlickException {
-                    easyButton = new Image(filename);
+                    easyImage = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/easy_hover.png") {
+            loading.add(new DeferredFile("res/text_graphics/easy_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     easyHover = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/medium.png") {
+            loading.add(new DeferredFile("res/text_graphics/medium.png") {
                 public void loadFile(String filename) throws SlickException {
-                    mediumButton = new Image(filename);
+                    mediumImage = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/medium_hover.png") {
+            loading.add(new DeferredFile("res/text_graphics/medium_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     mediumHover = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/hard.png") {
+            loading.add(new DeferredFile("res/text_graphics/hard.png") {
                 public void loadFile(String filename) throws SlickException {
-                    hardButton = new Image(filename);
+                    hardImage = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/hard_hover.png") {
+            loading.add(new DeferredFile("res/text_graphics/hard_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     hardHover = new Image(filename);
+                }
+            });
+            loading.add(new DeferredResource() {
+                public String getDescription() {
+                    return "set up difficulty buttons";
+                }
+                public void load() {
+                    easyButton = new HoverImage(easyImage, easyHover, 100, 250);
+                    mediumButton = new HoverImage(mediumImage, mediumHover, 100, 340);
+                    hardButton = new HoverImage(hardImage, hardHover, 100, 430);
                 }
             });
         }
@@ -172,6 +185,7 @@ public class PlayState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         
+        // Ensure that anti-aliasing is always enabled
         if (!g.isAntiAlias()) {
             g.setAntiAlias(true);
         }        
@@ -180,32 +194,14 @@ public class PlayState extends BasicGameState {
         if (settingDifficulty) {
             int posX = Mouse.getX();
             int posY = stateContainer.Game.HEIGHT - Mouse.getY();
-            //Fixing posY to reflect graphics coords
+
+            // Draw the page background (including the explanatory text)
             difficultyBackground.draw(0, 0);
-
-            if (posX > 100 && posX < 216 && posY > 300 && posY < 354) {
-                easyHover.draw(100, 300);
-            }
-
-            else {
-                easyButton.draw(100, 300);
-            }
-
-            if (posX > 100 && posX < 284 && posY > 400 && posY < 454) {
-                mediumHover.draw(100, 400);
-            }
-
-            else {
-                mediumButton.draw(100, 400);
-            }
-
-            if (posX > 100 && posX < 227 && posY > 500 && posY < 554) {
-                hardHover.draw(100, 500);
-            }
-
-            else {
-                hardButton.draw(100, 500);
-            }
+            
+            // Draw the difficulty selection buttons
+            easyButton.render(posX, posY);
+            mediumButton.render(posX, posY);
+            hardButton.render(posX, posY);
         }
 
         else {  //main game
@@ -255,23 +251,20 @@ public class PlayState extends BasicGameState {
             int posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
             if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-                if ((posX > 100 && posX < 216) && (posY > 300 && posY < 354)) {
+                if (easyButton.isMouseOver(posX, posY)) {
                     airspace.setDifficultyValueOfGame(1);
-                    //airspace.getControls().setDifficultyValueOfGame(Controls.EASY);
                     airspace.createAndSetSeparationRules();
                     settingDifficulty = false;
                 }
 
-                if ((posX > 100 && posX < 284) && (posY > 400 && posY < 454)) {
+                else if (mediumButton.isMouseOver(posX, posY)) {
                     airspace.setDifficultyValueOfGame(2);
-                    //airspace.getControls().setDifficultyValueOfGame(Controls.NORMAL);
                     airspace.createAndSetSeparationRules();
                     settingDifficulty = false;
                 }
 
-                if ((posX > 100 && posX < 227) && (posY > 500 && posY < 554)) {
+                else if (hardButton.isMouseOver(posX, posY)) {
                     airspace.setDifficultyValueOfGame(3);
-                    //airspace.getControls().setDifficultyValueOfGame(Controls.HARD);
                     airspace.createAndSetSeparationRules();
                     settingDifficulty = false;
                 }
