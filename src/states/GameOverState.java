@@ -80,7 +80,7 @@ public class GameOverState extends BasicGameState {
                     return "set up GameOverState buttons";
                 }
                 public void load() {
-                    againButton = new HoverImage(againImage, againHover, ((stateContainer.Game.WIDTH - againImage.getWidth()) / 2) - 5, 420);
+                    againButton = new HoverImage(againImage, againHover, ((stateContainer.Game.WIDTH - againImage.getWidth()) / 2) + 5, 420);
                     menuButton = new HoverImage(menuImage, menuHover, 20, 530);
                     quitButton = new HoverImage(quitImage, quitHover, stateContainer.Game.WIDTH - (quitImage.getWidth() + 15), 530);
                 }

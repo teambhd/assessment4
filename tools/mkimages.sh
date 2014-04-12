@@ -240,3 +240,27 @@ label:'menu' \
 -geometry +0+0 \
 -define png:bit-depth=8 \
 ../src/res/text_graphics/menu_hover.png
+
+
+# The Resume button
+montage -background none \
+-fill white \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 56 \
+label:'resume' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/resume.png
+
+montage -background none \
+-fill "#E2CD7D" \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 56 \
+label:'resume' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/resume_hover.png
