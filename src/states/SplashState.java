@@ -1,9 +1,8 @@
 package states;
 
-//import java.awt.Rectangle;
 import java.io.IOException;
 
-//import org.newdawn.slick.Color;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -16,31 +15,27 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public final class SplashState extends BasicGameState {
 
-    private static Image
-    splash, indicator;
+    private static Color backgroundColor = new Color(60, 60, 60); // or #3C3C3C as a hex colour
+    private static Image loadingImage;
     private static LoadingList loading = LoadingList.get();
 
     public SplashState(int state) {}
 
     @Override
-    public void init(GameContainer gc, StateBasedGame s)
-    throws SlickException {
-        splash = new Image("res/graphics/startup_bg.png");
-        indicator = new Image("res/graphics/startup_plane.png");
+    public void init(GameContainer gc, StateBasedGame s) throws SlickException {
+        gc.getGraphics().setBackground(backgroundColor);
+        loadingImage = new Image("res/text_graphics/loading.png");        
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame s, Graphics g)
-    throws SlickException {
-        g.drawImage(splash, 0, 0);
-        indicator.drawCentered(900 - ((600 * loading.getRemainingResources()) / loading.getTotalResources()), 390);
+    public void render(GameContainer gc, StateBasedGame s, Graphics g) throws SlickException {
+        loadingImage.drawCentered(stateContainer.Game.WIDTH / 2, stateContainer.Game.HEIGHT / 2);
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame s, int delta)
-    throws SlickException {
-        if (loading.getRemainingResources() == 0) { //finished loading
-            gc.setShowFPS(false);
+    public void update(GameContainer gc, StateBasedGame s, int delta) throws SlickException {
+        // If there's nothing left to load then proceed to the main menu
+        if (loading.getRemainingResources() == 0) {
             s.enterState(stateContainer.Game.MENUSTATE);
         }
 
