@@ -126,11 +126,10 @@ public class Airspace {
     /**
      * newFlight: Add a new flight to the list of flights in the airspace if it has been long enough since the last flight was added and if random number satisfies condition
      * The flight is also given a name
-     * @param gc Game container required by Slick2d
      * @throws SlickException
      */
 
-    public boolean newFlight(GameContainer gc) throws SlickException {
+    public boolean newFlight() throws SlickException {
         if (this.listOfFlightsInAirspace.size() < this.maximumNumberOfFlightsInAirspace) {
             if ((this.numberOfGameLoopsSinceLastFlightAdded >= 850  || this.listOfFlightsInAirspace.isEmpty())) {
                 Random rand = new Random();
@@ -183,7 +182,7 @@ public class Airspace {
                     if (addFlight(tempFlight)) {
                         this.numberOfGameLoopsSinceLastFlightAdded = 0;
                         this.listOfFlightsInAirspace.get(
-                            this.listOfFlightsInAirspace.size() - 1).init(gc);
+                            this.listOfFlightsInAirspace.size() - 1).init();
                         return true;
                     }
                 }
@@ -268,10 +267,9 @@ public class Airspace {
 
     /**
      * update: Update all logic in the airspace class
-     * @param gc GameContainer
      */
 
-    public void update(GameContainer gc) {
+    public void update() {
         this.numberOfGameLoopsSinceLastFlightAdded++;
         this.numberOfGameLoops++;
 

@@ -528,7 +528,7 @@ public class FlightPlan {
         }
     }
 
-    public void render(Graphics g, GameContainer gc) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         if (this.currentRoute.size() > 0) {
             g.setColor(Color.lightGray);
             

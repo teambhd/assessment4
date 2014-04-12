@@ -1,4 +1,5 @@
 package logicClasses;
+
 import static java.lang.Math.PI;
 
 import java.util.Random;
@@ -346,10 +347,9 @@ public class Flight {
 
     /**
      * init: initialises resources such as images.
-     * @param gc - GameContainer required by slick2d.
      */
 
-    public void init(GameContainer gc) throws SlickException {
+    public void init() throws SlickException {        
         if (whiteFlightImage == null) {
             whiteFlightImage = new Image("res/graphics/flight.png");
         }

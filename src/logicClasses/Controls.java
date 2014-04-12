@@ -31,7 +31,7 @@ public class Controls {
 
     // METHODS
        
-    public void render(Graphics g, GameContainer gc) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         if (selectedFlight != null) {
             // Draw a circle of the appropriate colour around our currently selected flight
             if (myPlayer == "red") {
@@ -49,7 +49,7 @@ public class Controls {
             g.drawOval((int)selectedFlight.getX() - 14, (int)selectedFlight.getY() - 14, 28, 28);
             
             // Draw the flight plan for our currently selected flight
-            selectedFlight.getFlightPlan().render(g, gc);
+            selectedFlight.getFlightPlan().render(g);
         }
     }
 
