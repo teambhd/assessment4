@@ -194,3 +194,49 @@ label:'hard' \
 ../src/res/text_graphics/hard_hover.png
 
 
+# The Play Again button
+montage -background none \
+-fill white \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 56 \
+label:'play again' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/again.png
+
+montage -background none \
+-fill "#E2CD7D" \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 56 \
+label:'play again' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/again_hover.png
+
+
+# The button for the main menu
+montage -background none \
+-fill white \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 48 \
+label:'menu' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/menu.png
+
+montage -background none \
+-fill "#E2CD7D" \
+-font ../src/res/fonts/a-love-of-thunder.ttf  \
+-pointsize 48 \
+label:'menu' \
++set label -shadow \
+-background none \
+-geometry +0+0 \
+-define png:bit-depth=8 \
+../src/res/text_graphics/menu_hover.png

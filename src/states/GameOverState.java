@@ -1,26 +1,32 @@
 package states;
-import logicClasses.Achievements;
 
 import org.lwjgl.input.Mouse;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.loading.DeferredResource;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import logicClasses.Achievements;
+
 import util.DeferredFile;
+import util.HoverImage;
 
 
 public class GameOverState extends BasicGameState {
 
-    private static Image
-    quitButton, menuButton, playAgainButton,
-                quitHover, menuHover, playAgainHover,
-                gameOverBackground;
+    private static Image 
+    quitImage, menuImage, againImage,
+    quitHover, menuHover, againHover,
+    gameOverBackground;
+    
+    private static HoverImage againButton, menuButton, quitButton;
 
     private Achievements achievement;
 
@@ -39,24 +45,24 @@ public class GameOverState extends BasicGameState {
                     gameOverBackground = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/playagain_button.png") {
+            loading.add(new DeferredFile("res/text_graphics/again.png") {
                 public void loadFile(String filename) throws SlickException {
-                    playAgainButton = new Image(filename);
+                    againImage = new Image(filename);
                 }
             });
             loading.add(new DeferredFile("res/text_graphics/quit.png") {
                 public void loadFile(String filename) throws SlickException {
-                    quitButton = new Image(filename);
+                    quitImage = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/menu_button.png") {
+            loading.add(new DeferredFile("res/text_graphics/menu.png") {
                 public void loadFile(String filename) throws SlickException {
-                    menuButton = new Image(filename);
+                    menuImage = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/playagain_hover.png") {
+            loading.add(new DeferredFile("res/text_graphics/again_hover.png") {
                 public void loadFile(String filename) throws SlickException {
-                    playAgainHover = new Image(filename);
+                    againHover = new Image(filename);
                 }
             });
             loading.add(new DeferredFile("res/text_graphics/quit_hover.png") {
@@ -64,65 +70,53 @@ public class GameOverState extends BasicGameState {
                     quitHover = new Image(filename);
                 }
             });
-            loading.add(new DeferredFile("res/menu_graphics/menu_hover.png") {
+            loading.add(new DeferredFile("res/text_graphics/menu_hover.png") {
                 public void loadFile(String filename) throws SlickException {
                     menuHover = new Image(filename);
+                }
+            });
+            loading.add(new DeferredResource() {
+                public String getDescription() {
+                    return "set up GameOverState buttons";
+                }
+                public void load() {
+                    againButton = new HoverImage(againImage, againHover, ((stateContainer.Game.WIDTH - againImage.getWidth()) / 2) - 5, 420);
+                    menuButton = new HoverImage(menuImage, menuHover, 20, 530);
+                    quitButton = new HoverImage(quitImage, quitHover, stateContainer.Game.WIDTH - (quitImage.getWidth() + 15), 530);
                 }
             });
         }
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
-    throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         gameOverBackground.draw(0, 0);
+        
         int posX = Mouse.getX();
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();
-        //Fixing posY to reflect graphics coords
-
-        if (posX > 728 && posX < 844 && posY > 380 && posY < 426) {
-            menuHover.draw(728, 380);
-        }
-
-        else {
-            menuButton.draw(728, 380);
-        }
-
-        if (posX > 354 && posX < 582 && posY > 380 && posY < 424) {
-            playAgainHover.draw(354, 380);
-        }
-
-        else {
-            playAgainButton.draw(354, 380);
-        }
-
-        if ((posX > 1150 && posX < 1170) && (posY > 550 && posY < 580)) {
-            quitHover.draw(1148, 556);
-        }
-
-        else {
-            quitButton.draw(1148, 556);
-        }
+        
+        againButton.render(posX, posY);
+        menuButton.render(posX, posY);
+        quitButton.render(posX, posY);
 
         g.drawString(achievement.crashAchievement(60), 900, 30);
-        g.setColor(Color.white);
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
-        int posX = Mouse.getX(),
-            posY = stateContainer.Game.HEIGHT - Mouse.getY();
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+        int posX = Mouse.getX();
+        int posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-            if (posX > 354 && posX < 582 && posY > 380 && posY < 424) {
+            if (againButton.isMouseOver(posX, posY)) {
                 sbg.enterState(stateContainer.Game.PLAYSTATE);
             }
 
-            if (posX > 728 && posX < 844 && posY > 380 && posY < 426) { // 116 46
+            if (menuButton.isMouseOver(posX, posY)) {
                 sbg.enterState(stateContainer.Game.MENUSTATE);
             }
 
-            if ((posX > 1150 && posX < 1170) && (posY > 550 && posY < 580)) {
+            if (quitButton.isMouseOver(posX, posY)) {
                 System.exit(0);
             }
         }
