@@ -86,11 +86,11 @@ public class FlightPlan {
                     continue;
                 }
 
-                if (entryPoint.getX() == 150 && exitPoint.getX() == 150) {
+                if (entryPoint.getX() == 0 && exitPoint.getX() == 0) {
                     continue;
                 }
 
-                if (entryPoint.getX() == 1200 && exitPoint.getX() == 1200) {
+                if (entryPoint.getX() == stateContainer.Game.WIDTH && exitPoint.getX() == stateContainer.Game.WIDTH) {
                     continue;
                 }
 
