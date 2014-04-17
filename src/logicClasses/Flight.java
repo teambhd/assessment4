@@ -139,12 +139,7 @@ public class Flight {
      */
 
     public double calculateHeadingToFirstWaypoint(double desX, double desY) {
-        double deltaX;
-        double deltaY;
-        deltaY = desY - this.y;
-        deltaX = desX - this.x;
-        double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
-        angle += 90;
+        double angle = Math.toDegrees(Math.atan2(desY - this.y, desX - this.x)) + 90;
 
         if (angle < 0) {
             angle += 360;
@@ -262,7 +257,6 @@ public class Flight {
     public void land() {
         // if next point is an exit point
         if (!landing && getFlightPlan().getCurrentRoute().size() == 1 && getFlightPlan().getExitPoint().isRunway()) {
-            System.out.println("land() function called and next waypoint is the runway");
             landing = true;
             //point towards exitpoint
             double heading = Math.atan2(flightPlan.getExitPoint().getY() - y, flightPlan.getExitPoint().getX() - x) + PI / 2;
@@ -453,14 +447,16 @@ public class Flight {
         whiteFlightImage.setRotation((int) currentHeading);
         whiteFlightImage.draw((int) this.x - 10, (int) this.y - 10);
 
-        // Drawing information around flight, first the next waypoint, then the flight's altitude
+        // Drawing information around flight, first the next waypoint, then the flight's altitude, then the flight's speed
         g.setColor(Color.white);
         
         if (this.flightPlan.getCurrentRoute().size() > 0) {
-            g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int) this.x + 18, (int)this.y - 18);
+            g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int)this.x + 18, (int)this.y - 27);
         }
         
-        g.drawString(Math.round(this.currentAltitude) + "ft", (int) this.x + 17, (int) this.y);
+        g.drawString(Math.round(this.currentAltitude) + "ft", (int)this.x + 17, (int)this.y - 9);
+        
+        g.drawString(Math.round(this.velocity) + "mph", (int)this.x + 17, (int)this.y + 9);
     }
 
     // MUTATORS AND ACCESSORS

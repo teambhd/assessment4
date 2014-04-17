@@ -496,15 +496,13 @@ public class FlightPlan {
      */
 
     public int generateVelocity() {
-        Random rand = new Random();
+        Random r = new Random();
 
         if (entryPoint.isRunway()) {
             return 0;
         }
-
-        int min = flight.getMinVelocity(),
-            max = flight.getMaxVelocity();
-        return (rand.nextInt(min) + (max - min));
+                
+        return (r.nextInt((flight.getMaxVelocity() - flight.getMinVelocity()) / 50) * 50) + flight.getMinVelocity();
     }
 
     /**
