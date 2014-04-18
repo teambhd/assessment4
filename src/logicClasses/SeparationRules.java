@@ -147,7 +147,6 @@ public class SeparationRules {
         return this.warningVerticalSeparation;
     }
 
-
     public boolean getGameOverViolation() {
         return this.gameOverViolation;
     }

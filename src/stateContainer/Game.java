@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import states.DifficultyState;
 import states.GameOverState;
 import states.MenuState;
 import states.PauseState;
@@ -24,7 +25,8 @@ public class Game extends StateBasedGame {
     MULTIPLAYSTATE = 3,
     GAMEOVERSTATE = 4,
     PAUSESTATE = 5,
-    CONTROLSSTATE = 6;
+    CONTROLSSTATE = 6,
+    DIFFICULTYSTATE = 7;
 
     public static final int WIDTH = 1200, HEIGHT = 600;
 
@@ -43,6 +45,7 @@ public class Game extends StateBasedGame {
         addState(new SplashState(SPLASHSTATE));
         enterState(SPLASHSTATE);
         addState(new MenuState(MENUSTATE));
+        addState(new DifficultyState(DIFFICULTYSTATE));
         addState(new PlayState(PLAYSTATE));
         addState(new MultiPlayState(MULTIPLAYSTATE));
         addState(new GameOverState(GAMEOVERSTATE));
@@ -58,6 +61,8 @@ public class Game extends StateBasedGame {
             appgc.setDisplayMode(WIDTH, HEIGHT, false);
             appgc.setTargetFrameRate(60);
             appgc.setShowFPS(false);
+            appgc.setAlwaysRender(true);
+            appgc.setUpdateOnlyWhenVisible(true);
             appgc.setIcon("res/graphics/icon.png");
             appgc.start();
         }

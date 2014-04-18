@@ -87,6 +87,11 @@ public class GameOverState extends BasicGameState {
             });
         }
     }
+    
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) {
+        PlayState.restartGame();
+    }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
