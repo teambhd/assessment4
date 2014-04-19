@@ -17,9 +17,11 @@ import util.HoverImage;
 public class PauseState extends BasicGameState {
 
     private static Image pauseBackground;
-    private static Image quitButton, quitButtonHover, backButton, backButtonHover;
+    private static Image backButton, backButtonHover;
+    private static Image menuImage, menuHover;
+    private static Image quitButton, quitButtonHover; 
     
-    private static HoverImage back, quit;
+    private static HoverImage back, menu, quit;
 
     public PauseState(int state) {}
 
@@ -41,6 +43,16 @@ public class PauseState extends BasicGameState {
                 backButtonHover = new Image(filename);
             }
         });
+        loading.add(new DeferredFile("res/text_graphics/menu.png") {
+            public void loadFile(String filename) throws SlickException {
+                menuImage = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/menu_hover.png") {
+            public void loadFile(String filename) throws SlickException {
+                menuHover = new Image(filename);
+            }
+        });
         loading.add(new DeferredFile("res/text_graphics/quit.png") {
             public void loadFile(String filename) throws SlickException {
                 quitButton = new Image(filename);
@@ -57,6 +69,7 @@ public class PauseState extends BasicGameState {
             }
             public void load() {
                 back = new HoverImage(backButton, backButtonHover, ((stateContainer.Game.WIDTH - backButton.getWidth()) / 2) + 5, 420);
+                menu = new HoverImage(menuImage, menuHover, 20, 530);
                 quit = new HoverImage(quitButton, quitButtonHover, stateContainer.Game.WIDTH - (quitButton.getWidth() + 15), 530);
             }
         });
@@ -72,6 +85,7 @@ public class PauseState extends BasicGameState {
         
         // Draw the buttons
         back.render(posX, posY);
+        menu.render(posX, posY);
         quit.render(posX, posY);
     }
 
@@ -87,6 +101,11 @@ public class PauseState extends BasicGameState {
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             if (back.isMouseOver(posX, posY)) {
                 sbg.enterState(stateContainer.Game.PLAYSTATE);
+            }
+            
+            if (menu.isMouseOver(posX, posY)) {
+                PlayState.restartGame();
+                sbg.enterState(stateContainer.Game.MENUSTATE);
             }
 
             if (quit.isMouseOver(posX, posY)) {

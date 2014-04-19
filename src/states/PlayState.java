@@ -146,6 +146,7 @@ public class PlayState extends BasicGameState {
     public void enter(GameContainer container, StateBasedGame game) {
         if (!gameBegun) {
             // Set the difficulty from the value deposited by the DifficultyState
+            System.out.println("Game begun with difficulty " + difficultyLevel);
             airspace.setDifficultyValueOfGame(difficultyLevel);
             airspace.createAndSetSeparationRules();
             

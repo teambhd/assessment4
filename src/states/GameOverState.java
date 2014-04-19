@@ -114,7 +114,7 @@ public class GameOverState extends BasicGameState {
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             if (againButton.isMouseOver(posX, posY)) {
-                sbg.enterState(stateContainer.Game.PLAYSTATE);
+                sbg.enterState(stateContainer.Game.DIFFICULTYSTATE);
             }
 
             if (menuButton.isMouseOver(posX, posY)) {
