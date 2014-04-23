@@ -395,7 +395,8 @@ public class Flight {
         if (landing) {
             if (!circling && !finalApproach)
                 if (withinTolerance(currentHeading, targetHeading, turnRate)) {
-                    if (withinTolerance(currentHeading, airspace.getAirport().getRunwayHeading(), 5)) {
+                    if (withinTolerance(currentHeading, airspace.getAirport().get(0).getRunwayHeading(), 5)||
+                    		withinTolerance(currentHeading, airspace.getAirport().get(1).getRunwayHeading(), 5)) {
                         //{!} test still lined up and far enough away
                         setTargetAltitude(500);
                         circling = true;
@@ -411,7 +412,8 @@ public class Flight {
                 if (withinTolerance(currentHeading, targetHeading, turnRate)) {
                     partCircling = false;
 
-                    if (currentAltitude == targetAltitude && withinTolerance(currentHeading, airspace.getAirport().getRunwayHeading(), 30)) {
+                    if (currentAltitude == targetAltitude && (withinTolerance(currentHeading, airspace.getAirport().get(0).getRunwayHeading(), 30)
+                    		||withinTolerance(currentHeading, airspace.getAirport().get(1).getRunwayHeading(), 30))) {
                         //{!} final  approach starts
                         circling = false;
                         finalApproach = true;
