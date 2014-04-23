@@ -3,18 +3,6 @@ package states;
 import java.awt.Font;
 import java.io.InputStream;
 
-import logicClasses.Achievements;
-import logicClasses.Airspace;
-import logicClasses.Controls;
-import logicClasses.Flight;
-import logicClasses.WindIndicator;
-
-import org.lwjgl.input.Mouse;
-import org.newdawn.slick.loading.DeferredResource;
-import org.newdawn.slick.loading.LoadingList;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -23,23 +11,28 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.loading.LoadingList;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
+
+import logicClasses.Achievements;
+import logicClasses.Airspace;
+import logicClasses.Controls;
+import logicClasses.Flight;
+import logicClasses.Timer;
+import logicClasses.WindIndicator;
 
 import util.DeferredFile;
-import util.HoverImage;
 import util.KeyBindings;
 
-
 public class PlayState extends BasicGameState {
-    private static Image backgroundImage;
-    private static Image clockImage;
-                
+
     private static Sound endOfGameSound;
     private static Music gameplayMusic;
     private static TrueTypeFont font;
     
-    public static float time = 0;
-    private static String stringTime = "";
+    private float time = 0;
 
     private Airspace airspace;
     private Controls controls;
@@ -58,55 +51,50 @@ public class PlayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        
-        // Initialise all the required classes (mainly this loads required images)        
+
+        // Initialise all the required classes (mainly this loads required images)  
+        logicClasses.Airspace.init();      
         logicClasses.Airport.init();
         logicClasses.Flight.init();
         logicClasses.Waypoint.init();
         logicClasses.ExitPoint.init();
         logicClasses.EntryPoint.init();
+        logicClasses.Timer.init();
         logicClasses.WindIndicator.init();                
         
+        
+        LoadingList loading = LoadingList.get();
+        
         // Font
-        {
-            LoadingList loading = LoadingList.get();
-            loading.add(new DeferredFile("res/fonts/fira-sans.ttf") {
-                public void loadFile(String filename) {
-                    InputStream inputStream = ResourceLoader.getResourceAsStream(filename);
+        loading.add(new DeferredFile("res/fonts/fira-sans.ttf") {
+            public void loadFile(String filename) {
+                InputStream inputStream = ResourceLoader.getResourceAsStream(filename);
 
-                    try {
-                        Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-                        font = new TrueTypeFont(awtFont.deriveFont(16f), true);
-                    }
+                try {
+                    Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+                    font = new TrueTypeFont(awtFont.deriveFont(16f), true);
+                }
 
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
-            // Music
-            loading.add(new DeferredFile("res/music/new/muzikele.ogg") {
-                public void loadFile(String filename) throws SlickException {
-                    gameplayMusic = new Music(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/music/new/Big Explosion.ogg") {
-                public void loadFile(String filename) throws SlickException {
-                    endOfGameSound = new Sound(filename);
-                }
-            });
-            //Images
-            loading.add(new DeferredFile("res/graphics/clock.png") {
-                public void loadFile(String filename) throws SlickException {
-                    clockImage = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/graphics/background.png") {
-                public void loadFile(String filename) throws SlickException {
-                    backgroundImage = new Image(filename);
-                }
-            });
-        }
+            }
+        });
+        
+        // Music
+        loading.add(new DeferredFile("res/music/new/muzikele.ogg") {
+            public void loadFile(String filename) throws SlickException {
+                gameplayMusic = new Music(filename);
+            }
+        });
+        
+        // Sound Effects
+        loading.add(new DeferredFile("res/music/new/Big Explosion.ogg") {
+            public void loadFile(String filename) throws SlickException {
+                endOfGameSound = new Sound(filename);
+            }
+        });
+        
         
         // Create the airspace object;
         airspace = new Airspace(false);
@@ -142,6 +130,7 @@ public class PlayState extends BasicGameState {
         
         // Create the wind indicator object
         windIndicator = new WindIndicator();
+        
     }
     
     @Override
@@ -171,21 +160,16 @@ public class PlayState extends BasicGameState {
         
         //set font for the rest of the render
         g.setFont(font);
-        
-        // Draw the background image
-        backgroundImage.draw(0, 0);
-        
-        // Drawing Airspace and elements within it
-        g.setColor(Color.white);
+                
+        // Drawing the airspace (and it's background image) and thereby the elements within it
         airspace.render(g);
         controls.render(g);
         
         // Drawing Clock and Time
-        g.setColor(Color.white);
-        clockImage.draw(0, 5);
-        g.drawString(stringTime, 25, 10);
+        logicClasses.Timer.render(g, this.time);
         
         // Drawing Score
+        g.setColor(Color.white);
         g.drawString(airspace.getScore().toString(), 10, 35);
         
         // Draw the WindIndicator
@@ -204,40 +188,7 @@ public class PlayState extends BasicGameState {
         
         // Updating Clock and Time
         time += delta;
-        achievement.timeAchievement((int)time);
-        float decMins = time / 1000 / 60;
-        int mins = (int) decMins;
-        float decSecs = decMins - mins;
-        int secs = Math.round(decSecs * 60);
-        String stringMins = "";
-        String stringSecs = "";
-
-        if (secs >= 60) {
-            secs -= 60;
-            mins += 1;
-            // {!} should do +60 score every minute(possibly)
-            //     - after 3 minutes adds on 2 less points every time?
-            airspace.getScore().updateTimeScore();
-        }
-
-        if (mins < 10) {
-            stringMins = "0" + mins;
-        }
-
-        else {
-            stringMins = String.valueOf(mins);
-        }
-
-        if (secs < 10) {
-            stringSecs = "0" + secs;
-        }
-
-        else {
-            stringSecs = String.valueOf(secs);
-        }
-
-        this.stringTime = stringMins + ":" + stringSecs;
-        
+        achievement.timeAchievement((int)time);        
         
         // Updating Airspace
         airspace.newFlight();
@@ -253,10 +204,8 @@ public class PlayState extends BasicGameState {
             sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
         }
 
-        Input input = gc.getInput();
-
         // Checking For Pause Screen requested in game
-        if (input.isKeyPressed(Input.KEY_P)) {
+        if (gc.getInput().isKeyPressed(Input.KEY_P)) {
             sbg.enterState(stateContainer.Game.PAUSESTATE);
         }
 
