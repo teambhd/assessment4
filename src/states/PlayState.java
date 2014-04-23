@@ -7,6 +7,7 @@ import logicClasses.Achievements;
 import logicClasses.Airspace;
 import logicClasses.Controls;
 import logicClasses.Flight;
+import logicClasses.WindIndicator;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.loading.DeferredResource;
@@ -32,7 +33,6 @@ import util.KeyBindings;
 public class PlayState extends BasicGameState {
     private static Image backgroundImage;
     private static Image clockImage;
-    private static Image windImage;
                 
     private static Sound endOfGameSound;
     private static Music gameplayMusic;
@@ -43,6 +43,7 @@ public class PlayState extends BasicGameState {
 
     private Airspace airspace;
     private Controls controls;
+    private WindIndicator windIndicator;
 
     private static boolean gameBegun = false;
 
@@ -63,7 +64,8 @@ public class PlayState extends BasicGameState {
         logicClasses.Flight.init();
         logicClasses.Waypoint.init();
         logicClasses.ExitPoint.init();
-        logicClasses.EntryPoint.init();                
+        logicClasses.EntryPoint.init();
+        logicClasses.WindIndicator.init();                
         
         // Font
         {
@@ -97,11 +99,6 @@ public class PlayState extends BasicGameState {
             loading.add(new DeferredFile("res/graphics/clock.png") {
                 public void loadFile(String filename) throws SlickException {
                     clockImage = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/graphics/wind_indicator.png") {
-                public void loadFile(String filename) throws SlickException {
-                    windImage = new Image(filename);
                 }
             });
             loading.add(new DeferredFile("res/graphics/background.png") {
@@ -140,6 +137,9 @@ public class PlayState extends BasicGameState {
         
         // Initialise the controls
         controls = new Controls(KeyBindings.singlePlayerKeys, "single");
+        
+        // Create the wind indicator object
+        windIndicator = new WindIndicator();
     }
     
     @Override
@@ -150,7 +150,7 @@ public class PlayState extends BasicGameState {
             airspace.setDifficultyValueOfGame(difficultyLevel);
             airspace.createAndSetSeparationRules();
             
-            // Reset the airspace and the time and score (redundant on firstlaunch but may as well be done)
+            // Reset the airspace and the time and score (redundant on first launch but may as well be done)
             airspace.resetAirspace();
             time = 0;
             airspace.getScore().resetScore();
@@ -186,19 +186,15 @@ public class PlayState extends BasicGameState {
         // Drawing Score
         g.drawString(airspace.getScore().toString(), 10, 35);
         
-        //drawing wind direction
-        windImage.setRotation(windImage.getRotation() + ((float)Math.cos(time / 2999.0) + (float)Math.sin(time / 1009.0)) / 3);
-        //for now, set wind direction pseudo-randomly
-        windImage.draw(14, 550);
-        g.drawString("Wind:", 60, 550);
-        g.drawString(String.valueOf(Math.abs(Math.round(windImage.getRotation()))), 65, 565);
+        // Draw the WindIndicator
+        windIndicator.render(g, this.time);
         
         // Drawing Achievements
         g.drawString(airspace.getScore().scoreAchievement(),
                      stateContainer.Game.WIDTH - font.getWidth(airspace.getScore().scoreAchievement()) - 10, 30);
         g.drawString(achievementMessage,
                      stateContainer.Game.WIDTH - 10 - font.getWidth(achievementMessage), 40);
-    
+        
     }
 
     @Override
@@ -239,6 +235,8 @@ public class PlayState extends BasicGameState {
         }
 
         this.stringTime = stringMins + ":" + stringSecs;
+        
+        
         // Updating Airspace
         airspace.newFlight();
         airspace.update();
