@@ -5,11 +5,26 @@ import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.loading.LoadingList;
 
+import util.DeferredFile;
 
 
 public class Airspace {
+    
+    private static Image backgroundImage;
+    
+    public static void init() throws SlickException {
+        if (backgroundImage == null) {
+            LoadingList.get().add(new DeferredFile("res/graphics/background.png") {
+                public void loadFile(String filename) throws SlickException {
+                    backgroundImage = new Image(filename);
+                }
+            });
+        }
+    }
 
 	private int maximumNumberOfFlightsInAirspace;
 	private int numberOfGameLoopsSinceLastFlightAdded, numberOfGameLoops,
@@ -247,7 +262,6 @@ public class Airspace {
 	}
 
 
-
 	// RENDER, UPDATE
 
 	/**
@@ -288,28 +302,30 @@ public class Airspace {
 	/**
 	 * render: Render all of the graphics in the airspace
 	 * @param g Graphics
-	 * @param gc GameContainer
 	 *
 	 * @throws SlickException
 	 */
 
 	public void render(Graphics g) throws SlickException {
-		this.listOfAirports.get(0).render(g);
-		this.listOfAirports.get(1).render(g);
+        backgroundImage.draw(0, 0);
+        
+        for (Airport a : listOfAirports) {
+            a.render(g);
+        }        
 
-		for (Waypoint w : listOfWayppoints) { // Draws waypoints
+		for (Waypoint w : listOfWayppoints) { 
 			w.render(g);
 		}
 
-		for (ExitPoint e : listOfExitPoints) { // Draws exit points
+		for (ExitPoint e : listOfExitPoints) {
 			e.render(g);
 		}
 
-		for (EntryPoint e : listOfEntryPoints) { // Draws entry points
+		for (EntryPoint e : listOfEntryPoints) {
 			e.render(g);
 		}
 
-		for (Flight f : listOfFlightsInAirspace) { // Draws flights in airspace
+		for (Flight f : listOfFlightsInAirspace) {
 			f.render(g);
 		}
 

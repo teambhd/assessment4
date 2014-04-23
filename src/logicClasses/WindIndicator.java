@@ -12,11 +12,9 @@ public class WindIndicator {
     
     private static Image windImage;
             
-    public static void init() throws SlickException {
-        LoadingList loading = LoadingList.get();
-        
+    public static void init() throws SlickException {        
         if (windImage == null) {
-            loading.add(new DeferredFile("res/graphics/wind_indicator.png") {
+            LoadingList.get().add(new DeferredFile("res/graphics/wind_indicator.png") {
                 public void loadFile(String filename) throws SlickException {
                     windImage = new Image(filename);
                 }
