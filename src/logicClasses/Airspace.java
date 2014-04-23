@@ -17,10 +17,8 @@ public class Airspace {
     private static Image backgroundImage;
     
     public static void init() throws SlickException {
-        LoadingList loading = LoadingList.get();
-        
         if (backgroundImage == null) {
-            loading.add(new DeferredFile("res/graphics/background.png") {
+            LoadingList.get().add(new DeferredFile("res/graphics/background.png") {
                 public void loadFile(String filename) throws SlickException {
                     backgroundImage = new Image(filename);
                 }

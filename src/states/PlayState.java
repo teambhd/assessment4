@@ -20,7 +20,7 @@ import logicClasses.Achievements;
 import logicClasses.Airspace;
 import logicClasses.Controls;
 import logicClasses.Flight;
-import logicClasses.Timer;
+import logicClasses.TimeIndicator;
 import logicClasses.WindIndicator;
 
 import util.DeferredFile;
@@ -59,7 +59,7 @@ public class PlayState extends BasicGameState {
         logicClasses.Waypoint.init();
         logicClasses.ExitPoint.init();
         logicClasses.EntryPoint.init();
-        logicClasses.Timer.init();
+        logicClasses.TimeIndicator.init();
         logicClasses.WindIndicator.init();                
         
         
@@ -166,7 +166,7 @@ public class PlayState extends BasicGameState {
         controls.render(g);
         
         // Drawing Clock and Time
-        logicClasses.Timer.render(g, this.time);
+        logicClasses.TimeIndicator.render(g, this.time);
         
         // Drawing Score
         g.setColor(Color.white);

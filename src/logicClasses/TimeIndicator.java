@@ -8,15 +8,13 @@ import org.newdawn.slick.loading.LoadingList;
 
 import util.DeferredFile;
 
-public class Timer {
+public class TimeIndicator {
     
     private static Image clockImage;
     
-    public static void init() throws SlickException {
-        LoadingList loading = LoadingList.get();
-        
+    public static void init() throws SlickException {        
         if (clockImage == null) {
-            loading.add(new DeferredFile("res/graphics/clock.png") {
+            LoadingList.get().add(new DeferredFile("res/graphics/clock.png") {
                 public void loadFile(String filename) throws SlickException {
                     clockImage = new Image(filename);
                 }
@@ -31,7 +29,7 @@ public class Timer {
         int displaySecs = elapsedSecs % 60;
         
         // Draw the clock icon
-        clockImage.draw(0, 5);
+        clockImage.draw(0, 4);
         
         // Write out the time, with the values padded to 2 digits
         g.setColor(Color.white);
