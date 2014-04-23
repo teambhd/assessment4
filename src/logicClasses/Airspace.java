@@ -172,10 +172,10 @@ public class Airspace {
 
 					if (tempFlight.getFlightPlan().getEntryPoint().isRunway()) {
 						if ( tempFlight.getX () == this.listOfAirports.get(0).getX() ){
-							heading = 0;
+							heading = this.listOfAirports.get(0).getRunwayHeading();
 						}
 						else {
-							heading = 90;
+							heading = this.listOfAirports.get(1).getRunwayHeading();
 						}
 					}
 
@@ -266,6 +266,9 @@ public class Airspace {
 			this.listOfFlightsInAirspace.get(i).update(score);
 
 			if (this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size() == 0) {
+				this.removeSpecificFlight(i);
+			}
+			if (this.listOfFlightsInAirspace.get(i).getRemove()){
 				this.removeSpecificFlight(i);
 			}
 

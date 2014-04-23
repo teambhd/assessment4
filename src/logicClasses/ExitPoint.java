@@ -77,5 +77,6 @@ public class ExitPoint extends Point {
     public boolean isRunway() {
         return x != 0 && x != stateContainer.Game.WIDTH && y != 0 && y != stateContainer.Game.HEIGHT;
     }
+    
 
 }

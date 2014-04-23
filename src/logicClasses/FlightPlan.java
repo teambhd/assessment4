@@ -210,6 +210,7 @@ public class FlightPlan {
         return this.exitPoint;
     }
     
+    
     @Override
     public String toString() {
         String returnString = "";
