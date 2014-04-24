@@ -38,8 +38,9 @@ public class PlayState extends BasicGameState {
     private Controls controls;
     private WindIndicator windIndicator;
 
-    private int difficultyLevel;
-
+    private static int difficultyLevel;
+    private static boolean gameBegun;
+    
     // Constructor
     public PlayState(int state) {}
 
@@ -129,7 +130,19 @@ public class PlayState extends BasicGameState {
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
-        System.out.println("Game begun with difficulty " + difficultyLevel);        
+        if (!gameBegun) {
+            // Set the difficulty from the value deposited by the DifficultyState
+            System.out.println("Game begun with difficulty " + difficultyLevel);
+            airspace.setDifficultyValueOfGame(difficultyLevel);
+            airspace.createAndSetSeparationRules();
+            
+            // Reset the airspace and the time and score (redundant on first launch but may as well be done)
+            airspace.resetAirspace();
+            time = 0;
+            airspace.getScore().resetScore();
+            
+            gameBegun = true;
+        }
     } 
     
     @Override
@@ -192,17 +205,12 @@ public class PlayState extends BasicGameState {
         
     }
     
-    public void setGameDifficulty(int dL) {
+    public static void setGameDifficulty(int dL) {
         difficultyLevel = dL;
-        airspace.setDifficultyValueOfGame(difficultyLevel);
-        airspace.createAndSetSeparationRules();
     }
     
-    public void restartGame() {
-        // Reset the airspace and the time and score
-        airspace.resetAirspace();
-        time = 0;
-        airspace.getScore().resetScore();
+    public static void restartGame() {
+        gameBegun = false;
     }
 
     @Override

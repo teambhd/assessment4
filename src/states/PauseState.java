@@ -104,7 +104,7 @@ public class PauseState extends BasicGameState {
             }
             
             if (menu.isMouseOver(posX, posY)) {
-                sbg.getState(stateContainer.Game.PLAYSTATE).restartGame();
+                PlayState.restartGame();
                 sbg.enterState(stateContainer.Game.MENUSTATE);
             }
 
