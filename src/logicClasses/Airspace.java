@@ -1,4 +1,5 @@
 package logicClasses;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,9 +27,14 @@ public class Airspace {
         }
     }
 
-	private int maximumNumberOfFlightsInAirspace;
+    private static Random rand = new Random();
+
+	private static final int MAX_FLIGHTS = 10;
+    
+    private int chanceOfNewFlight;
+
 	private int numberOfGameLoopsSinceLastFlightAdded, numberOfGameLoops,
-	numberOfGameLoopsWhenDifficultyIncreases, randomNumberForFlightGeneration;
+	numberOfGameLoopsWhenDifficultyIncreases;
 	private List<Flight> listOfFlightsInAirspace;
 	private List<Waypoint> listOfWayppoints;
 	private List<EntryPoint> listOfEntryPoints;
@@ -42,7 +48,6 @@ public class Airspace {
 
 	// CONSTRUCTOR
 	public Airspace(boolean multiplayer) {
-		this.maximumNumberOfFlightsInAirspace = 10;
 		this.listOfFlightsInAirspace = new ArrayList<Flight>();
 		this.listOfWayppoints = new ArrayList<Waypoint>();
 		this.listOfEntryPoints = new ArrayList<EntryPoint>();
@@ -51,8 +56,8 @@ public class Airspace {
 		this.numberOfGameLoopsSinceLastFlightAdded = 0; // Stores how many loops since the last flight was spawned before another flight can enter
 		this.numberOfGameLoops = 0; // Stores how many loops there have been in total
 		this.numberOfGameLoopsWhenDifficultyIncreases = 3600; // this is how many loops until planes come more quickly, difficulty increase once a minute
-		this.randomNumberForFlightGeneration = 500;
 		this.difficultyValueOfGame = 0; // This value will be changed when the user selects a difficulty in the playstate
+        this.chanceOfNewFlight = 500;
 		this.isMultiplayer = multiplayer;
 		this.score = new ScoreTracking();
 	}
@@ -149,18 +154,8 @@ public class Airspace {
 	 */
 
 	public boolean newFlight() throws SlickException {
-		if (this.listOfFlightsInAirspace.size() < this.maximumNumberOfFlightsInAirspace) {
+		if (this.listOfFlightsInAirspace.size() < MAX_FLIGHTS) {
 			if ((this.numberOfGameLoopsSinceLastFlightAdded >= 850  || this.listOfFlightsInAirspace.isEmpty())) {
-				Random rand = new Random();
-				int checkNumber;
-
-				if (this.listOfFlightsInAirspace.isEmpty()) {
-					checkNumber = rand.nextInt(100); // A random number (checkNumber) is generated in the range [0, 100)
-				}
-
-				else {
-					checkNumber = rand.nextInt(this.randomNumberForFlightGeneration); // A random number (checkNumber) is generated in range [0, randomNumberForFlightGeneration)
-				}
 
 				/*
 				 * The random number is generated in the range [0, 100) if the airspace is empty, as this increases
@@ -169,6 +164,16 @@ public class Airspace {
 				 * If the airspace is not empty, the random number generated is in the range [0, randomNumberForFlight Generation)
 				 * which is > 100. This decreases the likelihood of a flight being generated.
 				 */
+
+                int checkNumber;
+
+				if (this.listOfFlightsInAirspace.isEmpty()) {
+					checkNumber = rand.nextInt(100); 
+				}
+
+				else {
+					checkNumber = rand.nextInt(chanceOfNewFlight);
+				}
 
 				if (checkNumber == 1) {
 					Flight tempFlight = new Flight(this);
@@ -179,9 +184,13 @@ public class Airspace {
 						tempFlight.setOwner("single");
 					}
 
-					else {
-						// TODO: Handle setting a random owner for multiplayer mode
+					else if (rand.nextBoolean()) {
+                        tempFlight.setOwner("red");
 					}
+
+                    else {
+                        tempFlight.setOwner("blue");
+                    }
 
 					double heading;
 
@@ -222,7 +231,6 @@ public class Airspace {
 
 	public String generateFlightName() {
 		String name = "G-";
-		Random rand = new Random();
 
 		for (int i = 0; i < 4; i++) {
 			int thisChar = rand.nextInt(10) + 65; // Generates int in range [65, 74]
@@ -256,8 +264,8 @@ public class Airspace {
 	public void increaseDifficulty() {
 		this.numberOfGameLoopsWhenDifficultyIncreases += 3600;
 
-		if (this.randomNumberForFlightGeneration - 50 > 0) {
-			this.randomNumberForFlightGeneration -= 50;
+		if (this.chanceOfNewFlight - 50 > 0) {
+			this.chanceOfNewFlight -= 50;
 		}
 	}
 
@@ -337,7 +345,7 @@ public class Airspace {
 	// MUTATORS AND ACCESSORS
 
 	public int getMaxNumberOfFlights() {
-		return this.maximumNumberOfFlightsInAirspace;
+		return MAX_FLIGHTS;
 	}
 
 	public List<Flight> getListOfFlights() {
@@ -370,10 +378,6 @@ public class Airspace {
 
 	public List<ExitPoint> getListOfExitPoints() {
 		return this.listOfExitPoints;
-	}
-
-	public void setMaxNumberOfFlights(int maxNumberOfFlights) {
-		this.maximumNumberOfFlightsInAirspace = maxNumberOfFlights;
 	}
 
 	public boolean addWaypoint(Waypoint waypoint) {
@@ -412,7 +416,7 @@ public class Airspace {
 	public boolean addFlight(Flight flight) {
 		// Checks whether the flight was already added before, and if it won't pass the maximum number of flights allowed
 		if ((this.listOfFlightsInAirspace.contains(flight))
-				&& (this.listOfFlightsInAirspace.size() > this.maximumNumberOfFlightsInAirspace - 1)) {
+				&& (this.listOfFlightsInAirspace.size() > MAX_FLIGHTS - 1)) {
 			return false;
 		}
 
