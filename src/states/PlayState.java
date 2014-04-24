@@ -1,20 +1,12 @@
 package states;
 
-import java.awt.Font;
-import java.io.InputStream;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 
 import logicClasses.Airspace;
 import logicClasses.Controls;
@@ -22,15 +14,10 @@ import logicClasses.Flight;
 import logicClasses.TimeIndicator;
 import logicClasses.WindIndicator;
 
-import util.DeferredFile;
 import util.KeyBindings;
 
 
 public class PlayState extends BasicGameState {
-
-    private static Sound endOfGameSound;
-    private static Music gameplayMusic;
-    private static TrueTypeFont font;
     
     private int time = 0;
     
@@ -55,41 +42,11 @@ public class PlayState extends BasicGameState {
         logicClasses.ExitPoint.init();
         logicClasses.EntryPoint.init();
         logicClasses.TimeIndicator.init();
-        logicClasses.WindIndicator.init();                
+        logicClasses.WindIndicator.init();
         
-        
-        LoadingList loading = LoadingList.get();
-        
-        // Font
-        loading.add(new DeferredFile("res/fonts/fira-sans.ttf") {
-            public void loadFile(String filename) {
-                InputStream inputStream = ResourceLoader.getResourceAsStream(filename);
-
-                try {
-                    Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-                    font = new TrueTypeFont(awtFont.deriveFont(16f), true);
-                }
-
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        
-        // Music
-        loading.add(new DeferredFile("res/music/new/muzikele.ogg") {
-            public void loadFile(String filename) throws SlickException {
-                gameplayMusic = new Music(filename);
-            }
-        });
-        
-        // Sound Effects
-        loading.add(new DeferredFile("res/music/new/Big Explosion.ogg") {
-            public void loadFile(String filename) throws SlickException {
-                endOfGameSound = new Sound(filename);
-            }
-        });
-        
+        // Load the shared game resources (music and font)
+        util.GameAudio.init();        
+        util.GameFont.init();                
         
         // Create the airspace object;
         airspace = new Airspace(false);
@@ -153,8 +110,8 @@ public class PlayState extends BasicGameState {
             g.setAntiAlias(true);
         }        
         
-        //set font for the rest of the render
-        g.setFont(font);
+        // Set font for the rest of the render
+        g.setFont(util.GameFont.getFont());
                 
         // Drawing the airspace (and it's background image) and thereby the elements within it
         airspace.render(g);
@@ -187,8 +144,8 @@ public class PlayState extends BasicGameState {
 
         if (airspace.getSeparationRules().getGameOverViolation()) {
             airspace.getSeparationRules().setGameOverViolation(false);
-            gameplayMusic.stop();
-            endOfGameSound.play();
+            util.GameAudio.getMusic().stop();
+            util.GameAudio.getEndOfGameSound().play();
             restartGame();
             sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
         }
@@ -198,9 +155,9 @@ public class PlayState extends BasicGameState {
             sbg.enterState(stateContainer.Game.PAUSESTATE);
         }
 
-        if (!gameplayMusic.playing()) {
+        if (!util.GameAudio.getMusic().playing()) {
             //Loops gameplay music based on random number created in init
-            gameplayMusic.loop(1.0f, 0.5f);
+            util.GameAudio.getMusic().loop(1.0f, 0.5f);
         }
         
     }
