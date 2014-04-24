@@ -237,6 +237,22 @@ public class Flight {
 		//getting closer OR not close enough
 		return false;
 	}
+	
+	/**
+	 * checkIfAtAirport: Checks if the flight is in the relative area of the airport. Used for landing.
+	 * @param airport - the airport that we are checking.
+	 * @return true if the flight is in the airport area. False otherwise.
+	 */
+
+	public boolean checkIfAtAirport(Airport airport) {	
+		if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 200)
+				&& (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 15) {
+			return true;
+		}
+
+		return false;
+	}
+
 
 	public int minDistanceFromWaypoint(Point waypoint) {
 		return closestDistance;
@@ -254,21 +270,30 @@ public class Flight {
 
 	public void land() {
 		// if next point is an exit point
+		System.out.println ("We have the land button pressed!");
 		if (!landing && getFlightPlan().getCurrentRoute().size() == 1 && getFlightPlan().getExitPoint().isRunway() && 
-				this.checkHeading() && this.checkIfFlightAtWaypoint(this.getFlightPlan().getExitPoint())) {
-			landing = true;
-			//point towards exitpoint
-			setTargetVelocity(minVelocity);
-			setTargetAltitude(minAltitude);
-			this.timeToLand = 300;
+				this.checkHeading()) {
+			System.out.println ("We will now check if at airport!");
+			for (int i = 0; i<this.airspace.getAirport().size(); i++) {
+				if (this.checkIfAtAirport(this.airspace.getAirport().get(i))){
+					System.out.println ("We have a landing!");
+					landing = true;
+					setTargetVelocity(0);
+					setTargetAltitude(0);
+					this.timeToLand = 300;
+				}
+			}
 		}
 	}
-	
+
 	public boolean checkHeading (){
 		Airport airport = this.matchAirport(this.getFlightPlan().getExitPoint().getX());
+		System.out.println(airport);
+		System.out.println(airport.getRunwayHeading());
 		if (withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading(),10) ||
 				withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()+180,10)||
 				withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()-180,10)) {
+			System.out.println ("We have good heading!");
 			return true;
 		}
 		else {
@@ -565,7 +590,7 @@ public class Flight {
 	public int getCurrentAltitude() {
 		return currentAltitude;
 	}
-	
+
 	public boolean getRemove(){
 		return this.removeme;
 	}

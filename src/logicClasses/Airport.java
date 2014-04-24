@@ -26,6 +26,12 @@ public class Airport {
 		this.x = x;
 		this.y = y;
 		this.name = name;
+		if (name == "Blue airport"){
+			this.runwayHeading = 0;
+		}
+		if (name == "Red airport"){
+			this.runwayHeading = 90;
+		}
 	}
 
 	public static void init() throws SlickException {
