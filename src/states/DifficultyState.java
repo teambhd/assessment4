@@ -13,16 +13,12 @@ import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import logicClasses.Achievements;
-
 import util.DeferredFile;
 import util.HoverImage;
 
 
 public class DifficultyState extends BasicGameState {
-    
-    private int stateID;
-    
+        
     private static Image difficultyBackground;
     private static Image easyImage, mediumImage, hardImage;
     private static Image easyHover, mediumHover, hardHover;
@@ -33,9 +29,8 @@ public class DifficultyState extends BasicGameState {
     private static final int MEDIUM = 2;
     private static final int HARD = 3;
     
-    public DifficultyState(int stateID) {
-        this.stateID = stateID;
-    }
+    // Constructor
+    public DifficultyState(int stateID) {}
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -90,6 +85,7 @@ public class DifficultyState extends BasicGameState {
     
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        // Get the co-ordinates of the mouse pointer, flipping on the Y axis so as to use the same origin as the graphics object
         int posX = Mouse.getX();
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
@@ -128,7 +124,7 @@ public class DifficultyState extends BasicGameState {
     
     @Override
     public int getID() {
-        return this.stateID;
+        return stateContainer.Game.DIFFICULTYSTATE;
     }
     
 }

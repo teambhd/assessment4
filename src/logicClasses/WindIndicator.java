@@ -26,7 +26,7 @@ public class WindIndicator {
     
     public WindIndicator() {}
     
-    public void render(Graphics g, float time) throws SlickException {
+    public void render(Graphics g, int time) throws SlickException {
         // Update the arrow's rotation by a random amount
         this.direction += ((float)Math.cos(time / 2999.0) + (float)Math.sin(time / 1009.0)) / 3;
         

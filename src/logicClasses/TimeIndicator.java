@@ -22,9 +22,9 @@ public class TimeIndicator {
         }
     }
     
-    public static void render(Graphics g, float time) throws SlickException {
+    public static void render(Graphics g, int time) throws SlickException {
         // Work out the time to display
-        int elapsedSecs = Math.round(time / 1000);
+        int elapsedSecs = time / 1000;
         int displayMins = elapsedSecs / 60;
         int displaySecs = elapsedSecs % 60;
         

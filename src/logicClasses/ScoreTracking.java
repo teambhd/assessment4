@@ -4,15 +4,12 @@ public class ScoreTracking {
 
     private int currentScore = 0;
     private int waypointScore;
-    private static final int TIMESCORE = 2;     //constant for the time scoring
-    private static final int FLIGHTPLANCHANGE = 10;
-    private static final int FLIGHTLOST = 50;
-    private Achievements achievements;
+    
+    private static final int TIMESCORE = 2;
+    private static final int FLIGHTLOST = -50;
 
-    //CONSTRUCTOR
-    public ScoreTracking() {
-        achievements = new Achievements();
-    }
+    // Constructor
+    public ScoreTracking() {}
 
     //METHODS
     // Positive scoring
@@ -33,30 +30,16 @@ public class ScoreTracking {
     }
 
     public int updateScore(int score) {
-        return currentScore += score;       //increase the current score by the score passed by parameter
-    }
-
-    public String scoreAchievement() {
-        String achievementScore = achievements.pointsAchievement(currentScore);
-        return achievementScore;
+        return currentScore += score;
     }
 
     public int updateTimeScore() {
-        currentScore += TIMESCORE;
-        achievements.pointsAchievement(currentScore);
-        return currentScore;
+        return currentScore += TIMESCORE;
     }
 
-    //Negative Scoring
-    public int reduceScoreOnFlightplanChange() {
-        currentScore -= FLIGHTPLANCHANGE;
-        achievements.changeFlightPlanAchievement();
-        return currentScore;
-    }
-
+    // Negative Scoring
     public int reduceScoreOnFlightLost() {
-        currentScore -= FLIGHTLOST;
-        return currentScore;
+        return currentScore += FLIGHTLOST;
     }
 
     public void resetScore() {
@@ -68,8 +51,7 @@ public class ScoreTracking {
     }
 
     public String toString() {
-        String s = "Score = " + currentScore;
-        return s;
+        return "Score = " + currentScore;
     }
 
 }
