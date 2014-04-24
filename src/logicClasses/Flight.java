@@ -47,7 +47,7 @@ public class Flight {
 	// been checked that the plane is inside the waypoint
 	private int distanceFromWaypoint;
 
-	private boolean
+	private boolean			//All three variables are used to control the flight state.
 	takingOff = false,
 	landing = false,
 	removeme = false;
@@ -115,7 +115,7 @@ public class Flight {
 	 * @return A random altitude (either 28000, 29000 or 30000)
 	 */
 
-	public int generateAltitude() { //{!} not converted to using min/max
+	public int generateAltitude() {
 		if (getFlightPlan().getEntryPoint().isRunway()) {
 			return 0;
 		}
@@ -196,63 +196,6 @@ public class Flight {
 		this.targetHeading = newHeading;
 	}
 
-	/**
-	 * checkIfFlightAtWaypoint: checks whether a flight is close enough to the next waypoint in it's plan
-	 * for it to be considered at that waypoint. Update the closestDistance so that it knows how close the plane
-	 * was from the waypoint when it leaves the waypoint. This is so the score can be updated correctly
-	 * @param Waypoint - The next waypoint in the flight's plan.
-	 * @return True if flight is at it's next waypoint and it is moving away from that waypoint.
-	 */
-
-	public boolean checkIfFlightAtWaypoint(Point waypoint) {
-		int distanceX;
-		int distanceY;
-		distanceX = (int)(Math.abs(Math.round(this.x) - Math.round(waypoint.getX())));
-		distanceY = (int)(Math.abs(Math.round(this.y) - Math.round(waypoint.getY())));
-		distanceFromWaypoint = (int)Math.sqrt((int)Math.pow(distanceX, 2) + (int)Math.pow(distanceY, 2));
-
-		// The plane is coming towards the waypoint
-		if (closestDistance > distanceFromWaypoint) {
-			closestDistance = distanceFromWaypoint;
-		}
-
-		if ((distanceX <= RADIUS) && (distanceY <= RADIUS)) {
-			// The plane is going away from the way point
-			if (closestDistance < distanceFromWaypoint) {
-				if (waypoint instanceof ExitPoint) {
-					if (((ExitPoint)waypoint).isRunway()) {
-						return currentAltitude == 0;
-					}
-
-					else {
-						return true;
-					}
-				}
-
-				//for any non-exit waypoint
-				return true;
-			}
-		}
-
-		//getting closer OR not close enough
-		return false;
-	}
-	
-	/**
-	 * checkIfAtAirport: Checks if the flight is in the relative area of the airport. Used for landing.
-	 * @param airport - the airport that we are checking.
-	 * @return true if the flight is in the airport area. False otherwise.
-	 */
-
-	public boolean checkIfAtAirport(Airport airport) {	
-		if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 200)
-				&& (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 15) {
-			return true;
-		}
-
-		return false;
-	}
-
 
 	public int minDistanceFromWaypoint(Point waypoint) {
 		return closestDistance;
@@ -269,37 +212,20 @@ public class Flight {
 	}
 
 	public void land() {
-		// if next point is an exit point
-		System.out.println ("We have the land button pressed!");
 		if (!landing && getFlightPlan().getCurrentRoute().size() == 1 && getFlightPlan().getExitPoint().isRunway() && 
-				this.checkHeading()) {
-			System.out.println ("We will now check if at airport!");
-			for (int i = 0; i<this.airspace.getAirport().size(); i++) {
+				this.checkHeading()) { //Checks if a flight is meant to land, if it is landing already and its heading.
+			for (int i = 0; i<this.airspace.getAirport().size(); i++) { //Checks if the flight is at a runway.
+				// (Checking a particular runway (red or blue ariport) is pointless, since we already have the heading.
 				if (this.checkIfAtAirport(this.airspace.getAirport().get(i))){
-					System.out.println ("We have a landing!");
-					landing = true;
+					landing = true; //Set state to landing
 					setTargetVelocity(0);
 					setTargetAltitude(0);
-					this.timeToLand = 300;
+					this.timeToLand = 300; //Set game update cycles until the flight lands.
 				}
 			}
 		}
 	}
 
-	public boolean checkHeading (){
-		Airport airport = this.matchAirport(this.getFlightPlan().getExitPoint().getX());
-		System.out.println(airport);
-		System.out.println(airport.getRunwayHeading());
-		if (withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading(),10) ||
-				withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()+180,10)||
-				withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()-180,10)) {
-			System.out.println ("We have good heading!");
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
 	// UPDATE METHODS
 
@@ -438,9 +364,6 @@ public class Flight {
 		}
 	}
 
-	public boolean withinTolerance(double x1, double x2, double tolerance) {
-		return Math.abs(x1 - x2) <= tolerance;
-	}
 
 	/**
 	 * render: draw's all elements of the flight and it's information.
@@ -475,6 +398,86 @@ public class Flight {
 			return this.airspace.getAirport().get(1);
 		}
 	}
+	
+	//UTILITY METHODS
+	
+	public boolean withinTolerance(double x1, double x2, double tolerance) {
+		return Math.abs(x1 - x2) <= tolerance;
+	}
+	
+	
+	public boolean checkHeading (){ //Method to check if the flight is heading parallel to a runway.
+		Airport airport = this.matchAirport(this.getFlightPlan().getExitPoint().getX()); //Check the relevant airport
+		if (withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading(),10) || //Do checks for both runway
+				withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()+180,10)|| //directions.
+				withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()-180,10)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * checkIfFlightAtWaypoint: checks whether a flight is close enough to the next waypoint in it's plan
+	 * for it to be considered at that waypoint. Update the closestDistance so that it knows how close the plane
+	 * was from the waypoint when it leaves the waypoint. This is so the score can be updated correctly
+	 * @param Waypoint - The next waypoint in the flight's plan.
+	 * @return True if flight is at it's next waypoint and it is moving away from that waypoint.
+	 */
+
+	public boolean checkIfFlightAtWaypoint(Point waypoint) {
+		int distanceX;
+		int distanceY;
+		distanceX = (int)(Math.abs(Math.round(this.x) - Math.round(waypoint.getX())));
+		distanceY = (int)(Math.abs(Math.round(this.y) - Math.round(waypoint.getY())));
+		distanceFromWaypoint = (int)Math.sqrt((int)Math.pow(distanceX, 2) + (int)Math.pow(distanceY, 2));
+
+		// The plane is coming towards the waypoint
+		if (closestDistance > distanceFromWaypoint) {
+			closestDistance = distanceFromWaypoint;
+		}
+
+		if ((distanceX <= RADIUS) && (distanceY <= RADIUS)) {
+			// The plane is going away from the way point
+			if (closestDistance < distanceFromWaypoint) {
+				if (waypoint instanceof ExitPoint) {
+					if (((ExitPoint)waypoint).isRunway()) {
+						return currentAltitude == 0;
+					}
+
+					else {
+						return true;
+					}
+				}
+
+				//for any non-exit waypoint
+				return true;
+			}
+		}
+
+		//getting closer OR not close enough
+		return false;
+	}
+	
+
+	/**
+	 * checkIfAtAirport: Checks if the flight is in the relative area of the airport. Used for landing.
+	 * Since an airport is a very specific type of a point, we cannot use the stock checkIfAtWaypoint method.
+	 * @param airport - the airport that we are checking.
+	 * @return true if the flight is in the airport area. False otherwise.
+	 */
+
+	public boolean checkIfAtAirport(Airport airport) {	
+		if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 200)
+				&& (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 15) {
+			return true;
+		}
+
+		return false;
+	}
+
 
 	// MUTATORS AND ACCESSORS
 	public double getX() {
