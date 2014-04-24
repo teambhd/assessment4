@@ -65,13 +65,6 @@ public class ScoreTracking_Test {
     }
 
     @Test
-    public void testReduceScoreOnFlightplanChange() {
-        int reducedScore = -10;
-        int actualReducedScore = scoreTrackingInstance.reduceScoreOnFlightplanChange();
-        assertEquals(reducedScore, actualReducedScore);
-    }
-
-    @Test
     public void testReduceScoreOnFlightLost() {
         int actualReducedScore = scoreTrackingInstance.reduceScoreOnFlightLost();
         assertEquals(-50, actualReducedScore);

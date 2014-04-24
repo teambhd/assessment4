@@ -16,7 +16,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import logicClasses.Achievements;
 import logicClasses.Airspace;
 import logicClasses.Controls;
 import logicClasses.Flight;
@@ -26,28 +25,23 @@ import logicClasses.WindIndicator;
 import util.DeferredFile;
 import util.KeyBindings;
 
+
 public class PlayState extends BasicGameState {
 
     private static Sound endOfGameSound;
     private static Music gameplayMusic;
     private static TrueTypeFont font;
     
-    private float time = 0;
-
+    private int time = 0;
+    
     private Airspace airspace;
     private Controls controls;
     private WindIndicator windIndicator;
 
-    private static boolean gameBegun = false;
+    private int difficultyLevel;
 
-    private Achievements achievement;
-    private String achievementMessage = "";
-    
-    private static int difficultyLevel;
-
-    public PlayState(int state) {
-        achievement = new Achievements();
-    }
+    // Constructor
+    public PlayState(int state) {}
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -135,19 +129,7 @@ public class PlayState extends BasicGameState {
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
-        if (!gameBegun) {
-            // Set the difficulty from the value deposited by the DifficultyState
-            System.out.println("Game begun with difficulty " + difficultyLevel);
-            airspace.setDifficultyValueOfGame(difficultyLevel);
-            airspace.createAndSetSeparationRules();
-            
-            // Reset the airspace and the time and score (redundant on first launch but may as well be done)
-            airspace.resetAirspace();
-            time = 0;
-            airspace.getScore().resetScore();
-            
-            gameBegun = true;
-        }
+        System.out.println("Game begun with difficulty " + difficultyLevel);        
     } 
     
     @Override
@@ -171,40 +153,34 @@ public class PlayState extends BasicGameState {
         // Drawing Score
         g.setColor(Color.white);
         g.drawString(airspace.getScore().toString(), 10, 35);
-        
+                
         // Draw the WindIndicator
         windIndicator.render(g, this.time);
-        
-        // Drawing Achievements
-        g.drawString(airspace.getScore().scoreAchievement(),
-                     stateContainer.Game.WIDTH - font.getWidth(airspace.getScore().scoreAchievement()) - 10, 30);
-        g.drawString(achievementMessage,
-                     stateContainer.Game.WIDTH - 10 - font.getWidth(achievementMessage), 40);
-        
+                
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         
-        // Updating Clock and Time
+        // Increment the time variable by the number of ms elapsed since this function was last called
         time += delta;
-        achievement.timeAchievement((int)time);        
         
-        // Updating Airspace
+        // Update the airspace, and potentially spawn a new flight
         airspace.newFlight();
         airspace.update();
         
+        // Update the controls overlay
         controls.update(gc, airspace);
 
-        if (airspace.getSeparationRules().getGameOverViolation() == true) {
-            achievementMessage = achievement.crashAchievement((int)time); //pass the game time as of game over into the crashAchievement
+        if (airspace.getSeparationRules().getGameOverViolation()) {
             airspace.getSeparationRules().setGameOverViolation(false);
             gameplayMusic.stop();
             endOfGameSound.play();
+            restartGame();
             sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
         }
 
-        // Checking For Pause Screen requested in game
+        // Checking for Pause Screen requested in game
         if (gc.getInput().isKeyPressed(Input.KEY_P)) {
             sbg.enterState(stateContainer.Game.PAUSESTATE);
         }
@@ -216,12 +192,17 @@ public class PlayState extends BasicGameState {
         
     }
     
-    public static void setGameDifficulty(int dL) {
+    public void setGameDifficulty(int dL) {
         difficultyLevel = dL;
+        airspace.setDifficultyValueOfGame(difficultyLevel);
+        airspace.createAndSetSeparationRules();
     }
     
-    public static void restartGame() {
-        gameBegun = false;
+    public void restartGame() {
+        // Reset the airspace and the time and score
+        airspace.resetAirspace();
+        time = 0;
+        airspace.getScore().resetScore();
     }
 
     @Override

@@ -13,26 +13,23 @@ import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import logicClasses.Achievements;
-
 import util.DeferredFile;
 import util.HoverImage;
 
 
 public class GameOverState extends BasicGameState {
 
-    private static Image 
-    quitImage, menuImage, againImage,
-    quitHover, menuHover, againHover,
-    gameOverBackground;
+    private static Image gameOverBackground;
+
+    private static Image quitImage, quitHover;
+    private static Image menuImage, menuHover;
+    private static Image againImage, againHover;
     
     private static HoverImage againButton, menuButton, quitButton;
 
-    private Achievements achievement;
 
-    public GameOverState(int state) {
-        achievement = new Achievements();
-    }
+    // Constructor
+    public GameOverState(int state) {}
 
 
     @Override
@@ -89,26 +86,23 @@ public class GameOverState extends BasicGameState {
     }
     
     @Override
-    public void enter(GameContainer container, StateBasedGame game) {
-        PlayState.restartGame();
-    }
-
-    @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        // Draw the background image
         gameOverBackground.draw(0, 0);
         
+        // Get the co-ordinates of the mouse pointer, flipping on the Y axis so as to use the same origin as the graphics object
         int posX = Mouse.getX();
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();
-        
+
+        // Render the 3 buttons
         againButton.render(posX, posY);
         menuButton.render(posX, posY);
         quitButton.render(posX, posY);
-
-        g.drawString(achievement.crashAchievement(60), 900, 30);
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+        // Get the co-ordinates of the mouse pointer, flipping on the Y axis so as to use the same origin as the graphics object
         int posX = Mouse.getX();
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
