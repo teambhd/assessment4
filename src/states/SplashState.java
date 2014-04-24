@@ -24,9 +24,23 @@ public final class SplashState extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame s) throws SlickException {
         gc.getGraphics().setBackground(backgroundColor);
-        loadingImage = new Image("res/text_graphics/loading.png");        
+        loadingImage = new Image("res/text_graphics/loading.png"); 
+        
+        // Intitialise the shared game resources (music and font)
+        util.GameAudio.init();        
+        util.GameFont.init();                
+        
+        // Initialise all the logic classes (mainly this loads required images)  
+        logicClasses.Airspace.init();      
+        logicClasses.Airport.init();
+        logicClasses.Flight.init();
+        logicClasses.Waypoint.init();
+        logicClasses.ExitPoint.init();
+        logicClasses.EntryPoint.init();
+        logicClasses.TimeIndicator.init();
+        logicClasses.WindIndicator.init();       
     }
-
+    
     @Override
     public void render(GameContainer gc, StateBasedGame s, Graphics g) throws SlickException {
         loadingImage.drawCentered(stateContainer.Game.WIDTH / 2, stateContainer.Game.HEIGHT / 2);
@@ -43,6 +57,7 @@ public final class SplashState extends BasicGameState {
             DeferredResource next = loading.getNext();
 
             try {
+                System.out.println("Loading: " + next.getDescription());
                 next.load();
             }
 

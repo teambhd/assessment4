@@ -1,20 +1,12 @@
 package states;
 
-import java.awt.Font;
-import java.io.InputStream;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
 
 import logicClasses.Airspace;
 import logicClasses.Controls;
@@ -22,22 +14,41 @@ import logicClasses.Flight;
 import logicClasses.TimeIndicator;
 import logicClasses.WindIndicator;
 
-import util.DeferredFile;
 import util.KeyBindings;
 
 
 public class MultiPlayState extends BasicGameState {
+    
+    private int time = 0;
+    
+    private Airspace airspace;
+    private Controls controls;
+    private WindIndicator windIndicator;
+
+    private static boolean gameBegun;
     
     // Constructor
     public MultiPlayState(int state) {}
         
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+                
+        // Create the airspace object;
+        airspace = new Airspace(true);
         
     }
     
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        
+        // Ensure that anti-aliasing is always enabled
+        if (!g.isAntiAlias()) {
+            g.setAntiAlias(true);
+        }        
+        
+        // Set font for the rest of the render
+        g.setFont(util.GameFont.getFont());
+        
     
     }
     

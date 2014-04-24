@@ -33,20 +33,6 @@ public class PlayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-
-        // Initialise all the required classes (mainly this loads required images)  
-        logicClasses.Airspace.init();      
-        logicClasses.Airport.init();
-        logicClasses.Flight.init();
-        logicClasses.Waypoint.init();
-        logicClasses.ExitPoint.init();
-        logicClasses.EntryPoint.init();
-        logicClasses.TimeIndicator.init();
-        logicClasses.WindIndicator.init();
-        
-        // Load the shared game resources (music and font)
-        util.GameAudio.init();        
-        util.GameFont.init();                
         
         // Create the airspace object;
         airspace = new Airspace(false);
