@@ -131,6 +131,10 @@ public class MenuState extends BasicGameState {
                     sbg.enterState(stateContainer.Game.DIFFICULTYSTATE);
                 }
 
+		if (versus.isMouseOver(posX, posY)) {
+		    sbg.enterState(stateContainer.Game.MULTIPLAYSTATE);
+		}
+
                 if (controls.isMouseOver(posX, posY)) {
                     sbg.enterState(stateContainer.Game.CONTROLSSTATE);
                 }

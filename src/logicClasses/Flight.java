@@ -375,8 +375,20 @@ public class Flight {
 		shadowImage.setRotation((int) currentHeading);
 		shadowImage.draw((int) this.x - 35, (int) this.y, shadowScale);
 
-		whiteFlightImage.setRotation((int) currentHeading);
-		whiteFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+		if (this.owner == "red") {
+		    redFlightImage.setRotation((int) currentHeading);
+		    redFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+		}
+
+		else if (this.owner == "blue") {
+		    blueFlightImage.setRotation((int) currentHeading);
+		    blueFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+		}
+
+		else {
+		    whiteFlightImage.setRotation((int) currentHeading);
+		    whiteFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+		}
 
 		// Drawing information around flight, first the next waypoint, then the flight's altitude, then the flight's speed
 		g.setColor(Color.white);
