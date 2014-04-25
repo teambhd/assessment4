@@ -138,6 +138,7 @@ public class PlayState extends BasicGameState {
 
         // Checking for Pause Screen requested in game
         if (gc.getInput().isKeyPressed(Input.KEY_P)) {
+	    PauseState.setDestinationStateID(getID());
             sbg.enterState(stateContainer.Game.PAUSESTATE);
         }
 
