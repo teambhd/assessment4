@@ -212,8 +212,7 @@ public class Flight {
 	}
 
 	public void land() {
-		if (!landing && getFlightPlan().getCurrentRoute().size() == 1 && getFlightPlan().getExitPoint().isRunway() && 
-				this.checkHeading()) { //Checks if a flight is meant to land, if it is landing already and its heading.
+		if (!landing &&	this.checkHeading()) { //Checks if a flight is meant to land, if it is landing already and its heading.
 			for (int i = 0; i<this.airspace.getAirport().size(); i++) { //Checks if the flight is at a runway.
 				// (Checking a particular runway (red or blue ariport) is pointless, since we already have the heading.
 				if (this.checkIfAtAirport(this.airspace.getAirport().get(i))){
@@ -426,15 +425,15 @@ public class Flight {
 
 
 	public boolean checkHeading (){ //Method to check if the flight is heading parallel to a runway.
-		Airport airport = this.matchAirport(this.getFlightPlan().getExitPoint().getX()); //Check the relevant airport
-		if (withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading(),10) || //Do checks for both runway
-				withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()+180,10)|| //directions.
-				withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()-180,10)) {
-			return true;
+		for (int i = 0; i<this.airspace.getAirport().size(); i++) { //Checks if the flight is at a runway.
+			Airport airport = this.airspace.getAirport().get(i);
+			if (withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading(),10) || //Do checks for both runway
+					withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()+180,10)|| //directions.
+					withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading()-180,10)) {
+				return true;
+			}
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 
 
