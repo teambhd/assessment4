@@ -22,7 +22,8 @@ public class MultiPlayState extends BasicGameState {
     private int time = 0;
     
     private Airspace airspace;
-    private Controls controls;
+    private Controls redControls;
+    private Controls blueControls;
     private WindIndicator windIndicator;
 
     private static boolean gameBegun;
@@ -35,8 +36,56 @@ public class MultiPlayState extends BasicGameState {
                 
         // Create the airspace object;
         airspace = new Airspace(true);
+
+	// Add Waypoints
+        airspace.newWaypoint(350, 150, "A");
+        airspace.newWaypoint(400, 470, "B");
+        airspace.newWaypoint(700, 60,  "C");
+        airspace.newWaypoint(800, 320, "D");
+        airspace.newWaypoint(600, 418, "E");
+        airspace.newWaypoint(500, 220, "F");
+        airspace.newWaypoint(950, 188, "G");
+        airspace.newWaypoint(1050, 272, "H");
+        airspace.newWaypoint(900, 420, "I");
+        airspace.newWaypoint(240, 250, "J");
+        
+        // Add EntryPoints
+        airspace.newEntryPoint(0, 400);
+        airspace.newEntryPoint(1200, 200);
+        airspace.newEntryPoint(600, 0);
+        airspace.newEntryPoint(700, 400);		//Blue Airport
+        airspace.newEntryPoint(100, 100);		//Red Airport
+        
+        // Add Exit Points
+        airspace.newExitPoint(800, 0, "Exit 1");
+        airspace.newExitPoint(0, 200, "Exit 2");
+        airspace.newExitPoint(1200, 300, "Exit 3");
+        airspace.newExitPoint(700, 300, "Blue airport");
+        airspace.newExitPoint(200, 100, "Red airport");
+        
+        // Initialise the controls
+        redControls = new Controls(KeyBindings.redPlayerKeys, "red");
+	blueControls = new Controls(KeyBindings.bluePlayerKeys, "blue");
+        
+        // Create the wind indicator object
+        windIndicator = new WindIndicator();
         
     }
+
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) {
+        if (!gameBegun) {
+            airspace.setDifficultyValueOfGame(1);
+            airspace.createAndSetSeparationRules();
+            
+            // Reset the airspace and the time and score (redundant on first launch but may as well be done)
+            airspace.resetAirspace();
+            time = 0;
+            airspace.getScore().resetScore();
+            
+            gameBegun = true;
+        }
+    } 
     
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
@@ -48,13 +97,62 @@ public class MultiPlayState extends BasicGameState {
         
         // Set font for the rest of the render
         g.setFont(util.GameFont.getFont());
+
+        // Drawing the airspace (and it's background image) and thereby the elements within it
+        airspace.render(g);
+
+	// Render the two sets of controls
+        redControls.render(g);
+	blueControls.render(g);
         
+        // Drawing Clock and Time
+        logicClasses.TimeIndicator.render(g, this.time);
+        
+        // Drawing Score
+        g.setColor(Color.white);
+        g.drawString(airspace.getScore().toString(), 10, 35);
+                
+        // Draw the WindIndicator
+        windIndicator.render(g, this.time);
     
     }
     
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-    
+
+        // Increment the time variable by the number of ms elapsed since this function was last called
+        time += delta;
+        
+        // Update the airspace, and potentially spawn a new flight
+        airspace.newFlight();
+        airspace.update();
+        
+        // Update the controls overlays
+        redControls.update(gc, airspace);
+	blueControls.update(gc, airspace);
+
+        // Checking for Pause Screen requested in game
+        if (gc.getInput().isKeyPressed(Input.KEY_P)) {
+            sbg.enterState(stateContainer.Game.PAUSESTATE);
+        }
+
+        if (!util.GameAudio.getMusic().playing()) {
+            //Loops gameplay music based on random number created in init
+            util.GameAudio.getMusic().loop(1.0f, 0.5f);
+        }
+
+    }
+
+    public static void restartGame() {
+        gameBegun = false;
+    }
+
+    public Airspace getAirspace() {
+        return airspace;
+    }
+
+    public void setAirspace(Airspace airspace) {
+        this.airspace = airspace;
     }
     
     @Override
