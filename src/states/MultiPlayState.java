@@ -22,9 +22,13 @@ public class MultiPlayState extends BasicGameState {
     private int time = 0;
     
     private Airspace airspace;
+    private WindIndicator windIndicator;
+
     private Controls redControls;
     private Controls blueControls;
-    private WindIndicator windIndicator;
+
+    // private ScoreTracking redScore;
+    // private ScoreTracking blueScore;
 
     private static boolean gameBegun;
     
@@ -37,7 +41,7 @@ public class MultiPlayState extends BasicGameState {
         // Create the airspace object;
         airspace = new Airspace(true);
 
-	// Add Waypoints
+	    // Add Waypoints
         airspace.newWaypoint(350, 150, "A");
         airspace.newWaypoint(400, 470, "B");
         airspace.newWaypoint(700, 60,  "C");
@@ -65,7 +69,9 @@ public class MultiPlayState extends BasicGameState {
         
         // Initialise the controls
         redControls = new Controls(KeyBindings.redPlayerKeys, "red");
-	blueControls = new Controls(KeyBindings.bluePlayerKeys, "blue");
+	    blueControls = new Controls(KeyBindings.bluePlayerKeys, "blue");
+
+	    // TODO: Initialise the scores
         
         // Create the wind indicator object
         windIndicator = new WindIndicator();
@@ -133,6 +139,7 @@ public class MultiPlayState extends BasicGameState {
 
         // Checking for Pause Screen requested in game
         if (gc.getInput().isKeyPressed(Input.KEY_P)) {
+	    PauseState.setDestinationStateID(getID());
             sbg.enterState(stateContainer.Game.PAUSESTATE);
         }
 

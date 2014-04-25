@@ -23,6 +23,9 @@ public class PauseState extends BasicGameState {
     
     private static HoverImage back, menu, quit;
 
+    // Initialise the destination state variable with a sensible default
+    private static int destinationStateID = stateContainer.Game.PLAYSTATE;
+
     public PauseState(int state) {}
 
     @Override
@@ -100,11 +103,14 @@ public class PauseState extends BasicGameState {
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             if (back.isMouseOver(posX, posY)) {
-                sbg.enterState(stateContainer.Game.PLAYSTATE);
+                sbg.enterState(destinationStateID);
             }
             
             if (menu.isMouseOver(posX, posY)) {
+		// We reset both the Challenge and Versus mode states here, 
+		// since there's no harm in resetting an already inactive state
                 PlayState.restartGame();
+		MultiPlayState.restartGame();
                 sbg.enterState(stateContainer.Game.MENUSTATE);
             }
 
@@ -112,6 +118,10 @@ public class PauseState extends BasicGameState {
                 System.exit(0);
             }
         }
+    }
+
+    public static void setDestinationStateID(int id) {
+	destinationStateID = id;
     }
 
     @Override
