@@ -15,33 +15,44 @@ import util.DeferredFile;
 
 public class Flight {
 
-	// FIELDS
-	private static Image whiteFlightImage, redFlightImage, blueFlightImage, shadowImage;
-	private static double gameScale = 1 / 1000.0;
+	// Images
+	private static Image whiteFlightImage, redFlightImage, blueFlightImage;
+    private static Image shadowImage;
+    
+    // Constants
+	private static final double GAME_SCALE = 1 / 1000.0;
 
-	private int
-	minVelocity = 200, maxVelocity = 400,
-	minAltitude = 2000, maxAltitude = 5000;
-	private double
-	accel = 20 / 60.0,
-	climbRate = 60 / 60.0,
-	turnRate = 30 / 60.0; //20 mph per second
+    private static final int MIN_VELOCITY = 200; // mph
+    private static final int MAX_VELOCITY = 400; // mph
 
-	private int flightNumber;
+    private static final int MIN_ALTITUDE = 1000; // ft
+    private static final int MAX_ALTITUDE = 5000; // ft
+
+	private final static int RADIUS = 30;
+
+    private static final double ACCEL_RATE = 20 / 60.0;
+    private static final double CLIMB_RATE = 60 / 60.0;
+    private static final double TURN_RATE = 30 / 60.0;
+
+    // Fields
+	private int flightNumber; // TODO: is this used?
 	private String flightName;
-	private double
-	x, y,
-	velocity, targetVelocity;
-	private double
-	currentHeading, targetHeading;
-	private int
-	currentAltitude, targetAltitude, timeToLand;
 
-	private boolean turningRight, turningLeft;
+	private double x = 0;
+    private double y = 0;
+
+    private double velocity, targetVelocity;
+	private double currentHeading, targetHeading;
+	private int currentAltitude, targetAltitude;
+
+    private int timeToLand;
+
+	private boolean turningRight = false;
+    private boolean turningLeft = false;
 
 	private Airspace airspace;
 	private FlightPlan flightPlan;
-	private final static int RADIUS = 30;
+
 	private int closestDistance = Integer.MAX_VALUE; // this is the maximum distance a plane
 	// can be away from the waypoint once it has
 	// been checked that the plane is inside the waypoint
@@ -54,18 +65,12 @@ public class Flight {
 
 	private String owner;
 
-	// CONSTRUCTOR
+	// Constructor
 	public Flight(Airspace airspace) {
-		this.x = 0;
-		this.y = 0;
-		this.targetAltitude = 0;
-		this.targetHeading = 0;
-		this.currentHeading = 0;
-		this.turningRight = false;
-		this.turningLeft = false;
 		this.airspace = airspace;
 		this.flightPlan = new FlightPlan(airspace, this);
 		this.currentAltitude = generateAltitude();
+		this.targetAltitude = this.currentAltitude;
 	}
 
 	// METHODS
@@ -122,8 +127,8 @@ public class Flight {
 
 		else {
 			Random rand = new Random();
-			int check = rand.nextInt(((maxAltitude - minAltitude) / 1000) - 2);
-			return minAltitude + (check + 1) * 1000;
+			int check = rand.nextInt(((MAX_ALTITUDE - MIN_ALTITUDE) / 1000) - 2);
+			return MIN_ALTITUDE + (check + 1) * 1000;
 		}
 	}
 
@@ -207,8 +212,8 @@ public class Flight {
 
 	public void takeOff() {
 		takingOff = true;
-		setTargetVelocity((minVelocity + maxVelocity) / 2);
-		setTargetAltitude(minAltitude);
+		setTargetVelocity((MIN_VELOCITY + MAX_VELOCITY) / 2);
+		setTargetAltitude(MIN_ALTITUDE);
 	}
 
 	public void land() {
@@ -242,7 +247,7 @@ public class Flight {
 	 */
 
 	public void updateXYCoordinates() {
-		double vs = velocity * gameScale;
+		double vs = velocity * GAME_SCALE;
 		this.x += vs * Math.sin(Math.toRadians(currentHeading));
 		this.y -= vs * Math.cos(Math.toRadians(currentHeading));
 	}
@@ -255,11 +260,11 @@ public class Flight {
 
 	public void updateAltitude() {
 		if (this.currentAltitude > this.targetAltitude && !takingOff) {
-			this.currentAltitude -= climbRate;
+			this.currentAltitude -= CLIMB_RATE;
 		}
 
 		else if (this.currentAltitude < this.targetAltitude && !takingOff) {
-			this.currentAltitude += climbRate;
+			this.currentAltitude += CLIMB_RATE;
 		}
 	}
 
@@ -303,7 +308,7 @@ public class Flight {
 
 			// If plane is already turning right or user has told it to turn right
 			if (this.turningRight) {
-				this.currentHeading += turnRate;
+				this.currentHeading += TURN_RATE;
 
 				if (Math.round(this.currentHeading) >= 360 && this.targetHeading != 360) {
 					this.currentHeading = 0;
@@ -312,7 +317,7 @@ public class Flight {
 
 			// If plane is already turning left or user has told it to turn left
 			if (this.turningLeft) {
-				this.currentHeading -= turnRate;
+				this.currentHeading -= TURN_RATE;
 
 				if (Math.round(this.currentHeading) <= 0 && this.targetHeading != 0) {
 					this.currentHeading = 360;
@@ -325,11 +330,11 @@ public class Flight {
 		double dv = 0.01 * (targetVelocity - velocity);
 
 		if (targetVelocity > velocity) {
-			dv = Math.min(dv , accel);
+			dv = Math.min(dv , ACCEL_RATE);
 		}
 
 		else {
-			dv = Math.max(dv, -accel);
+			dv = Math.max(dv, -ACCEL_RATE);
 		}
 
 		velocity += dv;
@@ -338,7 +343,7 @@ public class Flight {
 			velocity = targetVelocity;
 		}
 
-		if (takingOff && (Math.abs(minVelocity - velocity) < 0.5)) {
+		if (takingOff && (Math.abs(MIN_VELOCITY - velocity) < 0.5)) {
 			takingOff = false;
 		}
 	}
@@ -565,19 +570,19 @@ public class Flight {
 	}
 
 	public int getMinVelocity() {
-		return minVelocity;
+		return MIN_VELOCITY;
 	}
 
 	public int getMaxVelocity() {
-		return maxVelocity;
+		return MAX_VELOCITY;
 	}
 
 	public int getMinAltitude() {
-		return minAltitude;
+		return MIN_ALTITUDE;
 	}
 
 	public int getMaxAltitude() {
-		return maxAltitude;
+		return MAX_ALTITUDE;
 	}
 
 	public boolean getTurningRight() {

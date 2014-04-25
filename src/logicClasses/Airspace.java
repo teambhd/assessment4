@@ -178,7 +178,6 @@ public class Airspace {
 				if (checkNumber == 1) {
 					Flight tempFlight = new Flight(this);
 					tempFlight.setFlightName(this.generateFlightName());
-					tempFlight.setTargetAltitude(tempFlight.getAltitude());
 
 					if (!isMultiplayer) {
 						tempFlight.setOwner("single");
