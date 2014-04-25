@@ -58,9 +58,6 @@ public class EntryPoint extends Point {
             entryPointRight.draw((int)x - 40, (int)y - 20);
         }
 
-        else {
-            entryPointRunway.draw((int)x - 20, (int)y - 20);
-        }
     }
     
     /**

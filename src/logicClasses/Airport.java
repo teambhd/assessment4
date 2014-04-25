@@ -75,5 +75,9 @@ public class Airport {
 	public int getRunwayLength() {
 		return runwayLength;
 	}
+	
+	public String getName() {
+		return name;
+	}
 
 }

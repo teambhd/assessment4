@@ -217,10 +217,17 @@ public class Flight {
 			for (int i = 0; i<this.airspace.getAirport().size(); i++) { //Checks if the flight is at a runway.
 				// (Checking a particular runway (red or blue ariport) is pointless, since we already have the heading.
 				if (this.checkIfAtAirport(this.airspace.getAirport().get(i))){
+					Airport airport = this.airspace.getAirport().get(i);
 					landing = true; //Set state to landing
 					setTargetVelocity(0);
 					setTargetAltitude(0);
-					this.timeToLand = 300; //Set game update cycles until the flight lands.
+					if (withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading(),10)){
+						this.setTargetHeading(airport.getRunwayHeading());
+					}
+					else {
+						this.setTargetHeading(airport.getRunwayHeading()+180);
+					}
+					this.timeToLand = 600; //Set game update cycles until the flight lands.
 				}
 			}
 		}
@@ -398,14 +405,14 @@ public class Flight {
 			return this.airspace.getAirport().get(1);
 		}
 	}
-	
+
 	//UTILITY METHODS
-	
+
 	public boolean withinTolerance(double x1, double x2, double tolerance) {
 		return Math.abs(x1 - x2) <= tolerance;
 	}
-	
-	
+
+
 	public boolean checkHeading (){ //Method to check if the flight is heading parallel to a runway.
 		Airport airport = this.matchAirport(this.getFlightPlan().getExitPoint().getX()); //Check the relevant airport
 		if (withinTolerance(this.getCurrentHeading(),airport.getRunwayHeading(),10) || //Do checks for both runway
@@ -417,8 +424,8 @@ public class Flight {
 			return false;
 		}
 	}
-	
-	
+
+
 	/**
 	 * checkIfFlightAtWaypoint: checks whether a flight is close enough to the next waypoint in it's plan
 	 * for it to be considered at that waypoint. Update the closestDistance so that it knows how close the plane
@@ -460,7 +467,7 @@ public class Flight {
 		//getting closer OR not close enough
 		return false;
 	}
-	
+
 
 	/**
 	 * checkIfAtAirport: Checks if the flight is in the relative area of the airport. Used for landing.
@@ -469,11 +476,21 @@ public class Flight {
 	 * @return true if the flight is in the airport area. False otherwise.
 	 */
 
-	public boolean checkIfAtAirport(Airport airport) {	
-		if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 200)
-				&& (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 15) {
-			return true;
+	public boolean checkIfAtAirport(Airport airport) {
+		if (airport.getName() == "Red airport"){
+			if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 150)
+					&& (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 15) {
+				return true;
+			}
 		}
+		
+		if (airport.getName() == "Blue airport"){
+			if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 15)
+					&& (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 150) {
+				return true;
+			}
+		}
+
 
 		return false;
 	}

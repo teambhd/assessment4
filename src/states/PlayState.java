@@ -53,8 +53,8 @@ public class PlayState extends BasicGameState {
         airspace.newEntryPoint(0, 400);
         airspace.newEntryPoint(1200, 200);
         airspace.newEntryPoint(600, 0);
-        airspace.newEntryPoint(700, 400);		//Blue Airport
-        airspace.newEntryPoint(100, 100);		//Red Airport
+        airspace.newEntryPoint(700, 425);		//Blue Airport
+        airspace.newEntryPoint(75, 100);		//Red Airport
         
         // Add Exit Points
         airspace.newExitPoint(800, 0, "Exit 1");
