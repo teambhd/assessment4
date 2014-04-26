@@ -14,6 +14,9 @@ import org.newdawn.slick.SlickException;
 import stateContainer.Game;
 
 public class FlightPlan {
+    
+    private static final Color RED_COLOR = new Color(197, 131, 138);
+    private static final Color BLUE_COLOR = new Color(141, 191, 244);
 
     // FIELDS
     private EntryPoint entryPoint;
@@ -169,7 +172,18 @@ public class FlightPlan {
 
     public void render(Graphics g) throws SlickException {
         if (this.currentRoute.size() > 0) {
-            g.setColor(Color.lightGray);
+            
+            if (this.flight.getOwner() == "red") {
+                g.setColor(RED_COLOR);
+            }
+            
+            else if (this.flight.getOwner() == "blue") {
+                g.setColor(BLUE_COLOR);
+            }
+            
+            else {
+                g.setColor(Color.lightGray);
+            }
             
             // Draw a line from the flight to it's next waypoint
             g.drawLine(

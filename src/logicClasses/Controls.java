@@ -35,11 +35,11 @@ public class Controls {
         if (selectedFlight != null) {
             // Draw a circle of the appropriate colour around our currently selected flight
             if (myPlayer == "red") {
-                g.setColor(Color.red);
+                g.setColor(states.MultiPlayState.RED_COLOR);
             }
             
             else if (myPlayer == "blue") {
-                g.setColor(Color.blue);
+                g.setColor(states.MultiPlayState.BLUE_COLOR);
             }
             
             else {

@@ -26,6 +26,9 @@ public class MultiPlayState extends BasicGameState {
 
     private Controls redControls;
     private Controls blueControls;
+    
+    public static final Color RED_COLOR = new Color(165, 0, 0); // or #D70C1E as a hex
+    public static final Color BLUE_COLOR = new Color(0, 0, 160);
 
     private static boolean gameBegun;
     
@@ -109,8 +112,8 @@ public class MultiPlayState extends BasicGameState {
         logicClasses.TimeIndicator.render(g, this.time);
         
         // Drawing the score
-        airspace.getScore("red").render(g, 10, 10, Color.red);
-        airspace.getScore("blue").render(g, 10, 28, Color.blue);
+        airspace.getScore("red").render(g, 10, 10, RED_COLOR);
+        airspace.getScore("blue").render(g, 10, 30, BLUE_COLOR);
                 
         // Draw the WindIndicator
         windIndicator.render(g, this.time);
