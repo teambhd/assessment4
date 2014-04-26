@@ -290,21 +290,22 @@ public class Airspace {
 		}
 
 		for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
-			this.listOfFlightsInAirspace.get(i).update(score);
+			this.listOfFlightsInAirspace.get(i).update(this.getScore(this.listOfFlightsInAirspace.get(i).getOwner()));
 
 			if (this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size() == 0) {
 				this.removeSpecificFlight(i);
 			}
+            
 			if (this.listOfFlightsInAirspace.get(i).getRemove()){
 				this.removeSpecificFlight(i);
 			}
 
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
-				score.reduceScoreOnFlightLost();
+				this.getScore(this.listOfFlightsInAirspace.get(i).getOwner()).reduceScoreOnFlightLost();
 				this.removeSpecificFlight(i);
 			}
 		}
-
+        
 		this.separationRules.update(this);
 	}
 
