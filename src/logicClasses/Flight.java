@@ -19,6 +19,9 @@ public class Flight {
 	private static Image whiteFlightImage, redFlightImage, blueFlightImage;
     private static Image shadowImage;
     
+    // Random number generator
+    private static Random rand = new Random();
+    
     // Constants
 	private static final double GAME_SCALE = 1 / 1000.0;
 
@@ -35,7 +38,6 @@ public class Flight {
     private static final double TURN_RATE = 30 / 60.0;
 
     // Fields
-	private int flightNumber; // TODO: is this used?
 	private String flightName;
 
 	private double x = 0;
@@ -58,10 +60,10 @@ public class Flight {
 	// been checked that the plane is inside the waypoint
 	private int distanceFromWaypoint;
 
-	private boolean			//All three variables are used to control the flight state.
-	takingOff = false,
-	landing = false,
-	removeme = false;
+    // All three variables are used to control the flight state
+	private boolean takingOff = false;
+    private boolean landing = false;
+	private boolean removeMe = false;
 
 	private String owner;
 
@@ -117,7 +119,7 @@ public class Flight {
 
 	/**
 	 * generateAltitude: Randomly assigns one of three different altitudes to a flight
-	 * @return A random altitude (either 28000, 29000 or 30000)
+	 * @return A random altitude between MIN_ALTITUDE and MAX_ALTITUDE
 	 */
 
 	public int generateAltitude() {
@@ -125,11 +127,8 @@ public class Flight {
 			return 0;
 		}
 
-		else {
-			Random rand = new Random();
-			int check = rand.nextInt(((MAX_ALTITUDE - MIN_ALTITUDE) / 1000) - 2);
-			return MIN_ALTITUDE + (check + 1) * 1000;
-		}
+		int check = rand.nextInt(((MAX_ALTITUDE - MIN_ALTITUDE) / 1000) - 2);
+		return MIN_ALTITUDE + (check + 1) * 1000;
 	}
 
 	/**
@@ -369,7 +368,7 @@ public class Flight {
 				this.timeToLand-=1;
 			}
 			else {
-				this.removeme = true;
+				this.removeMe = true;
 			}
 
 		}
@@ -565,7 +564,7 @@ public class Flight {
 		return getAltitude() == 0;
 	}
 
-	public Boolean isCommandable() {
+	public boolean isCommandable() {
 		return !isGrounded() && !landing;
 	}
 
@@ -601,14 +600,6 @@ public class Flight {
 		this.turningLeft = turningLeft;
 	}
 
-	public void setFlightNum(int i) {
-		this.flightNumber = i;
-	}
-
-	public int getFlightNum() {
-		return flightNumber;
-	}
-
 	public String getFlightName() {
 		return flightName;
 	}
@@ -620,7 +611,7 @@ public class Flight {
 	// toString function to display a flight object so we can read it
 	@Override
 	public String toString() {
-		return "X: " + this.x + " Y: " + this.y + " Flight Number: " + this.flightNumber;
+		return "X: " + this.x + " Y: " + this.y + " Flight Name: " + this.flightName;
 	}
 
 	public int getCurrentAltitude() {
@@ -628,7 +619,7 @@ public class Flight {
 	}
 
 	public boolean getRemove(){
-		return this.removeme;
+		return this.removeMe;
 	}
 
 	public void setCurrentAltitude(int currentAltitude) {
