@@ -29,11 +29,11 @@ public class TimeIndicator {
         int displaySecs = elapsedSecs % 60;
         
         // Draw the clock icon
-        clockImage.draw(0, 4);
+        clockImage.draw(1125, 4);
         
         // Write out the time, with the values padded to 2 digits
         g.setColor(Color.white);
-        g.drawString(String.format("%02d",displayMins) + ":" + String.format("%02d",displaySecs), 25, 10);        
+        g.drawString(String.format("%02d",displayMins) + ":" + String.format("%02d",displaySecs), 1150, 10);        
     }
     
 }

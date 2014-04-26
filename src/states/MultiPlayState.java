@@ -27,9 +27,6 @@ public class MultiPlayState extends BasicGameState {
     private Controls redControls;
     private Controls blueControls;
 
-    // private ScoreTracking redScore;
-    // private ScoreTracking blueScore;
-
     private static boolean gameBegun;
     
     // Constructor
@@ -70,8 +67,6 @@ public class MultiPlayState extends BasicGameState {
         // Initialise the controls
         redControls = new Controls(KeyBindings.redPlayerKeys, "red");
 	    blueControls = new Controls(KeyBindings.bluePlayerKeys, "blue");
-
-	    // TODO: Initialise the scores
         
         // Create the wind indicator object
         windIndicator = new WindIndicator();
@@ -84,10 +79,9 @@ public class MultiPlayState extends BasicGameState {
             airspace.setDifficultyValueOfGame(1);
             airspace.createAndSetSeparationRules();
             
-            // Reset the airspace and the time and score (redundant on first launch but may as well be done)
+            // Reset the airspace and the time (redundant on first launch but may as well be done)
             airspace.resetAirspace();
             time = 0;
-            airspace.getScore().resetScore();
             
             gameBegun = true;
         }
@@ -107,16 +101,16 @@ public class MultiPlayState extends BasicGameState {
         // Drawing the airspace (and it's background image) and thereby the elements within it
         airspace.render(g);
 
-	// Render the two sets of controls
+	    // Render the two sets of controls
         redControls.render(g);
-	blueControls.render(g);
+	    blueControls.render(g);
         
         // Drawing Clock and Time
         logicClasses.TimeIndicator.render(g, this.time);
         
-        // Drawing Score
-        g.setColor(Color.white);
-        g.drawString(airspace.getScore().toString(), 10, 35);
+        // Drawing the score
+        airspace.getScore("red").render(g, 10, 10, Color.red);
+        airspace.getScore("blue").render(g, 10, 28, Color.blue);
                 
         // Draw the WindIndicator
         windIndicator.render(g, this.time);
@@ -135,16 +129,16 @@ public class MultiPlayState extends BasicGameState {
         
         // Update the controls overlays
         redControls.update(gc, airspace);
-	blueControls.update(gc, airspace);
+	    blueControls.update(gc, airspace);
 
         // Checking for Pause Screen requested in game
         if (gc.getInput().isKeyPressed(Input.KEY_P)) {
-	    PauseState.setDestinationStateID(getID());
+	        PauseState.setDestinationStateID(getID());
             sbg.enterState(stateContainer.Game.PAUSESTATE);
         }
 
+        // Loop the gameplay music
         if (!util.GameAudio.getMusic().playing()) {
-            //Loops gameplay music based on random number created in init
             util.GameAudio.getMusic().loop(1.0f, 0.5f);
         }
 

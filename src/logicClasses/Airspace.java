@@ -46,7 +46,10 @@ public class Airspace {
 	private List<ExitPoint> listOfExitPoints = new ArrayList<ExitPoint>();
 	private List<Airport> listOfAirports = new ArrayList<Airport>();
     
+    // score isn't actually used in multiplayer, and vice versa, but there's no harm in just doing this the simple way
 	private ScoreTracking score = new ScoreTracking();
+	private ScoreTracking redScore = new ScoreTracking();
+	private ScoreTracking blueScore = new ScoreTracking();
 	
     private SeparationRules separationRules;
 	private int difficultyValueOfGame;
@@ -55,7 +58,7 @@ public class Airspace {
 
 	// Constructor
 	public Airspace(boolean multiplayer) {
-		this.isMultiplayer = multiplayer;
+		this.isMultiplayer = multiplayer;        
 	}
 
 	// METHODS
@@ -66,10 +69,17 @@ public class Airspace {
 
 	public void resetAirspace() {
 		this.listOfFlightsInAirspace = new ArrayList<Flight>();
-		this.numberOfGameLoopsSinceLastFlightAdded = 0;
+		
+        this.numberOfGameLoopsSinceLastFlightAdded = 0;
 		this.numberOfGameLoops = 0;
 		this.numberOfGameLoopsWhenDifficultyIncreases = 3600;
-		this.separationRules.setGameOverViolation(false); // Prevents user immediately entering game over state upon replay
+		
+        this.separationRules.setGameOverViolation(false); // Prevents an immediate game over on replay
+        
+        // Reset all the score variables
+        this.score = new ScoreTracking();
+        this.redScore = new ScoreTracking();
+        this.blueScore = new ScoreTracking();
 	}
 
 	/**
@@ -298,10 +308,6 @@ public class Airspace {
 		this.separationRules.update(this);
 	}
 
-	public ScoreTracking getScore() {
-		return score;
-	}
-
 	/**
 	 * render: Render all of the graphics in the airspace
 	 * @param g Graphics
@@ -448,6 +454,18 @@ public class Airspace {
 	public SeparationRules getSeparationRules() {
 		return this.separationRules;
 	}
+    
+    public ScoreTracking getScore(String player) {
+        if (player == "red") {
+            return redScore;
+        }
+        
+        if (player == "blue") {
+            return blueScore;
+        }
+        
+        return score;
+    }
 
 	public void setListOfEntryPoints(List<EntryPoint> listOfEntryPoints) {
 		this.listOfEntryPoints = listOfEntryPoints;

@@ -1,5 +1,9 @@
 package logicClasses;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+
 public class ScoreTracking {
 
     private int currentScore = 0;
@@ -8,10 +12,17 @@ public class ScoreTracking {
     private static final int TIMESCORE = 2;
     private static final int FLIGHTLOST = -50;
 
+
     // Constructor
     public ScoreTracking() {}
 
-    //METHODS
+    
+    // Methods
+    public void render(Graphics g, int x, int y, Color color) throws SlickException {
+        g.setColor(color);
+        g.drawString("Score" + String.valueOf(currentScore), x, y);
+    }
+    
     // Positive scoring
     public int updateWaypointScore(int closestDistance) {
         if (closestDistance >= 0 && closestDistance <= 14) {    //checks to see if the plane is within 10 pixels
@@ -26,7 +37,7 @@ public class ScoreTracking {
             waypointScore = 20;
         }
 
-        return waypointScore;                                   //once the distance and points are found, return the score
+        return waypointScore;
     }
 
     public int updateScore(int score) {
@@ -48,10 +59,6 @@ public class ScoreTracking {
 
     public int getScore() {
         return currentScore;
-    }
-
-    public String toString() {
-        return "Score = " + currentScore;
     }
 
 }

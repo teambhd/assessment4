@@ -82,7 +82,6 @@ public class PlayState extends BasicGameState {
             // Reset the airspace and the time and score (redundant on first launch but may as well be done)
             airspace.resetAirspace();
             time = 0;
-            airspace.getScore().resetScore();
             
             gameBegun = true;
         }
@@ -107,8 +106,7 @@ public class PlayState extends BasicGameState {
         logicClasses.TimeIndicator.render(g, this.time);
         
         // Drawing Score
-        g.setColor(Color.white);
-        g.drawString(airspace.getScore().toString(), 10, 35);
+        airspace.getScore("single").render(g, 10, 10, Color.white);
                 
         // Draw the WindIndicator
         windIndicator.render(g, this.time);
