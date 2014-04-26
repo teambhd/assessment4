@@ -38,8 +38,8 @@ public class KeyBindings {
         redPlayerKeys.hash.put("down", Input.KEY_S);
         redPlayerKeys.hash.put("right", Input.KEY_D);
         
-        redPlayerKeys.hash.put("accelerate", Input.KEY_Q);
-        redPlayerKeys.hash.put("decelerate", Input.KEY_E);
+        redPlayerKeys.hash.put("accelerate", Input.KEY_E);
+        redPlayerKeys.hash.put("decelerate", Input.KEY_Q);
     
         redPlayerKeys.hash.put("toggle_forwards", Input.KEY_C);
         redPlayerKeys.hash.put("toggle_backwards", Input.KEY_V);

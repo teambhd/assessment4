@@ -20,7 +20,7 @@ public class ScoreTracking {
     // Methods
     public void render(Graphics g, int x, int y, Color color) throws SlickException {
         g.setColor(color);
-        g.drawString("Score" + String.valueOf(currentScore), x, y);
+        g.drawString("Score: " + String.valueOf(currentScore), x, y);
     }
     
     // Positive scoring
