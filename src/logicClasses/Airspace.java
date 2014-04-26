@@ -27,39 +27,35 @@ public class Airspace {
         }
     }
 
+    // Random number generator
     private static Random rand = new Random();
 
+    // Constants
 	private static final int MAX_FLIGHTS = 10;
     
-    private int chanceOfNewFlight;
-
-	private int numberOfGameLoopsSinceLastFlightAdded, numberOfGameLoops,
-	numberOfGameLoopsWhenDifficultyIncreases;
-	private List<Flight> listOfFlightsInAirspace;
-	private List<Waypoint> listOfWayppoints;
-	private List<EntryPoint> listOfEntryPoints;
-	private List<ExitPoint> listOfExitPoints;
-	private List<Airport> listOfAirports;
-	private SeparationRules separationRules;
+    // Fields
+    private int chanceOfNewFlight = 500;
+   
+    private int numberOfGameLoops = 0;
+    private int numberOfGameLoopsSinceLastFlightAdded = 0;
+    private int numberOfGameLoopsWhenDifficultyIncreases = 3600; // 1 minute
+	
+    private List<Flight> listOfFlightsInAirspace = new ArrayList<Flight>();
+	private List<Waypoint> listOfWayppoints = new ArrayList<Waypoint>();
+	private List<EntryPoint> listOfEntryPoints = new ArrayList<EntryPoint>();
+	private List<ExitPoint> listOfExitPoints = new ArrayList<ExitPoint>();
+	private List<Airport> listOfAirports = new ArrayList<Airport>();
+    
+	private ScoreTracking score = new ScoreTracking();
+	
+    private SeparationRules separationRules;
 	private int difficultyValueOfGame;
-	private ScoreTracking score;
 	private boolean isMultiplayer;
 
 
-	// CONSTRUCTOR
+	// Constructor
 	public Airspace(boolean multiplayer) {
-		this.listOfFlightsInAirspace = new ArrayList<Flight>();
-		this.listOfWayppoints = new ArrayList<Waypoint>();
-		this.listOfEntryPoints = new ArrayList<EntryPoint>();
-		this.listOfExitPoints = new ArrayList<ExitPoint>();
-		this.listOfAirports = new ArrayList<Airport>();
-		this.numberOfGameLoopsSinceLastFlightAdded = 0; // Stores how many loops since the last flight was spawned before another flight can enter
-		this.numberOfGameLoops = 0; // Stores how many loops there have been in total
-		this.numberOfGameLoopsWhenDifficultyIncreases = 3600; // this is how many loops until planes come more quickly, difficulty increase once a minute
-		this.difficultyValueOfGame = 0; // This value will be changed when the user selects a difficulty in the playstate
-        this.chanceOfNewFlight = 500;
 		this.isMultiplayer = multiplayer;
-		this.score = new ScoreTracking();
 	}
 
 	// METHODS
