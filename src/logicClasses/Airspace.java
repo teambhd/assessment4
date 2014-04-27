@@ -32,13 +32,14 @@ public class Airspace {
 
     // Constants
 	private static final int MAX_FLIGHTS = 10;
+    private static final int DIFFICULTY_INCREASE_INTERVAL = 900; // 15 seconds
     
     // Fields
     private int chanceOfNewFlight = 500;
    
     private int numberOfGameLoops = 0;
     private int numberOfGameLoopsSinceLastFlightAdded = 0;
-    private int numberOfGameLoopsWhenDifficultyIncreases = 3600; // 1 minute
+    private int numberOfGameLoopsWhenDifficultyIncreases = DIFFICULTY_INCREASE_INTERVAL;
 	
     private List<Flight> listOfFlightsInAirspace = new ArrayList<Flight>();
 	private List<Waypoint> listOfWayppoints = new ArrayList<Waypoint>();
@@ -72,7 +73,7 @@ public class Airspace {
 		
         this.numberOfGameLoopsSinceLastFlightAdded = 0;
 		this.numberOfGameLoops = 0;
-		this.numberOfGameLoopsWhenDifficultyIncreases = 3600;
+		this.numberOfGameLoopsWhenDifficultyIncreases = DIFFICULTY_INCREASE_INTERVAL;
 		
         this.separationRules.setGameOverViolation(false); // Prevents an immediate game over on replay
         
@@ -267,11 +268,21 @@ public class Airspace {
 	 */
 
 	public void increaseDifficulty() {
-		this.numberOfGameLoopsWhenDifficultyIncreases += 3600;
+		this.numberOfGameLoopsWhenDifficultyIncreases += DIFFICULTY_INCREASE_INTERVAL;
 
-		if (this.chanceOfNewFlight - 50 > 0) {
-			this.chanceOfNewFlight -= 50;
+		if (this.chanceOfNewFlight - 25 > 0) {
+			this.chanceOfNewFlight -= 25;
 		}
+        
+        if (isMultiplayer) {
+            redScore.updateTimeScore();
+            blueScore.updateTimeScore();
+        }
+        
+        else {
+            score.updateTimeScore();
+        }
+        
 	}
 
 
@@ -284,7 +295,7 @@ public class Airspace {
 	public void update() {
 		this.numberOfGameLoopsSinceLastFlightAdded++;
 		this.numberOfGameLoops++;
-
+        
 		if (this.numberOfGameLoops >= this.numberOfGameLoopsWhenDifficultyIncreases) {
 			this.increaseDifficulty();
 		}

@@ -5,12 +5,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class ScoreTracking {
-
-    private int currentScore = 0;
-    private int waypointScore;
     
-    private static final int TIMESCORE = 2;
-    private static final int FLIGHTLOST = -50;
+    // Constants
+    private static final int TIME_BONUS = 100;
+    private static final int FLIGHT_LOSS_PENALTY = -50;
+
+    
+    // Fields
+    private int currentScore = 0;
 
 
     // Constructor
@@ -24,19 +26,21 @@ public class ScoreTracking {
     }
     
     // Positive scoring
-    public int updateWaypointScore(int closestDistance) {
+    public int updateWaypointScore(int closestDistance) {  
+        int waypointScore = 0;
+              
         if (closestDistance >= 0 && closestDistance <= 14) {    //checks to see if the plane is within 10 pixels
             waypointScore = 100;                                //if yes, the score given is 100 points
         }
 
-        if (closestDistance >= 15 && closestDistance <= 28) {
+        else if (closestDistance >= 15 && closestDistance <= 28) {
             waypointScore = 50;
         }
 
-        if (closestDistance >= 29 && closestDistance <= 42) {
+        else if (closestDistance >= 29 && closestDistance <= 42) {
             waypointScore = 20;
         }
-
+        
         return waypointScore;
     }
 
@@ -45,12 +49,12 @@ public class ScoreTracking {
     }
 
     public int updateTimeScore() {
-        return currentScore += TIMESCORE;
+        return currentScore += TIME_BONUS;
     }
 
     // Negative Scoring
     public int reduceScoreOnFlightLost() {
-        return currentScore += FLIGHTLOST;
+        return currentScore += FLIGHT_LOSS_PENALTY;
     }
 
     public void resetScore() {
