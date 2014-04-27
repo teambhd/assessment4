@@ -126,9 +126,8 @@ public class PlayState extends BasicGameState {
         // Update the controls overlay
         controls.update(gc, airspace);
 
+        // Handle a crash between two planes
         if (airspace.getSeparationRules().getGameOverViolation()) {
-            airspace.getSeparationRules().setGameOverViolation(false);
-            util.GameAudio.getMusic().stop();
             util.GameAudio.getEndOfGameSound().play();
             restartGame();
             sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
@@ -145,6 +144,12 @@ public class PlayState extends BasicGameState {
             util.GameAudio.getMusic().loop(1.0f, 0.5f);
         }
         
+    }
+    
+    @Override
+    public void leave(GameContainer gc, StateBasedGame sbg) {
+        // Stop the music when leaving the state
+        util.GameAudio.getMusic().stop();
     }
     
     public static void setGameDifficulty(int dL) {

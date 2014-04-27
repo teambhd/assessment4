@@ -133,6 +133,23 @@ public class MultiPlayState extends BasicGameState {
         // Update the controls overlays
         redControls.update(gc, airspace);
 	    blueControls.update(gc, airspace);
+        
+        // Handle a crash between two planes
+        if (airspace.getSeparationRules().getGameOverViolation()) { // not actually a Game Over anymore!
+            // Play the crash sound
+            util.GameAudio.getEndOfGameSound().play();
+            
+            // Deduct 500 points from the owners of each of the affected planes
+            airspace.getScore(airspace.getSeparationRules().getViolatingFlight1().getOwner()).updateScore(-500);
+            airspace.getScore(airspace.getSeparationRules().getViolatingFlight2().getOwner()).updateScore(-500);
+            
+            // And destroy the two planes
+            airspace.getSeparationRules().getViolatingFlight1().setRemove(true);
+            airspace.getSeparationRules().getViolatingFlight2().setRemove(true);
+            
+            // ... and reset the separation rules in time for the next crash
+            airspace.getSeparationRules().setGameOverViolation(false);
+        }
 
         // Checking for Pause Screen requested in game
         if (gc.getInput().isKeyPressed(Input.KEY_P)) {
@@ -145,6 +162,12 @@ public class MultiPlayState extends BasicGameState {
             util.GameAudio.getMusic().loop(1.0f, 0.5f);
         }
 
+    }
+    
+    @Override
+    public void leave(GameContainer gc, StateBasedGame sbg) {
+        // Stop the music when leaving the state
+        util.GameAudio.getMusic().stop();
     }
 
     public static void restartGame() {

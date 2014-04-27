@@ -621,6 +621,10 @@ public class Flight {
 	public boolean getRemove(){
 		return this.removeMe;
 	}
+    
+    public void setRemove(boolean b) {
+        this.removeMe = b;
+    }
 
 	public void setCurrentAltitude(int currentAltitude) {
 		this.currentAltitude = currentAltitude;
