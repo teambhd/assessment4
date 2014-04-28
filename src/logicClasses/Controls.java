@@ -20,7 +20,9 @@ public class Controls {
     private Flight selectedFlight;
 
 
-    // CONSTRUCTOR
+    // =============
+    // # Constructor
+    // =============
 
     public Controls(KeyBindings keys, String player) {
         myPlayer = player; // "single", "red" or "blue"
@@ -29,7 +31,9 @@ public class Controls {
     }
 
 
-    // METHODS
+    // =============
+    // # Methods
+    // =============
 
     public void render(Graphics g) throws SlickException {
         if (selectedFlight != null) {
@@ -162,10 +166,19 @@ public class Controls {
                 selectedFlight.land();
             }
         }
+        
+        if (myPlayer == "red" || myPlayer == "blue") {
+            // If we're in multiplayer mode, then we can check to see if the handover key has been pressed
+            if (input.isKeyPressed(myKeys.get("handover"))) {
+                selectedFlight.handOver(airspace.getScore(selectedFlight.getOwner()));
+            }
+        }
     }
 
 
-    // MUTATORS AND ACCESSORS
+    // ========================
+    // # Mutators and Accessors
+    // ========================
 
     public void setSelectedFlight(Flight flight) {
         selectedFlight = flight;

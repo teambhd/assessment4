@@ -235,7 +235,24 @@ public class Flight {
             }
         }
     }
+    
+    /**
+     * handOver: Transfers the plane to the control of the other player. Inoperative in single-player mode.
+     * @param st: The ScoreTracking object associated with the flight's (original) owner, 
+     * so we can conveniently apply a score penalty intended to discourage handover-spamming.
+     */
 
+    public void handOver(ScoreTracking st) {
+        if (owner == "red") {
+            owner = "blue";
+            st.applyFlightLossPenalty();
+        }
+        
+        else if (owner == "blue") {
+            owner = "red";
+            st.applyFlightLossPenalty();
+        }
+    }
 
     // UPDATE METHODS
 
