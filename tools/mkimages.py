@@ -38,6 +38,9 @@ create_image("don't crash", 120, "title")
 # Titles for other screens
 create_image("game paused", 72, "paused")
 create_image("game over", 72, "gameover")
+create_image("red player wins", 72, "redwins")
+create_image("blue player wins", 72, "bluewins")
+
 
 # Create all our standard buttons
 create_hover_image("help")

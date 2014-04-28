@@ -21,26 +21,28 @@ public class VictoryState extends BasicGameState {
     
     private int stateID;
     
-    private Color backgroundColor;
+    private String winningPlayer;
+        
+    private static Image redTitle;
+    private static Image blueTitle;
 
-    private static Image quitImage, quitHover;
-    private static Image menuImage, menuHover;
-    private static Image againImage, againHover;
+    private static Image againImage;
+    private static Image againHover;
+    private static HoverImage againButton;
     
-    private static HoverImage againButton, menuButton, quitButton;
+    private static Image menuImage;
+    private static Image menuHover;
+    private static HoverImage menuButton;
+
+    private static Image quitImage;
+    private static Image quitHover;
+    private static HoverImage quitButton;
 
 
     // Constructor
     public VictoryState(int stateID, String winningPlayer) {
         this.stateID = stateID;
-        
-        if (winningPlayer == "red") {
-            backgroundColor = MultiPlayState.RED_COLOR;
-        }
-        
-        else { // winningPlayer == "blue"
-            backgroundColor = MultiPlayState.BLUE_COLOR;
-        }
+        this.winningPlayer = winningPlayer;        
     }
 
 
@@ -48,39 +50,73 @@ public class VictoryState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         LoadingList loading = LoadingList.get();
         
-        loading.add(new DeferredFile("res/text_graphics/again.png") {
-            public void loadFile(String filename) throws SlickException {
-                againImage = new Image(filename);
-            }
-        });
-        loading.add(new DeferredFile("res/text_graphics/quit.png") {
-            public void loadFile(String filename) throws SlickException {
-                quitImage = new Image(filename);
-            }
-        });
-        loading.add(new DeferredFile("res/text_graphics/menu.png") {
-            public void loadFile(String filename) throws SlickException {
-                menuImage = new Image(filename);
-            }
-        });
-        loading.add(new DeferredFile("res/text_graphics/again_hover.png") {
-            public void loadFile(String filename) throws SlickException {
-                againHover = new Image(filename);
-            }
-        });
-        loading.add(new DeferredFile("res/text_graphics/quit_hover.png") {
-            public void loadFile(String filename) throws SlickException {
-                quitHover = new Image(filename);
-            }
-        });
-        loading.add(new DeferredFile("res/text_graphics/menu_hover.png") {
-            public void loadFile(String filename) throws SlickException {
-                menuHover = new Image(filename);
-            }
-        });
+        if (redTitle == null) {
+            loading.add(new DeferredFile("res/text_graphics/redwins.png") {
+                public void loadFile(String filename) throws SlickException {
+                    redTitle = new Image(filename);
+                }
+            });
+        }
+        
+        if (blueTitle == null) {
+            loading.add(new DeferredFile("res/text_graphics/bluewins.png") {
+                public void loadFile(String filename) throws SlickException {
+                    blueTitle = new Image(filename);
+                }
+            });
+        }
+        
+        if (againImage == null) {
+            loading.add(new DeferredFile("res/text_graphics/again.png") {
+                public void loadFile(String filename) throws SlickException {
+                    againImage = new Image(filename);
+                }
+            });
+        }
+        
+        if (quitImage == null) {
+            loading.add(new DeferredFile("res/text_graphics/quit.png") {
+                public void loadFile(String filename) throws SlickException {
+                    quitImage = new Image(filename);
+                }
+            });
+        }
+        
+        if (menuImage == null) {
+            loading.add(new DeferredFile("res/text_graphics/menu.png") {
+                public void loadFile(String filename) throws SlickException {
+                    menuImage = new Image(filename);
+                }
+            });
+        }
+        
+        if (againHover == null) {
+            loading.add(new DeferredFile("res/text_graphics/again_hover.png") {
+                public void loadFile(String filename) throws SlickException {
+                    againHover = new Image(filename);
+                }
+            });
+        }
+        
+        if (quitHover == null) {
+            loading.add(new DeferredFile("res/text_graphics/quit_hover.png") {
+                public void loadFile(String filename) throws SlickException {
+                    quitHover = new Image(filename);
+                }
+            });
+        }
+        
+        if (menuHover == null) {
+            loading.add(new DeferredFile("res/text_graphics/menu_hover.png") {
+                public void loadFile(String filename) throws SlickException {
+                    menuHover = new Image(filename);
+                }
+            });
+        }
+        
         loading.add(new DeferredResource() {
             public String getDescription() {
-                return "set up GameOverState buttons";
+                return "set up VictoryState buttons";
             }
             public void load() {
                 againButton = new HoverImage(againImage, againHover, ((stateContainer.Game.WIDTH - againImage.getWidth()) / 2) + 5, 420);
@@ -92,12 +128,21 @@ public class VictoryState extends BasicGameState {
     
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        // Draw the background image
-        gc.getGraphics().setBackground(backgroundColor);
+        // Draw the background image and the page title
+        if (winningPlayer == "red") {
+            g.setBackground(MultiPlayState.RED_COLOR);
+            redTitle.draw(((stateContainer.Game.WIDTH - redTitle.getWidth()) / 2) + 5, 20);
+        }
         
-        // Get the co-ordinates of the mouse pointer, flipping on the Y axis so as to use the same origin as the graphics object
+        else { // winningPlayer == "blue"
+            g.setBackground(MultiPlayState.BLUE_COLOR);
+            blueTitle.draw(((stateContainer.Game.WIDTH - blueTitle.getWidth()) / 2) + 5, 20);
+        }
+        
+        // Get the co-ordinates of the mouse pointer, 
+        // flipping on the Y axis so as to use the same origin as the graphics object
         int posX = Mouse.getX();
-        int posY = stateContainer.Game.HEIGHT - Mouse.getY();
+        int posY = stateContainer.Game.HEIGHT - Mouse.getY();        
 
         // Render the 3 buttons
         againButton.render(posX, posY);
@@ -107,7 +152,8 @@ public class VictoryState extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        // Get the co-ordinates of the mouse pointer, flipping on the Y axis so as to use the same origin as the graphics object
+        // Get the co-ordinates of the mouse pointer, 
+        // flipping on the Y axis so as to use the same origin as the graphics object
         int posX = Mouse.getX();
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();
 

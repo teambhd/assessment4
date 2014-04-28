@@ -19,8 +19,10 @@ import util.HoverImage;
 
 public class GameOverState extends BasicGameState {
 
-    private static Image gameOverBackground;
-
+    private static Color backgroundColor = new Color(75, 70, 54);
+    
+    private static Image gameOverTitle;
+    
     private static Image quitImage, quitHover;
     private static Image menuImage, menuHover;
     private static Image againImage, againHover;
@@ -33,64 +35,65 @@ public class GameOverState extends BasicGameState {
 
 
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg)
-    throws SlickException {
-        {
-            LoadingList loading = LoadingList.get();
-            loading.add(new DeferredFile("res/menu_graphics/gameover_screen.png") {
-                public void loadFile(String filename) throws SlickException {
-                    gameOverBackground = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/text_graphics/again.png") {
-                public void loadFile(String filename) throws SlickException {
-                    againImage = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/text_graphics/quit.png") {
-                public void loadFile(String filename) throws SlickException {
-                    quitImage = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/text_graphics/menu.png") {
-                public void loadFile(String filename) throws SlickException {
-                    menuImage = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/text_graphics/again_hover.png") {
-                public void loadFile(String filename) throws SlickException {
-                    againHover = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/text_graphics/quit_hover.png") {
-                public void loadFile(String filename) throws SlickException {
-                    quitHover = new Image(filename);
-                }
-            });
-            loading.add(new DeferredFile("res/text_graphics/menu_hover.png") {
-                public void loadFile(String filename) throws SlickException {
-                    menuHover = new Image(filename);
-                }
-            });
-            loading.add(new DeferredResource() {
-                public String getDescription() {
-                    return "set up GameOverState buttons";
-                }
-                public void load() {
-                    againButton = new HoverImage(againImage, againHover, ((stateContainer.Game.WIDTH - againImage.getWidth()) / 2) + 5, 420);
-                    menuButton = new HoverImage(menuImage, menuHover, 20, 530);
-                    quitButton = new HoverImage(quitImage, quitHover, stateContainer.Game.WIDTH - (quitImage.getWidth() + 15), 530);
-                }
-            });
-        }
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        LoadingList loading = LoadingList.get();
+        loading.add(new DeferredFile("res/text_graphics/gameover.png") {
+            public void loadFile(String filename) throws SlickException {
+                gameOverTitle = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/again.png") {
+            public void loadFile(String filename) throws SlickException {
+                againImage = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/quit.png") {
+            public void loadFile(String filename) throws SlickException {
+                quitImage = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/menu.png") {
+            public void loadFile(String filename) throws SlickException {
+                menuImage = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/again_hover.png") {
+            public void loadFile(String filename) throws SlickException {
+                againHover = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/quit_hover.png") {
+            public void loadFile(String filename) throws SlickException {
+                quitHover = new Image(filename);
+            }
+        });
+        loading.add(new DeferredFile("res/text_graphics/menu_hover.png") {
+            public void loadFile(String filename) throws SlickException {
+                menuHover = new Image(filename);
+            }
+        });
+        loading.add(new DeferredResource() {
+            public String getDescription() {
+                return "set up GameOverState buttons";
+            }
+            public void load() {
+                againButton = new HoverImage(againImage, againHover, ((stateContainer.Game.WIDTH - againImage.getWidth()) / 2) + 5, 420);
+                menuButton = new HoverImage(menuImage, menuHover, 20, 530);
+                quitButton = new HoverImage(quitImage, quitHover, stateContainer.Game.WIDTH - (quitImage.getWidth() + 15), 530);
+            }
+        });
     }
     
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-        // Draw the background image
-        gameOverBackground.draw(0, 0);
+        // Set the background colour
+        g.setBackground(backgroundColor);
         
-        // Get the co-ordinates of the mouse pointer, flipping on the Y axis so as to use the same origin as the graphics object
+        // Draw the page title
+        gameOverTitle.draw(((stateContainer.Game.WIDTH - gameOverTitle.getWidth()) / 2) + 5, 20);
+        
+        // Get the co-ordinates of the mouse pointer, 
+        // flipping on the Y axis so as to use the same origin as the graphics object
         int posX = Mouse.getX();
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();
 

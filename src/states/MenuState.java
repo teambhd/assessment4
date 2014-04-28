@@ -99,8 +99,7 @@ public class MenuState extends BasicGameState {
         });
     }
 
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
-    throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         // Map mouse co-ordinates onto graphics co-ordinatess
         int posX = Mouse.getX(),
             posY = stateContainer.Game.HEIGHT - Mouse.getY();
@@ -119,9 +118,9 @@ public class MenuState extends BasicGameState {
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        int posX = Mouse.getX(),
-            posY = stateContainer.Game.HEIGHT - Mouse.getY();
         // Mapping Mouse coords onto graphics coords
+        int posX = Mouse.getX(),
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();        
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseBeenReleased) { //button first pressed
@@ -131,9 +130,9 @@ public class MenuState extends BasicGameState {
                     sbg.enterState(stateContainer.Game.DIFFICULTYSTATE);
                 }
 
-		if (versus.isMouseOver(posX, posY)) {
-		    sbg.enterState(stateContainer.Game.MULTIPLAYSTATE);
-		}
+        		if (versus.isMouseOver(posX, posY)) {
+        		    sbg.enterState(stateContainer.Game.MULTIPLAYSTATE);
+        		}
 
                 if (controls.isMouseOver(posX, posY)) {
                     sbg.enterState(stateContainer.Game.CONTROLSSTATE);
@@ -143,8 +142,6 @@ public class MenuState extends BasicGameState {
                     System.exit(0);
                 }
             }
-
-            /* else mouse is dragged*/
         }
 
         else if (!mouseBeenReleased) {  //mouse just released
