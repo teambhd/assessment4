@@ -17,6 +17,7 @@ import util.HoverImage;
 public class PauseState extends BasicGameState {
 
     private static Image pauseBackground;
+    private static Image pauseTitle;
     private static Image backButton, backButtonHover;
     private static Image menuImage, menuHover;
     private static Image quitButton, quitButtonHover; 
@@ -31,9 +32,9 @@ public class PauseState extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame sbj) throws SlickException {
         LoadingList loading = LoadingList.get();
-        loading.add(new DeferredFile("res/menu_graphics/pause.png") {
+        loading.add(new DeferredFile("res/text_graphics/paused.png") {
             public void loadFile(String filename) throws SlickException {
-                pauseBackground = new Image(filename);
+                pauseTitle = new Image(filename);
             }
         });
         loading.add(new DeferredFile("res/text_graphics/resume.png") {
