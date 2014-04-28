@@ -33,9 +33,10 @@ public class Airspace {
     // Constants
     private static final int MAX_FLIGHTS = 10;
     private static final int DIFFICULTY_INCREASE_INTERVAL = 900; // 15 seconds
+    private static final int INITIAL_CHANCE_OF_NEW_FLIGHT = 400;
 
     // Fields
-    private int chanceOfNewFlight = 500;
+    private int chanceOfNewFlight = INITIAL_CHANCE_OF_NEW_FLIGHT;
 
     private int numberOfGameLoops = 0;
     private int numberOfGameLoopsSinceLastFlightAdded = 0;
@@ -60,6 +61,8 @@ public class Airspace {
     // Constructor
     public Airspace(boolean multiplayer) {
         this.isMultiplayer = multiplayer;
+        
+        if (isMultiplayer)
     }
 
     // METHODS
@@ -74,6 +77,8 @@ public class Airspace {
         this.numberOfGameLoopsSinceLastFlightAdded = 0;
         this.numberOfGameLoops = 0;
         this.numberOfGameLoopsWhenDifficultyIncreases = DIFFICULTY_INCREASE_INTERVAL;
+        
+        this.chanceOfNewFlight = INITIAL_CHANCE_OF_NEW_FLIGHT;
 
         this.separationRules.setGameOverViolation(false); // Prevents an immediate game over on replay
 
@@ -161,67 +166,65 @@ public class Airspace {
      */
 
     public boolean newFlight() throws SlickException {
-        if (this.listOfFlightsInAirspace.size() < MAX_FLIGHTS) {
-            if ((this.numberOfGameLoopsSinceLastFlightAdded >= 850  || this.listOfFlightsInAirspace.isEmpty())) {
+        if (listOfFlightsInAirspace.size() < MAX_FLIGHTS && 
+            (numberOfGameLoopsSinceLastFlightAdded >= 300 || listOfFlightsInAirspace.isEmpty())) {
 
-                /*
-                 * The random number is generated in the range [0, 100) if the airspace is empty, as this increases
-                 * the likelihood of a value of 1 being returned, and therefore a flight being generated; this stops the user
-                 * having to potentially wait a long period of time for a flight to be generated.
-                 * If the airspace is not empty, the random number generated is in the range [0, randomNumberForFlight Generation)
-                 * which is > 100. This decreases the likelihood of a flight being generated.
-                 */
+            /*
+             * The random number is generated in the range 0 to 100 if the airspace is empty, as this increases
+             * the likelihood of a value of 1 being returned, and therefore a flight being generated; 
+             * this stops the user having to potentially wait a long period of time for a flight to be generated.
+             * If the airspace is not empty, the random number generated is in the range 0 to chanceOfNewFlight.
+             */
 
-                int checkNumber;
+            int checkNumber;
 
-                if (this.listOfFlightsInAirspace.isEmpty()) {
-                    checkNumber = rand.nextInt(100);
+            if (numberOfGameLoopsSinceLastFlightAdded >= 1200 || listOfFlightsInAirspace.isEmpty()) {
+                checkNumber = rand.nextInt(Math.min(100, chanceOfNewFlight));
+            }
+
+            else {
+                checkNumber = rand.nextInt(chanceOfNewFlight);
+            }
+
+            if (checkNumber == 1) {
+                Flight tempFlight = new Flight(this);
+                tempFlight.setFlightName(generateFlightName());
+
+                if (!isMultiplayer) {
+                    tempFlight.setOwner("single");
+                }
+
+                else if (rand.nextBoolean()) {
+                    tempFlight.setOwner("red");
                 }
 
                 else {
-                    checkNumber = rand.nextInt(chanceOfNewFlight);
+                    tempFlight.setOwner("blue");
                 }
 
-                if (checkNumber == 1) {
-                    Flight tempFlight = new Flight(this);
-                    tempFlight.setFlightName(this.generateFlightName());
+                double heading;
 
-                    if (!isMultiplayer) {
-                        tempFlight.setOwner("single");
+                if (tempFlight.getFlightPlan().getEntryPoint().isRunway()) {
+                    if (tempFlight.getX() == listOfAirports.get(0).getX()) {
+                        heading = listOfAirports.get(0).getRunwayHeading();
                     }
-
-                    else if (rand.nextBoolean()) {
-                        tempFlight.setOwner("red");
-                    }
-
                     else {
-                        tempFlight.setOwner("blue");
+                        heading = listOfAirports.get(1).getRunwayHeading();
                     }
+                }
 
-                    double heading;
+                else {
+                    heading = tempFlight.calculateHeadingToFirstWaypoint(
+                                  tempFlight.getFlightPlan().getPointByIndex(0).getX() ,
+                                  tempFlight.getFlightPlan().getPointByIndex(0).getY());
+                }
 
-                    if (tempFlight.getFlightPlan().getEntryPoint().isRunway()) {
-                        if (tempFlight.getX() == this.listOfAirports.get(0).getX()) {
-                            heading = this.listOfAirports.get(0).getRunwayHeading();
-                        }
-                        else {
-                            heading = this.listOfAirports.get(1).getRunwayHeading();
-                        }
-                    }
+                tempFlight.setTargetHeading(heading);
+                tempFlight.setCurrentHeading(heading);
 
-                    else {
-                        heading = tempFlight.calculateHeadingToFirstWaypoint(
-                                      tempFlight.getFlightPlan().getPointByIndex(0).getX() ,
-                                      tempFlight.getFlightPlan().getPointByIndex(0).getY());
-                    }
-
-                    tempFlight.setTargetHeading(heading);
-                    tempFlight.setCurrentHeading(heading);
-
-                    if (addFlight(tempFlight)) {
-                        this.numberOfGameLoopsSinceLastFlightAdded = 0;
-                        return true;
-                    }
+                if (addFlight(tempFlight)) {
+                    numberOfGameLoopsSinceLastFlightAdded = 0;
+                    return true;
                 }
             }
         }
