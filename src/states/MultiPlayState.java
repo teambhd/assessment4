@@ -139,7 +139,7 @@ public class MultiPlayState extends BasicGameState {
         // Handle a crash between two planes
         if (airspace.getSeparationRules().getGameOverViolation()) { // not actually a Game Over anymore!
             // Play the crash sound
-            util.GameAudio.getEndOfGameSound().play();
+            util.GameAudio.getCrashSound().play();
 
             // Deduct 500 points from the owners of each of the affected planes
             airspace.getScore(airspace.getSeparationRules().getViolatingFlight1().getOwner()).applyCrashPenalty();

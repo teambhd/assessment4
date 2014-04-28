@@ -128,7 +128,7 @@ public class PlayState extends BasicGameState {
 
         // Handle a crash between two planes
         if (airspace.getSeparationRules().getGameOverViolation()) {
-            util.GameAudio.getEndOfGameSound().play();
+            util.GameAudio.getCrashSound().play();
             restartGame();
             sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
         }
