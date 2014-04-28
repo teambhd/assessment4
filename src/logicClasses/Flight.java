@@ -377,7 +377,7 @@ public class Flight {
 
 	/**
 	 * render: draw's all elements of the flight and it's information.
-	 * @param g - Graphics libraries required by slick2d.
+	 * @param g - Graphics libraries required by Slick2D.
 	 */
 
 	public void render(Graphics g) throws SlickException {

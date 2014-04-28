@@ -66,9 +66,10 @@ public class SeparationRules {
     }
 
     /**
-     * checkViolation: Calculates whether two flights have breached the game over separation rules.
-     * @param airspace - The airspace object is passed as the checkViolation() method requires knowledge of
-     * flights in the airspace, which is stored within the airspace.
+     * checkViolation: Checks whether two flights have crashed and, if so, updates gameOverViolation 
+     * and violatingFlight1 and 2 accordingly. Assumes that only one crash is happening exactly simultaneously, 
+     * which is not too unreasonable given that the function runs 60 times a second.
+     * @param airspace - The airspace object is passed so as to allow access to the list of flights.
      */
 
     public void checkViolation(Airspace airspace) {
@@ -93,9 +94,8 @@ public class SeparationRules {
     /**
      * render: This calculates whether any flights in the airspace are breaking warning separation rules
      * If two flight are breaking warning separation rules, a line is drawn between them.
-     * @param g - Graphics libraries required by slick2d.
-     * @param airspace - The airspace object is passed as the render method requires knowledge of
-     * flights in the airspace, which is stored within the airspace.
+     * @param g - Graphics libraries required by Slick2D.
+     * @param airspace - The airspace object is passed so as to allow access to the list of flights.
      */
 
     public void render(Graphics g, Airspace airspace) {

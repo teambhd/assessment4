@@ -22,8 +22,25 @@ public class ScoreTracking {
     
     // Methods
     public void render(Graphics g, int x, int y, Color color) throws SlickException {
+        // Draw the indicator, showing which player's score this represents.
+        // It's a circle, filled with the player's colour and bordered in either white
+        // or, if the player colour is white (in single-player) light grey.
         g.setColor(color);
-        g.drawString("Score: " + String.valueOf(currentScore), x, y);
+        g.fillOval((float)x, (float)y + 4, 10, 10);
+
+        if (color == Color.white) {
+            g.setColor(Color.lightGray);
+        }
+        
+        else {
+            g.setColor(Color.white);
+        }
+
+        g.drawOval((float)x, (float)y + 4, 10, 10);            
+                
+        // Draw the numeric score itself
+        g.setColor(Color.white);
+        g.drawString(String.valueOf(currentScore), x + 15, y);
     }
     
     

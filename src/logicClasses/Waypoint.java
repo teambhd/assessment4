@@ -46,7 +46,7 @@ public class Waypoint extends Point {
 
     /**
      * render: Render the graphics for the Waypoint class (Draws all Waypoints)
-     * @param g slick2d graphics object
+     * @param g Slick2D graphics object
      * @throws SlickException Slick2d exception handler
      */
 
