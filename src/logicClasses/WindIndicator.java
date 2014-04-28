@@ -24,6 +24,7 @@ public class WindIndicator {
 
     private float direction;
 
+    // Constructor
     public WindIndicator() {}
 
     public void render(Graphics g, int time) throws SlickException {
@@ -34,7 +35,6 @@ public class WindIndicator {
         windImage.setRotation(this.direction);
         windImage.draw(14, 550);
 
-
         // Also display the degree value of the wind direction (normalised between 0 and 360)
         int displayDirection = Math.round(this.direction);
 
@@ -44,7 +44,7 @@ public class WindIndicator {
 
         g.setColor(Color.white);
         g.drawString("Wind:", 60, 550);
-        g.drawString(String.valueOf(displayDirection) + "\u00B0", 60, 568);
+        g.drawString(String.valueOf(displayDirection) + "\u00B0", 60, 568); // \u00B0 is the degree symbol
     }
 
 }

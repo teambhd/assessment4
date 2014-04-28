@@ -8,9 +8,14 @@ import org.newdawn.slick.Input;
 public class KeyBindings {
 
     private HashMap<String, Integer> hash = new HashMap<String, Integer>();
+    
+    /**
+     * get: Returns the keycode of the physical key associated with a given command.
+     * @param command - The name of the command (e.g. "up" or "accelerate")
+     */
 
-    public int get(String key) {
-        return hash.get(key);
+    public int get(String command) {
+        return hash.get(command);
     }
 
     // Set up our default keybindings for single player, and both players in the multi-player mode
@@ -41,10 +46,11 @@ public class KeyBindings {
         redPlayerKeys.hash.put("accelerate", Input.KEY_E);
         redPlayerKeys.hash.put("decelerate", Input.KEY_Q);
 
-        redPlayerKeys.hash.put("toggle_forwards", Input.KEY_C);
-        redPlayerKeys.hash.put("toggle_backwards", Input.KEY_V);
+        redPlayerKeys.hash.put("toggle_forwards", Input.KEY_X);
+        redPlayerKeys.hash.put("toggle_backwards", Input.KEY_C);
 
-        redPlayerKeys.hash.put("airport", Input.KEY_B); // combined take-off and landing button
+        redPlayerKeys.hash.put("airport", Input.KEY_V); // combined take-off and landing button
+        redPlayerKeys.hash.put("handover", Input.KEY_B);
 
 
         bluePlayerKeys.hash.put("up", Input.KEY_UP);
@@ -59,6 +65,7 @@ public class KeyBindings {
         bluePlayerKeys.hash.put("toggle_backwards", Input.KEY_COMMA);
 
         bluePlayerKeys.hash.put("airport", Input.KEY_L); // combined take-off and landing button
+        bluePlayerKeys.hash.put("handover", Input.KEY_SEMICOLON);
     }
 
 }
