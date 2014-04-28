@@ -60,9 +60,7 @@ public class Airspace {
 
     // Constructor
     public Airspace(boolean multiplayer) {
-        this.isMultiplayer = multiplayer;
-        
-        if (isMultiplayer)
+        this.isMultiplayer = multiplayer;        
     }
 
     // METHODS
