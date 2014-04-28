@@ -20,21 +20,21 @@ public class SeparationRules {
     private Flight violatingFlight1;
     private Flight violatingFlight2;
 
-    //CONSTRUCTOR
+    // Constructor
     public SeparationRules(int difficultyVal) {
-        if (difficultyVal == 1) { 
+        if (difficultyVal == states.DifficultyState.EASY) { 
             // Easy: Only a Crash will cause a Game Over
             this.gameOverLateralSeparation = 30;
             this.gameOverVerticalSeparation = 200;
         }
 
-        if (difficultyVal == 2) { 
+        if (difficultyVal == states.DifficultyState.MEDIUM) { 
             // Medium: Can Violate, but not too closely
             this.gameOverLateralSeparation = 60;
             this.gameOverVerticalSeparation = 350;
         }
 
-        if (difficultyVal == 3) { 
+        if (difficultyVal == states.DifficultyState.HARD) { 
             // Hard: Minimal Warning Violation allowed before end game achieved.
             this.gameOverLateralSeparation = 90;
             this.gameOverVerticalSeparation = 500;
@@ -45,24 +45,24 @@ public class SeparationRules {
 
     /**
      * lateralDistanceBetweenFlights: Calculates the lateral distance between two flights.
-     * @param flight1 - A flight from the airspace.
-     * @param flight2 - A flight from the airspace.
+     * @param f1 - A flight from the airspace.
+     * @param f2 - A flight from the airspace.
      * @return A double representing the lateral distance between the two flights passed as parameters.
      */
 
-    public double lateralDistanceBetweenFlights(Flight flight1, Flight flight2) {
-        return Math.sqrt(Math.pow((flight1.getX() - flight2.getX()), 2) + Math.pow((flight1.getY() - flight2.getY()), 2));
+    public double lateralDistanceBetweenFlights(Flight f1, Flight f2) {
+        return Math.hypot(f1.getX() - f2.getX(), f1.getY() - f2.getY());
     }
 
     /**
      * verticalDistanceBetweenFlights: Calculates the vertical distance between two flights.
-     * @param flight1 - A flight from the airspace.
-     * @param flight2 - A flight from the airspace.
+     * @param f1 - A flight from the airspace.
+     * @param f2 - A flight from the airspace.
      * @return An int representing the vertical distance between the two flights passed as parameters.
      */
 
-    public int verticalDistanceBetweenFlights(Flight flight1, Flight flight2) {
-        return Math.abs(flight1.getAltitude() - flight2.getAltitude());
+    public int verticalDistanceBetweenFlights(Flight f1, Flight f2) {
+        return Math.abs(f1.getAltitude() - f2.getAltitude());
     }
 
     /**
@@ -72,17 +72,22 @@ public class SeparationRules {
      */
 
     public void checkViolation(Airspace airspace) {
-        for (int i = 0; i < airspace.getListOfFlights().size(); i++) {
-            for (int j = i + 1; j < airspace.getListOfFlights().size(); j++) {
-                if ((lateralDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverLateralSeparation)) {
-                    if ((verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverVerticalSeparation)) {
-                        this.gameOverViolation = true;
-                        this.violatingFlight1 = airspace.getListOfFlights().get(i);
-                        this.violatingFlight2 = airspace.getListOfFlights().get(j);
-                    }
+        for (Flight e : airspace.getListOfFlights()) {
+            for (Flight f : airspace.getListOfFlights()) {
+                
+                if (e == f) {
+                    continue;
                 }
+                
+                if (lateralDistanceBetweenFlights(e, f) <= gameOverLateralSeparation &&
+                    verticalDistanceBetweenFlights(e, f) <= gameOverVerticalSeparation) {
+                        gameOverViolation = true;
+                        violatingFlight1 = e;
+                        violatingFlight2 = f;
+                }
+                
             }
-        }
+        }   
     }
 
     /**

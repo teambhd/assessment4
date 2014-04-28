@@ -140,14 +140,14 @@ public class MultiPlayState extends BasicGameState {
             util.GameAudio.getEndOfGameSound().play();
             
             // Deduct 500 points from the owners of each of the affected planes
-            airspace.getScore(airspace.getSeparationRules().getViolatingFlight1().getOwner()).updateScore(-500);
-            airspace.getScore(airspace.getSeparationRules().getViolatingFlight2().getOwner()).updateScore(-500);
+            airspace.getScore(airspace.getSeparationRules().getViolatingFlight1().getOwner()).applyCrashPenalty();
+            airspace.getScore(airspace.getSeparationRules().getViolatingFlight2().getOwner()).applyCrashPenalty();
             
-            // And destroy the two planes
+            // Destroy the two planes
             airspace.getSeparationRules().getViolatingFlight1().setRemove(true);
             airspace.getSeparationRules().getViolatingFlight2().setRemove(true);
             
-            // ... and reset the separation rules in time for the next crash
+            // Reset the separation rules in time for the next crash
             airspace.getSeparationRules().setGameOverViolation(false);
         }
 

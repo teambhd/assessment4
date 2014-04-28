@@ -60,14 +60,14 @@ public class ScoreTracking_Test {
 
     @Test
     public void testUpdateTimeScore() {
-        int actualUpdateTimeScore = scoreTrackingInstance.updateTimeScore();
-        assertEquals(2, actualUpdateTimeScore);
+        scoreTrackingInstance.applyTimeBonus();
+        assertEquals(100, scoreTrackingInstance.getScore());
     }
 
     @Test
     public void testReduceScoreOnFlightLost() {
-        int actualReducedScore = scoreTrackingInstance.reduceScoreOnFlightLost();
-        assertEquals(-50, actualReducedScore);
+        scoreTrackingInstance.applyFlightLossPenalty();
+        assertEquals(-50, scoreTrackingInstance.getScore());
     }
 
     @Test

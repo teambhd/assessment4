@@ -9,8 +9,9 @@ public class ScoreTracking {
     // Constants
     private static final int TIME_BONUS = 100;
     private static final int FLIGHT_LOSS_PENALTY = -50;
+    private static final int CRASH_PENALTY = -500;
 
-    
+
     // Fields
     private int currentScore = 0;
 
@@ -24,6 +25,7 @@ public class ScoreTracking {
         g.setColor(color);
         g.drawString("Score: " + String.valueOf(currentScore), x, y);
     }
+    
     
     // Positive scoring
     public int updateWaypointScore(int closestDistance) {  
@@ -44,25 +46,31 @@ public class ScoreTracking {
         return waypointScore;
     }
 
-    public int updateScore(int score) {
-        return currentScore += score;
+    public void applyTimeBonus() {
+        currentScore += TIME_BONUS;
     }
 
-    public int updateTimeScore() {
-        return currentScore += TIME_BONUS;
-    }
 
     // Negative Scoring
-    public int reduceScoreOnFlightLost() {
-        return currentScore += FLIGHT_LOSS_PENALTY;
+    public void applyFlightLossPenalty() {
+        currentScore += FLIGHT_LOSS_PENALTY;
+    }
+    
+    public void applyCrashPenalty() {
+        currentScore += CRASH_PENALTY;
+    }
+    
+    
+    public int getScore() {
+        return currentScore;
+    }
+    
+    public int updateScore(int score) {
+        return currentScore += score;
     }
 
     public void resetScore() {
         currentScore = 0;
     }
-
-    public int getScore() {
-        return currentScore;
-    }
-
+    
 }

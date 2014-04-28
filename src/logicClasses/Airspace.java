@@ -275,12 +275,12 @@ public class Airspace {
 		}
         
         if (isMultiplayer) {
-            redScore.updateTimeScore();
-            blueScore.updateTimeScore();
+            redScore.applyTimeBonus();
+            blueScore.applyTimeBonus();
         }
         
         else {
-            score.updateTimeScore();
+            score.applyTimeBonus();
         }
         
 	}
@@ -312,7 +312,7 @@ public class Airspace {
 			}
 
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
-				this.getScore(this.listOfFlightsInAirspace.get(i).getOwner()).reduceScoreOnFlightLost();
+				this.getScore(this.listOfFlightsInAirspace.get(i).getOwner()).applyFlightLossPenalty();
 				this.removeSpecificFlight(i);
 			}
 		}

@@ -25,9 +25,9 @@ public class DifficultyState extends BasicGameState {
     
     private HoverImage easyButton, mediumButton, hardButton;
     
-    private static final int EASY = 1;
-    private static final int MEDIUM = 2;
-    private static final int HARD = 3;
+    public static final int EASY = 1;
+    public static final int MEDIUM = 2;
+    public static final int HARD = 3;
     
     // Constructor
     public DifficultyState(int stateID) {}
