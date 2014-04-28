@@ -19,8 +19,8 @@ public class MenuState extends BasicGameState {
 
     private static Image
     menuBackground, titleImage,
-    playButton, quitButton, creditsButton, controlsButton, versusButton,
-    playHover, quitHover, creditsHover, controlsHover, versusHover;
+                    playButton, quitButton, creditsButton, controlsButton, versusButton,
+                    playHover, quitHover, creditsHover, controlsHover, versusHover;
 
     private HoverImage
     play, quit, credits, controls, versus;
@@ -103,13 +103,13 @@ public class MenuState extends BasicGameState {
         // Map mouse co-ordinates onto graphics co-ordinatess
         int posX = Mouse.getX(),
             posY = stateContainer.Game.HEIGHT - Mouse.getY();
-        
+
         // Draw the page background
         menuBackground.draw(0, 0);
-        
+
         // Draw the game title
         titleImage.draw(((stateContainer.Game.WIDTH - titleImage.getWidth()) / 2) + 5, 0);
-        
+
         // Draw the buttons
         play.render(posX, posY);
         versus.render(posX, posY);
@@ -120,7 +120,7 @@ public class MenuState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         // Mapping Mouse coords onto graphics coords
         int posX = Mouse.getX(),
-            posY = stateContainer.Game.HEIGHT - Mouse.getY();        
+            posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseBeenReleased) { //button first pressed
@@ -130,9 +130,9 @@ public class MenuState extends BasicGameState {
                     sbg.enterState(stateContainer.Game.DIFFICULTYSTATE);
                 }
 
-        		if (versus.isMouseOver(posX, posY)) {
-        		    sbg.enterState(stateContainer.Game.MULTIPLAYSTATE);
-        		}
+                if (versus.isMouseOver(posX, posY)) {
+                    sbg.enterState(stateContainer.Game.MULTIPLAYSTATE);
+                }
 
                 if (controls.isMouseOver(posX, posY)) {
                     sbg.enterState(stateContainer.Game.CONTROLSSTATE);

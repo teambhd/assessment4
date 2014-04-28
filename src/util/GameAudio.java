@@ -9,13 +9,13 @@ import org.newdawn.slick.util.ResourceLoader;
 import util.DeferredFile;
 
 public class GameAudio {
-    
+
     private static Music gameplayMusic;
     private static Sound endOfGameSound;
-        
+
     public static void init() {
         LoadingList loading = LoadingList.get();
-                
+
         // Music
         if (gameplayMusic == null) {
             loading.add(new DeferredFile("res/music/new/muzikele.ogg") {
@@ -24,7 +24,7 @@ public class GameAudio {
                 }
             });
         }
-        
+
         // Sound Effects
         if (endOfGameSound == null) {
             loading.add(new DeferredFile("res/music/new/Big Explosion.ogg") {
@@ -34,13 +34,13 @@ public class GameAudio {
             });
         }
     }
-    
+
     public static Music getMusic() {
         return gameplayMusic;
     }
-    
+
     public static Sound getEndOfGameSound() {
         return endOfGameSound;
     }
-    
+
 }

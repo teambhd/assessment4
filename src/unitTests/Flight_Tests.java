@@ -39,7 +39,7 @@ public class Flight_Tests {
         airspace.setDifficultyValueOfGame(1);
         airspace.createAndSetSeparationRules();
     }
-    
+
     // Testing generate_altitude()
 
     @Test

@@ -14,27 +14,27 @@ public class SeparationRules {
     // Fields
     private int gameOverLateralSeparation;
     private int gameOverVerticalSeparation;
-    
+
     private boolean gameOverViolation = false;
-    
+
     private Flight violatingFlight1;
     private Flight violatingFlight2;
 
     // Constructor
     public SeparationRules(int difficultyVal) {
-        if (difficultyVal == states.DifficultyState.EASY) { 
+        if (difficultyVal == states.DifficultyState.EASY) {
             // Easy: Only a Crash will cause a Game Over
             this.gameOverLateralSeparation = 30;
             this.gameOverVerticalSeparation = 200;
         }
 
-        if (difficultyVal == states.DifficultyState.MEDIUM) { 
+        if (difficultyVal == states.DifficultyState.MEDIUM) {
             // Medium: Can Violate, but not too closely
             this.gameOverLateralSeparation = 60;
             this.gameOverVerticalSeparation = 350;
         }
 
-        if (difficultyVal == states.DifficultyState.HARD) { 
+        if (difficultyVal == states.DifficultyState.HARD) {
             // Hard: Minimal Warning Violation allowed before end game achieved.
             this.gameOverLateralSeparation = 90;
             this.gameOverVerticalSeparation = 500;
@@ -66,8 +66,8 @@ public class SeparationRules {
     }
 
     /**
-     * checkViolation: Checks whether two flights have crashed and, if so, updates gameOverViolation 
-     * and violatingFlight1 and 2 accordingly. Assumes that only one crash is happening exactly simultaneously, 
+     * checkViolation: Checks whether two flights have crashed and, if so, updates gameOverViolation
+     * and violatingFlight1 and 2 accordingly. Assumes that only one crash is happening exactly simultaneously,
      * which is not too unreasonable given that the function runs 60 times a second.
      * @param airspace - The airspace object is passed so as to allow access to the list of flights.
      */
@@ -75,20 +75,20 @@ public class SeparationRules {
     public void checkViolation(Airspace airspace) {
         for (Flight e : airspace.getListOfFlights()) {
             for (Flight f : airspace.getListOfFlights()) {
-                
+
                 if (e == f) {
                     continue;
                 }
-                
+
                 if (lateralDistanceBetweenFlights(e, f) <= gameOverLateralSeparation &&
-                    verticalDistanceBetweenFlights(e, f) <= gameOverVerticalSeparation) {
-                        gameOverViolation = true;
-                        violatingFlight1 = e;
-                        violatingFlight2 = f;
+                        verticalDistanceBetweenFlights(e, f) <= gameOverVerticalSeparation) {
+                    gameOverViolation = true;
+                    violatingFlight1 = e;
+                    violatingFlight2 = f;
                 }
-                
+
             }
-        }   
+        }
     }
 
     /**
@@ -101,19 +101,19 @@ public class SeparationRules {
     public void render(Graphics g, Airspace airspace) {
         for (Flight e : airspace.getListOfFlights()) {
             for (Flight f : airspace.getListOfFlights()) {
-                
+
                 if (e == f) {
                     continue;
                 }
-                
+
                 if (lateralDistanceBetweenFlights(e, f) <= LATERAL_WARNING_DISTANCE &&
-                    verticalDistanceBetweenFlights(e, f) <= VERTICAL_WARNING_DISTANCE) {
-                        g.setColor(Color.orange);
-                        g.setLineWidth(2);
-                        g.drawLine((float)e.getX(), (float)e.getY(), (float)f.getX(), (float)f.getY());
-                        g.setLineWidth(1);
+                        verticalDistanceBetweenFlights(e, f) <= VERTICAL_WARNING_DISTANCE) {
+                    g.setColor(Color.orange);
+                    g.setLineWidth(2);
+                    g.drawLine((float)e.getX(), (float)e.getY(), (float)f.getX(), (float)f.getY());
+                    g.setLineWidth(1);
                 }
-                
+
             }
         }
     }
@@ -138,11 +138,11 @@ public class SeparationRules {
     public boolean getGameOverViolation() {
         return this.gameOverViolation;
     }
-    
+
     public Flight getViolatingFlight1() {
         return this.violatingFlight1;
     }
-    
+
     public Flight getViolatingFlight2() {
         return this.violatingFlight2;
     }

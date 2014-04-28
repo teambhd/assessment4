@@ -8,11 +8,11 @@ import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.util.ResourceLoader;
 
 public class GameFont {
-    
+
     private static TrueTypeFont gameFont;
-    
+
     public static void init() {
-        if (gameFont == null) {      
+        if (gameFont == null) {
             LoadingList.get().add(new DeferredFile("res/fonts/fira-sans.ttf") {
                 public void loadFile(String filename) {
                     InputStream inputStream = ResourceLoader.getResourceAsStream(filename);
@@ -28,9 +28,9 @@ public class GameFont {
             });
         }
     }
-    
+
     public static TrueTypeFont getFont() {
         return gameFont;
     }
-    
+
 }

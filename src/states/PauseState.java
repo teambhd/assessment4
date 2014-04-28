@@ -16,21 +16,21 @@ import util.DeferredFile;
 import util.HoverImage;
 
 public class PauseState extends BasicGameState {
-    
+
     private static Color backgroundColor = new Color(53, 75, 70);
 
     private static Image pauseTitle;
-    
+
     private static Image backButton;
     private static Image backButtonHover;
     private static HoverImage back;
-    
+
     private static Image menuImage;
     private static Image menuHover;
     private static HoverImage menu;
-    
+
     private static Image quitButton;
-    private static Image quitButtonHover; 
+    private static Image quitButtonHover;
     private static HoverImage quit;
 
     // Initialise the destination state variable with a sensible default
@@ -39,7 +39,7 @@ public class PauseState extends BasicGameState {
     public PauseState(int state) {}
 
     @Override
-    public void init(GameContainer gc, StateBasedGame sbj) throws SlickException {        
+    public void init(GameContainer gc, StateBasedGame sbj) throws SlickException {
         LoadingList loading = LoadingList.get();
         loading.add(new DeferredFile("res/text_graphics/paused.png") {
             public void loadFile(String filename) throws SlickException {
@@ -92,13 +92,13 @@ public class PauseState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         // Set the background colour
         g.setBackground(backgroundColor);
-        
+
         // Draw the page title
         pauseTitle.draw(((stateContainer.Game.WIDTH - pauseTitle.getWidth()) / 2) + 5, 20);
-        
+
         int posX = Mouse.getX();
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();
-        
+
         // Draw the buttons
         back.render(posX, posY);
         menu.render(posX, posY);
@@ -118,12 +118,12 @@ public class PauseState extends BasicGameState {
             if (back.isMouseOver(posX, posY)) {
                 sbg.enterState(destinationStateID);
             }
-            
+
             if (menu.isMouseOver(posX, posY)) {
-        		// We reset both the Challenge and Versus mode states here, 
-        		// since there's no harm in resetting an already inactive state
+                // We reset both the Challenge and Versus mode states here,
+                // since there's no harm in resetting an already inactive state
                 PlayState.restartGame();
-        		MultiPlayState.restartGame();
+                MultiPlayState.restartGame();
                 sbg.enterState(stateContainer.Game.MENUSTATE);
             }
 
@@ -134,12 +134,12 @@ public class PauseState extends BasicGameState {
     }
 
     public static void setDestinationStateID(int id) {
-    	destinationStateID = id;
+        destinationStateID = id;
     }
 
     @Override
     public int getID() {
         return stateContainer.Game.PAUSESTATE;
     }
-    
+
 }

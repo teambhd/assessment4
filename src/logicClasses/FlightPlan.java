@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
 import stateContainer.Game;
 
 public class FlightPlan {
-    
+
     private static final Color RED_COLOR = new Color(197, 131, 138);
     private static final Color BLUE_COLOR = new Color(141, 191, 244);
 
@@ -65,17 +65,17 @@ public class FlightPlan {
      */
 
     public ArrayList<Point> buildRoute(Airspace airspace, EntryPoint entryPoint) {
-        
+
         // Create the array lists for route and points
         ArrayList<Point> tempRoute = new ArrayList<Point>();
-        
+
         if (!airspace.getListOfWaypoints().isEmpty() && !airspace.getListOfExitPoints().isEmpty()) {
-            
+
             // Add an ExitPoint to the plan, ensuring that a plane isn't set to exit on the same edge as it arrived from
-            
+
             ArrayList<ExitPoint> shuffledExitPointList = new ArrayList<ExitPoint>(airspace.getListOfExitPoints());
             Collections.shuffle(shuffledExitPointList);
-            
+
             for (ExitPoint exitPoint : shuffledExitPointList) {
                 if (entryPoint.getY() == 0 && exitPoint.getY() == 0) {
                     continue;
@@ -97,41 +97,41 @@ public class FlightPlan {
                 this.exitPoint = exitPoint;
                 break;
             }
-            
-            
+
+
             // Add some intermediate waypoints to the flight plan
-            
+
             ArrayList<Waypoint> shuffledWaypointList = new ArrayList<Waypoint>(airspace.getListOfWaypoints());
             Collections.shuffle(shuffledWaypointList);
-            
-            // Randomly add 2 intermediate waypoints to the route               
+
+            // Randomly add 2 intermediate waypoints to the route
             for (Waypoint v : shuffledWaypointList) {
-                
+
                 // Exit if we've added the correct number of waypoints
                 if (tempRoute.size() == 3) {
                     break;
                 }
-                
+
                 for (Waypoint w : shuffledWaypointList) {
-                    
+
                     if (v == w) {
                         continue;
-                    }                    
-                    
+                    }
+
                     // This humungous if statement tries to ensure that doubling-back between waypoints is avoided
-                    if (Point.distanceBetween(v, exitPoint) > Point.distanceBetween(w, exitPoint) 
-                        && Point.distanceBetween(entryPoint, v) < Point.distanceBetween(entryPoint, w)) {
+                    if (Point.distanceBetween(v, exitPoint) > Point.distanceBetween(w, exitPoint)
+                            && Point.distanceBetween(entryPoint, v) < Point.distanceBetween(entryPoint, w)) {
                         tempRoute.add(0, v);
                         tempRoute.add(1, w);
                         break;
                     }
-                    
+
                 }
-                
+
             }
-            
+
         }
-                            
+
         return tempRoute;
     }
 
@@ -145,7 +145,7 @@ public class FlightPlan {
         if (entryPoint.isRunway()) {
             return 0;
         }
-                
+
         return (r.nextInt((flight.getMaxVelocity() - flight.getMinVelocity()) / 50) * 50) + flight.getMinVelocity();
     }
 
@@ -156,7 +156,7 @@ public class FlightPlan {
     public void update(ScoreTracking score) {
         int waypointScore = 0;
 
-        if (this.currentRoute.size() > 0) { 
+        if (this.currentRoute.size() > 0) {
             // Check to see if there are still waypoints to visit and then check if the flight is passing through waypoint
             if (this.flight.checkIfFlightAtWaypoint(currentRoute.get(0))) {
                 this.waypointsAlreadyVisited.add(this.currentRoute.get(0));
@@ -172,33 +172,33 @@ public class FlightPlan {
 
     public void render(Graphics g) throws SlickException {
         if (this.currentRoute.size() > 0) {
-            
+
             if (this.flight.getOwner() == "red") {
                 g.setColor(RED_COLOR);
             }
-            
+
             else if (this.flight.getOwner() == "blue") {
                 g.setColor(BLUE_COLOR);
             }
-            
+
             else {
                 g.setColor(Color.lightGray);
             }
-            
+
             // Draw a line from the flight to it's next waypoint
             g.drawLine(
                 (float)this.flight.getX(),
                 (float)this.flight.getY(),
-                (float)this.currentRoute.get(0).getX(), 
-                (float)this.currentRoute.get(0).getY() 
+                (float)this.currentRoute.get(0).getX(),
+                (float)this.currentRoute.get(0).getY()
             );
 
             // Draw lines between all waypoints in plan
             for (int i = 1; i < this.currentRoute.size(); i++) {
                 g.drawLine(
-                    (float)this.currentRoute.get(i).getX(), 
-                    (float)this.currentRoute.get(i).getY(), 
-                    (float)this.currentRoute.get(i - 1).getX(), 
+                    (float)this.currentRoute.get(i).getX(),
+                    (float)this.currentRoute.get(i).getY(),
+                    (float)this.currentRoute.get(i - 1).getX(),
                     (float)this.currentRoute.get(i - 1).getY()
                 );
             }
@@ -219,12 +219,12 @@ public class FlightPlan {
     public EntryPoint getEntryPoint() {
         return this.entryPoint;
     }
-    
+
     public ExitPoint getExitPoint() {
         return this.exitPoint;
     }
-    
-    
+
+
     @Override
     public String toString() {
         String returnString = "";

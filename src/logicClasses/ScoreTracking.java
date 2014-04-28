@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class ScoreTracking {
-    
+
     // Constants
     private static final int TIME_BONUS = 100;
     private static final int FLIGHT_LOSS_PENALTY = -50;
@@ -19,7 +19,7 @@ public class ScoreTracking {
     // Constructor
     public ScoreTracking() {}
 
-    
+
     // Methods
     public void render(Graphics g, int x, int y, Color color) throws SlickException {
         // Draw the indicator, showing which player's score this represents.
@@ -31,23 +31,23 @@ public class ScoreTracking {
         if (color == Color.white) {
             g.setColor(Color.lightGray);
         }
-        
+
         else {
             g.setColor(Color.white);
         }
 
-        g.drawOval((float)x, (float)y + 4, 10, 10);            
-                
+        g.drawOval((float)x, (float)y + 4, 10, 10);
+
         // Draw the numeric score itself
         g.setColor(Color.white);
         g.drawString(String.valueOf(currentScore), x + 15, y);
     }
-    
-    
+
+
     // Positive scoring
-    public int updateWaypointScore(int closestDistance) {  
+    public int updateWaypointScore(int closestDistance) {
         int waypointScore = 0;
-              
+
         if (closestDistance >= 0 && closestDistance <= 14) {    //checks to see if the plane is within 10 pixels
             waypointScore = 100;                                //if yes, the score given is 100 points
         }
@@ -59,7 +59,7 @@ public class ScoreTracking {
         else if (closestDistance >= 29 && closestDistance <= 42) {
             waypointScore = 20;
         }
-        
+
         return waypointScore;
     }
 
@@ -72,16 +72,16 @@ public class ScoreTracking {
     public void applyFlightLossPenalty() {
         currentScore += FLIGHT_LOSS_PENALTY;
     }
-    
+
     public void applyCrashPenalty() {
         currentScore += CRASH_PENALTY;
     }
-    
-    
+
+
     public int getScore() {
         return currentScore;
     }
-    
+
     public int updateScore(int score) {
         return currentScore += score;
     }
@@ -89,5 +89,5 @@ public class ScoreTracking {
     public void resetScore() {
         currentScore = 0;
     }
-    
+
 }

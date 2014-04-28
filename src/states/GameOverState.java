@@ -20,13 +20,13 @@ import util.HoverImage;
 public class GameOverState extends BasicGameState {
 
     private static Color backgroundColor = new Color(75, 70, 54);
-    
+
     private static Image gameOverTitle;
-    
+
     private static Image quitImage, quitHover;
     private static Image menuImage, menuHover;
     private static Image againImage, againHover;
-    
+
     private static HoverImage againButton, menuButton, quitButton;
 
 
@@ -83,16 +83,16 @@ public class GameOverState extends BasicGameState {
             }
         });
     }
-    
+
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         // Set the background colour
         g.setBackground(backgroundColor);
-        
+
         // Draw the page title
         gameOverTitle.draw(((stateContainer.Game.WIDTH - gameOverTitle.getWidth()) / 2) + 5, 20);
-        
-        // Get the co-ordinates of the mouse pointer, 
+
+        // Get the co-ordinates of the mouse pointer,
         // flipping on the Y axis so as to use the same origin as the graphics object
         int posX = Mouse.getX();
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();

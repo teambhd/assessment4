@@ -11,11 +11,11 @@ import util.DeferredFile;
 public class EntryPoint extends Point {
 
     static Image entryPointTop, entryPointRight, entryPointLeft, entryPointRunway;
-            
+
     public EntryPoint(double x, double y) {
         super(x, y);
     }
-    
+
     /**
      * init: Initialises the variables and resources required for the EntryPoint object render (Sets EntryPoint Images)
      * @param gc Game container required by Slick2d
@@ -38,7 +38,7 @@ public class EntryPoint extends Point {
             }
         });
     }
-        
+
     /**
      * render: Render method for the EntryPoint object, position determines orientation of image
      * @param g Graphics required by Slick2d
@@ -59,11 +59,11 @@ public class EntryPoint extends Point {
         }
 
     }
-    
+
     /**
      * isRunway: Returns true if the EntryPoint is not on any of the screen edges, and therefore must be a runway
      */
-    
+
     public boolean isRunway() {
         return x != 0 && x != stateContainer.Game.WIDTH && y != 0 && y != stateContainer.Game.HEIGHT;
     }
