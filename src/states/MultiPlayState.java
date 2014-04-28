@@ -29,6 +29,8 @@ public class MultiPlayState extends BasicGameState {
     
     public static final Color RED_COLOR = new Color(165, 0, 0); // or #D70C1E as a hex
     public static final Color BLUE_COLOR = new Color(0, 0, 160);
+    
+    private static final int SCORE_NEEDED_TO_WIN = 3000;
 
     private static boolean gameBegun;
     
@@ -149,6 +151,18 @@ public class MultiPlayState extends BasicGameState {
             
             // Reset the separation rules in time for the next crash
             airspace.getSeparationRules().setGameOverViolation(false);
+        }
+        
+        if (airspace.getScore("red").getScore() >= SCORE_NEEDED_TO_WIN) {
+            // Red player has won, by gaining the required number of points
+            restartGame();
+            sbg.enterState(stateContainer.Game.REDVICTORYSTATE);
+        }
+        
+        if (airspace.getScore("blue").getScore() >= SCORE_NEEDED_TO_WIN) {
+            // Blue player has won, by gaining the required number of points
+            restartGame();
+            sbg.enterState(stateContainer.Game.BLUEVICTORYSTATE);
         }
 
         // Checking for Pause Screen requested in game

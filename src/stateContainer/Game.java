@@ -13,22 +13,25 @@ import states.MultiPlayState;
 import states.PlayState;
 import states.ControlsState;
 import states.SplashState;
+import states.VictoryState;
 
 public class Game extends StateBasedGame {
 
     public static final String NAME = "Don't Crash";
 
-    public static final int
-    SPLASHSTATE = 0,
-    MENUSTATE = 1,
-    PLAYSTATE = 2,
-    MULTIPLAYSTATE = 3,
-    GAMEOVERSTATE = 4,
-    PAUSESTATE = 5,
-    CONTROLSSTATE = 6,
-    DIFFICULTYSTATE = 7;
+    public static final int SPLASHSTATE = 0;
+    public static final int MENUSTATE = 1;
+    public static final int PLAYSTATE = 2;
+    public static final int MULTIPLAYSTATE = 3;
+    public static final int GAMEOVERSTATE = 4;
+    public static final int PAUSESTATE = 5;
+    public static final int CONTROLSSTATE = 6;
+    public static final int DIFFICULTYSTATE = 7;
+    public static final int REDVICTORYSTATE = 8;
+    public static final int BLUEVICTORYSTATE = 9;
 
-    public static final int WIDTH = 1200, HEIGHT = 600;
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 600;
 
 
     /**
@@ -51,6 +54,8 @@ public class Game extends StateBasedGame {
         addState(new GameOverState(GAMEOVERSTATE));
         addState(new PauseState(PAUSESTATE));
         addState(new ControlsState(CONTROLSSTATE));
+        addState(new VictoryState(REDVICTORYSTATE, "red"));
+        addState(new VictoryState(BLUEVICTORYSTATE, "blue"));
     }
 
     public static void main(String[] args) {
