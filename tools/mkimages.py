@@ -16,7 +16,7 @@ def create_image(text, font_size=48, filename=None, color="white"):
     command += " -background none"
     command += " -geometry +0+0"
     command += " -define png:bit-depth=8"
-    command += " ../src/res/text_graphics/" + filename + ".png"
+    command += " png32:../src/res/text_graphics/" + filename + ".png"
     system(command)
    
 def create_hover_image(text, font_size=48, filename=None):
