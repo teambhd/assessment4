@@ -33,15 +33,13 @@ public class Flight {
     public static final int MIN_ALTITUDE = 1000; // ft
     public static final int MAX_ALTITUDE = 5000; // ft
 
-    private final static int RADIUS = 30;
+    private static final int RADIUS = 30;
 
     private static final double ACCEL_RATE = 20 / 60.0;
     private static final double CLIMB_RATE = 60 / 60.0;
     private static final double TURN_RATE = 30 / 60.0;
 
     // Fields
-    private String flightName;
-
     private double x = 0;
     private double y = 0;
 
@@ -360,7 +358,7 @@ public class Flight {
         double dv = 0.01 * (targetVelocity - velocity);
 
         if (targetVelocity > velocity) {
-            dv = Math.min(dv , ACCEL_RATE);
+            dv = Math.min(dv, ACCEL_RATE);
         }
 
         else {
@@ -377,10 +375,6 @@ public class Flight {
             takingOff = false;
         }
     }
-
-
-    // UPDATE, RENDER
-
 
 
     /**
@@ -484,18 +478,15 @@ public class Flight {
      */
 
     public boolean checkIfFlightAtWaypoint(Point waypoint) {
-        int distanceX;
-        int distanceY;
-        distanceX = (int)(Math.abs(Math.round(this.x) - Math.round(waypoint.getX())));
-        distanceY = (int)(Math.abs(Math.round(this.y) - Math.round(waypoint.getY())));
-        distanceFromWaypoint = (int)Math.sqrt((int)Math.pow(distanceX, 2) + (int)Math.pow(distanceY, 2));
+        // Calculate the distance between the flight and the waypoint
+        distanceFromWaypoint = (int)Math.hypot(x - waypoint.getX(), y - waypoint.getY());
 
         // The plane is coming towards the waypoint
         if (closestDistance > distanceFromWaypoint) {
             closestDistance = distanceFromWaypoint;
         }
 
-        if ((distanceX <= RADIUS) && (distanceY <= RADIUS)) {
+        if (distanceX <= RADIUS && distanceY <= RADIUS) {
             // The plane is going away from the way point
             if (closestDistance < distanceFromWaypoint) {
                 if (waypoint instanceof ExitPoint) {
@@ -503,9 +494,7 @@ public class Flight {
                         return currentAltitude == 0;
                     }
 
-                    else {
-                        return true;
-                    }
+                    return true;
                 }
 
                 //for any non-exit waypoint
@@ -621,18 +610,10 @@ public class Flight {
         this.turningLeft = turningLeft;
     }
 
-    public String getFlightName() {
-        return flightName;
-    }
-
-    public void setFlightName(String flightName) {
-        this.flightName = flightName;
-    }
-
     // toString function to display a flight object so we can read it
     @Override
     public String toString() {
-        return "X: " + this.x + " Y: " + this.y + " Flight Name: " + this.flightName;
+        return "Flight at (" + x + ", " + y + ")";
     }
 
     public int getCurrentAltitude() {

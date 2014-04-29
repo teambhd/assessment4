@@ -161,8 +161,8 @@ public class Airspace {
     }
 
     /**
-     * newFlight: Add a new flight to the list of flights in the airspace if it has been long enough since the last flight was added and if random number satisfies condition
-     * The flight is also given a name
+     * newFlight: Add a new flight to the list of flights in the airspace if it has been long enough since the 
+     * last flight was added and if random number satisfies condition
      * @throws SlickException
      */
 
@@ -189,7 +189,6 @@ public class Airspace {
 
             if (checkNumber == 1) {
                 Flight tempFlight = new Flight(this);
-                tempFlight.setFlightName(generateFlightName());
 
                 if (!isMultiplayer) {
                     tempFlight.setOwner("single");
@@ -233,38 +232,14 @@ public class Airspace {
         return false;
     }
 
-
     /**
-     * generateFlightName: Generate a random name for a flight, based on UK flight tail numbers
-     * @return Returns a random string that can be used to identify a flight.
-     */
-
-    public String generateFlightName() {
-        String name = "G-";
-
-        for (int i = 0; i < 4; i++) {
-            int thisChar = rand.nextInt(10) + 65; // Generates int in range [65, 74]
-            name += (char) thisChar; // Generate corresponding ascii character for int
-        }
-
-        return name;
-    }
-
-    /**
-     * checkIfFlightHasLeftAirspace: Check if a flight is outside the area of the game, and if it is removed the object so it is not
-     * using unnecessary resources.
-     * @param flight The flight being checked.
+     * checkIfFlightHasLeftAirspace: Checks is a flight has left the airspace, so it can be removed.
+     * @param flight The flight to be checked
      */
 
     public boolean checkIfFlightHasLeftAirspace(Flight flight) {
-        if (flight.getX() > 1250 || flight.getX() < -50 || flight.getY() > 650 || flight.getY() < -50) {
-            // x and y must be within these bounds to be within screen space
-            return true;
-        }
-
-        else {
-            return false;
-        }
+        // x and y must be within these bounds to be within screen space
+        return flight.getX() > 1250 || flight.getX() < -50 || flight.getY() > 650 || flight.getY() < -50;
     }
 
     /**
@@ -332,7 +307,6 @@ public class Airspace {
     /**
      * render: Render all of the graphics in the airspace
      * @param g Graphics
-     *
      * @throws SlickException
      */
 
@@ -363,12 +337,7 @@ public class Airspace {
     }
 
 
-
     // MUTATORS AND ACCESSORS
-
-    public int getMaxNumberOfFlights() {
-        return MAX_FLIGHTS;
-    }
 
     public List<Flight> getListOfFlights() {
         return this.listOfFlightsInAirspace;
@@ -407,10 +376,8 @@ public class Airspace {
             return false;
         }
 
-        else {
-            this.listOfWayppoints.add(waypoint);
-            return true;
-        }
+        this.listOfWayppoints.add(waypoint);
+        return true;
     }
 
     public boolean addEntryPoint(EntryPoint entrypoint) {
@@ -418,10 +385,8 @@ public class Airspace {
             return false;
         }
 
-        else {
-            this.listOfEntryPoints.add(entrypoint);
-            return true;
-        }
+        this.listOfEntryPoints.add(entrypoint);
+        return true;
     }
 
     public boolean addExitPoint(ExitPoint exitpoint) {
@@ -429,10 +394,8 @@ public class Airspace {
             return false;
         }
 
-        else {
-            this.listOfExitPoints.add(exitpoint);
-            return true;
-        }
+        this.listOfExitPoints.add(exitpoint);
+        return true;
     }
 
     public boolean addFlight(Flight flight) {
@@ -442,18 +405,16 @@ public class Airspace {
             return false;
         }
 
-        else {
-            // If the flight to be added is to start on the runway, and there's already a plane there, then it can't be added
-            // TODO: Change this code to allow for multiple airports
-            for (Flight a : listOfFlightsInAirspace) {
-                if (a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()) {
-                    return false;
-                }
+        // If the flight to be added is to start on the runway, and there's already a plane there, then it can't be added
+        // TODO: Change this code to allow for multiple airports
+        for (Flight a : listOfFlightsInAirspace) {
+            if (a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()) {
+                return false;
             }
-
-            this.listOfFlightsInAirspace.add(flight);
-            return true;
         }
+
+        this.listOfFlightsInAirspace.add(flight);
+        return true;
     }
 
     public void removeSpecificFlight(int flight) {
@@ -512,24 +473,19 @@ public class Airspace {
         return this.listOfAirports;
     }
     
-    public void setHandoverDelay(){
-    	if(this.handoverDelay==false){
-    	this.handoverDelay = true;
-    	}
-    	else {
-    		this.handoverDelay = false;
-    	}
+    public void setHandoverDelay() {
+        handoverDelay = !handoverDelay;
     }
     
-    public boolean getHandoverDelay () {
+    public boolean getHandoverDelay() {
     	return this.handoverDelay;
     }
     
-    public void resetLoopsSinceLastHandover () {
+    public void resetLoopsSinceLastHandover() {
     	this.numberOfGameLoopsSinceHandover = 0;
     }
     
-    public int getLoopsSinceLastHandover () {
+    public int getLoopsSinceLastHandover() {
     	return this.numberOfGameLoopsSinceHandover;
     }
 
