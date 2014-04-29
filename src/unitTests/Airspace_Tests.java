@@ -48,7 +48,7 @@ public class Airspace_Tests {
         airspace.resetAirspace();
         assertTrue(airspace.getListOfFlights().size() == 0);
         assertTrue(airspace.getNumberOfGameLoops() == 0);
-        assertTrue(airspace.getNumberOfGameLoopsWhenDifficultyIncreases() == 3600);
+        assertTrue(airspace.getNumberOfGameLoopsWhenDifficultyIncreases() == 900);
         assertTrue(airspace.getSeparationRules().getGameOverViolation() == false);
     }
 
