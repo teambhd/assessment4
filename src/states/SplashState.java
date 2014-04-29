@@ -34,7 +34,6 @@ public final class SplashState extends BasicGameState {
         logicClasses.Airspace.init();
         logicClasses.Airport.init();
         logicClasses.Flight.init();
-        logicClasses.Waypoint.init();
         logicClasses.ExitPoint.init();
         logicClasses.EntryPoint.init();
         logicClasses.TimeIndicator.init();

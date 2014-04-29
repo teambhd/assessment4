@@ -2,58 +2,38 @@ package logicClasses;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.loading.LoadingList;
 
-import util.DeferredFile;
 
 public class Waypoint extends Point {
+    
+    private static final Color BACKGROUND_COLOR = new Color(138, 145, 145);
+    private static final Color BORDER_COLOR = Color.lightGray;
+    private static final Color TEXT_COLOR = Color.black;
 
-    static Image nextWaypointImage, waypointImage;
-
-
+    // Constructor
     public Waypoint(double xcoord, double ycoord, String name) {
         super(xcoord, ycoord, name);
     }
 
-    // INIT, RENDER
-
     /**
-     * init: Initialises the variables and resources required for the Waypoint class render (Sets Waypoint Images)
-     * @throws SlickException Slick2d exception handler
-     */
-
-    public static void init() throws SlickException {
-        LoadingList loading = LoadingList.get();
-
-        if (waypointImage == null) {
-            loading.add(new DeferredFile("res/graphics/waypoint.png") {
-                public void loadFile(String filename) throws SlickException {
-                    waypointImage = new Image(filename);
-                }
-            });
-        }
-
-        if (nextWaypointImage == null) {
-            loading.add(new DeferredFile("res/graphics/waypoint_next.png") {
-                public void loadFile(String filename) throws SlickException {
-                    nextWaypointImage = new Image(filename);
-                }
-            });
-        }
-    }
-
-    /**
-     * render: Render the graphics for the Waypoint class (Draws all Waypoints)
+     * render: Draw this waypoint to the screen
      * @param g Slick2D graphics object
      * @throws SlickException Slick2d exception handler
      */
 
-    public void render(Graphics g) throws SlickException {
-        waypointImage.draw((int)x - 14, (int)y - 14, 30, 30);
-        g.setColor(Color.black);
-        g.drawString(pointRef, (int)x - 3, (int)y - 9);
+    public void render(Graphics g) throws SlickException {        
+        // Draw the background colour for the waypoint indicator circle
+        g.setColor(BACKGROUND_COLOR);
+        g.fillOval((float)x - 9, (float)y - 9, 18, 18);
+
+        // Draw the border around the waypoint indicator circle
+        g.setColor(BORDER_COLOR);
+        g.drawOval((float)x - 9, (float)y - 9, 18, 18);
+        
+        // Draw the waypoint letter
+        g.setColor(TEXT_COLOR);
+        g.drawString(pointRef, (int)x - 4, (int)y - 9);
     }
 
 }
