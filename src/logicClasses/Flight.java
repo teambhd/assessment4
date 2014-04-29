@@ -16,7 +16,9 @@ import util.DeferredFile;
 public class Flight {
 
     // Images
-    private static Image whiteFlightImage, redFlightImage, blueFlightImage;
+    private static Image whiteFlightImage;
+    private static Image redFlightImage;
+    private static Image blueFlightImage;
     private static Image shadowImage;
 
     // Random number generator
@@ -436,7 +438,7 @@ public class Flight {
             g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int)this.x + 18, (int)this.y - 27);
         }
 
-        g.drawString(Math.round(this.currentAltitude) + "ft", (int)this.x + 17, (int)this.y - 9);
+        g.drawString(currentAltitude + "ft", (int)this.x + 17, (int)this.y - 9);
 
         g.drawString(Math.round(this.velocity) + "mph", (int)this.x + 17, (int)this.y + 9);
     }
