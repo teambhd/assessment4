@@ -1,7 +1,5 @@
 package logicClasses;
 
-import static java.lang.Math.PI;
-
 import java.util.Random;
 
 import org.newdawn.slick.Color;
@@ -43,9 +41,14 @@ public class Flight {
     private double x = 0;
     private double y = 0;
 
-    private double velocity, targetVelocity;
-    private double currentHeading, targetHeading;
-    private int currentAltitude, targetAltitude;
+    private double velocity; 
+    private double targetVelocity;
+    
+    private double currentHeading;
+    private double targetHeading;
+    
+    private int currentAltitude;
+    private int targetAltitude;
 
     private int timeToLand;
 
@@ -55,9 +58,10 @@ public class Flight {
     private Airspace airspace;
     private FlightPlan flightPlan;
 
-    private int closestDistance = Integer.MAX_VALUE; // this is the maximum distance a plane
-    // can be away from the waypoint once it has
+    // This is the maximum distance a plane can be away from the waypoint once it has
     // been checked that the plane is inside the waypoint
+    private int closestDistance = Integer.MAX_VALUE; 
+    
     private int distanceFromWaypoint;
 
     // All three variables are used to control the flight state
@@ -481,29 +485,23 @@ public class Flight {
         // Calculate the distance between the flight and the waypoint
         distanceFromWaypoint = (int)Math.hypot(x - waypoint.getX(), y - waypoint.getY());
 
-        // The plane is coming towards the waypoint
         if (closestDistance > distanceFromWaypoint) {
+            // The plane is coming towards the waypoint
             closestDistance = distanceFromWaypoint;
         }
 
         if (distanceFromWaypoint <= RADIUS) {
             // The plane is going away from the waypoint
             if (closestDistance < distanceFromWaypoint) {
-                if (waypoint instanceof ExitPoint) {
-                    if (((ExitPoint)waypoint).isRunway()) {
-                        return currentAltitude == 0;
-                    }
-
-                    return true;
+                if (waypoint instanceof ExitPoint && ((ExitPoint)waypoint).isRunway()) {
+                    return currentAltitude == 0;
                 }
 
-                //for any non-exit waypoint
-                return true;
+                return true; // for any non-exit waypoint
             }
         }
-
-        //getting closer OR not close enough
-        return false;
+        
+        return false; // getting closer or not close enough
     }
 
 
@@ -528,7 +526,6 @@ public class Flight {
                 return true;
             }
         }
-
 
         return false;
     }
