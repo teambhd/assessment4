@@ -15,7 +15,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public final class SplashState extends BasicGameState {
 
-    private static Color backgroundColor = new Color(60, 60, 60); // or #3C3C3C as a hex colour
+    private static final Color BACKGROUND_COLOR = new Color(60, 60, 60);
+    
     private static Image loadingImage;
     private static LoadingList loading = LoadingList.get();
 
@@ -23,7 +24,7 @@ public final class SplashState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame s) throws SlickException {
-        gc.getGraphics().setBackground(backgroundColor);
+        gc.getGraphics().setBackground(BACKGROUND_COLOR);
         loadingImage = new Image("res/text_graphics/loading.png");
 
         // Intitialise the shared game resources (music and font)

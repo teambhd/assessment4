@@ -17,7 +17,7 @@ import util.HoverImage;
 
 public class PauseState extends BasicGameState {
 
-    private static Color backgroundColor = new Color(53, 75, 70);
+    private static final Color BACKGROUND_COLOR = new Color(53, 75, 70);
 
     private static Image pauseTitle;
 
@@ -91,7 +91,7 @@ public class PauseState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         // Set the background colour
-        g.setBackground(backgroundColor);
+        g.setBackground(BACKGROUND_COLOR);
 
         // Draw the page title
         pauseTitle.draw(((stateContainer.Game.WIDTH - pauseTitle.getWidth()) / 2) + 5, 20);
