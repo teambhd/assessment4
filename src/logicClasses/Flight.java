@@ -225,12 +225,20 @@ public class Flight {
                     setTargetVelocity(0);
                     setTargetAltitude(0);
                     if (withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading(), 10)) {
-                        this.setTargetHeading(airport.getRunwayHeading());
+                        this.setCurrentHeading(airport.getRunwayHeading());
+                        this.setTargetHeading(this.getCurrentHeading());
                     }
-                    else {
-                        this.setTargetHeading(airport.getRunwayHeading() + 180);
+                    else if (withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading() + 180, 10)) {
+                        this.setCurrentHeading(airport.getRunwayHeading() + 180);
+                        this.setTargetHeading(this.getCurrentHeading());
                     }
-                    this.timeToLand = 600; //Set game update cycles until the flight lands.
+                    else if (withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading() - 180, 10)) {
+                        this.setCurrentHeading(airport.getRunwayHeading() - 180);
+                        this.setTargetHeading(this.getCurrentHeading());
+                    }
+
+
+                    this.timeToLand = 600; //Set game update cycles until the flight lands. Roughly 10 seconds.
                 }
             }
         }
