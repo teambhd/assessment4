@@ -450,9 +450,12 @@ public class Flight {
         }
     }
 
-    //UTILITY METHODS
 
-    public boolean withinTolerance(double x1, double x2, double tolerance) {
+    // =================
+    // # Utility Methods
+    // =================
+
+    public static boolean withinTolerance(double x1, double x2, double tolerance) {
         return Math.abs(x1 - x2) <= tolerance;
     }
 
@@ -540,7 +543,10 @@ public class Flight {
     }
 
 
-    // MUTATORS AND ACCESSORS
+    // ========================
+    // # Mutators and Accessors
+    // ========================
+
     public double getX() {
         return this.x;
     }

@@ -59,7 +59,7 @@ public class Point {
     }
 
     public boolean equals(Point point) {
-        return ((point.getX() == x) && (point.getY() == y));
+        return point.getX() == x && point.getY() == y;
     }
 
 }

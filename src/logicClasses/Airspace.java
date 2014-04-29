@@ -535,7 +535,7 @@ public class Airspace {
 
     @Override
     public String toString() {
-        String s = "Airspace: " + this.listOfAirports.toString();
-        return s;
+        return "Airspace: " + this.listOfAirports.toString();
     }
+    
 }
