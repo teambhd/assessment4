@@ -83,14 +83,14 @@ public class Controls {
 
             if (input.isKeyPressed(myKeys.get("up"))) {
                 // Increase altitude by 1000ft if the flight's not already at its ceiling
-                if (selectedFlight.getTargetAltitude() <= selectedFlight.getMaxAltitude() - 1000) {
+                if (selectedFlight.getTargetAltitude() <= Flight.MAX_ALTITUDE - 1000) {
                     selectedFlight.setTargetAltitude(selectedFlight.getTargetAltitude() + 1000);
                 }
             }
 
             else if (input.isKeyPressed(myKeys.get("down"))) {
                 // Decrease altitude by 1000ft if the flight's not already at its minimum height
-                if (selectedFlight.getTargetAltitude() >= selectedFlight.getMinAltitude() + 1000) {
+                if (selectedFlight.getTargetAltitude() >= Flight.MIN_ALTITUDE + 1000) {
                     selectedFlight.setTargetAltitude(selectedFlight.getTargetAltitude() - 1000);
                 }
             }
@@ -110,14 +110,14 @@ public class Controls {
 
             if (input.isKeyPressed(myKeys.get("accelerate"))) {
                 // Increase velocity by 50 if the flight's not already at its maximum speed
-                if (selectedFlight.getTargetVelocity() <= selectedFlight.getMaxVelocity() - 50) {
+                if (selectedFlight.getTargetVelocity() <= Flight.MAX_VELOCITY - 50) {
                     selectedFlight.setTargetVelocity(selectedFlight.getTargetVelocity() + 50);
                 }
             }
 
             else if (input.isKeyPressed(myKeys.get("decelerate"))) {
                 // Decrease velocity by 50 if the flight's not already at its minimum speed
-                if (selectedFlight.getTargetVelocity() >= selectedFlight.getMinVelocity() + 50) {
+                if (selectedFlight.getTargetVelocity() >= Flight.MIN_VELOCITY + 50) {
                     selectedFlight.setTargetVelocity(selectedFlight.getTargetVelocity() - 50);
                 }
             }

@@ -27,11 +27,11 @@ public class Flight {
     // Constants
     private static final double GAME_SCALE = 1 / 1000.0;
 
-    private static final int MIN_VELOCITY = 200; // mph
-    private static final int MAX_VELOCITY = 400; // mph
+    public static final int MIN_VELOCITY = 200; // mph
+    public static final int MAX_VELOCITY = 400; // mph
 
-    private static final int MIN_ALTITUDE = 1000; // ft
-    private static final int MAX_ALTITUDE = 5000; // ft
+    public static final int MIN_ALTITUDE = 1000; // ft
+    public static final int MAX_ALTITUDE = 5000; // ft
 
     private final static int RADIUS = 30;
 
@@ -603,22 +603,6 @@ public class Flight {
 
     public boolean isCommandable() {
         return !isGrounded() && !landing;
-    }
-
-    public int getMinVelocity() {
-        return MIN_VELOCITY;
-    }
-
-    public int getMaxVelocity() {
-        return MAX_VELOCITY;
-    }
-
-    public int getMinAltitude() {
-        return MIN_ALTITUDE;
-    }
-
-    public int getMaxAltitude() {
-        return MAX_ALTITUDE;
     }
 
     public boolean getTurningRight() {

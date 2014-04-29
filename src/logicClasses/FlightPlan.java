@@ -146,7 +146,7 @@ public class FlightPlan {
             return 0;
         }
 
-        return (r.nextInt((flight.getMaxVelocity() - flight.getMinVelocity()) / 50) * 50) + flight.getMinVelocity();
+        return (r.nextInt((Flight.MAX_VELOCITY - Flight.MIN_VELOCITY) / 50) * 50) + Flight.MIN_VELOCITY;
     }
 
     /**
