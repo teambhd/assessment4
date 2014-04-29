@@ -251,13 +251,17 @@ public class Flight {
      */
 
     public void handOver(ScoreTracking st) {
-        if (owner == "red") {
+        if (owner == "red" && airspace.getHandoverDelay() == false) {
             owner = "blue";
+            airspace.resetLoopsSinceLastHandover();
+            airspace.setHandoverDelay();
             st.applyFlightLossPenalty();
         }
         
-        else if (owner == "blue") {
+        else if (owner == "blue" && airspace.getHandoverDelay() == false) {
             owner = "red";
+            airspace.resetLoopsSinceLastHandover();
+            airspace.setHandoverDelay();
             st.applyFlightLossPenalty();
         }
     }

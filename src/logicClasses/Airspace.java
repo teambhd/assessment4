@@ -34,6 +34,8 @@ public class Airspace {
     private static final int MAX_FLIGHTS = 10;
     private static final int DIFFICULTY_INCREASE_INTERVAL = 900; // 15 seconds
     private static final int INITIAL_CHANCE_OF_NEW_FLIGHT = 400;
+    private static final int HANDOVER_DELAY = 300; //5 seconds
+
 
     // Fields
     private int chanceOfNewFlight = INITIAL_CHANCE_OF_NEW_FLIGHT;
@@ -41,6 +43,7 @@ public class Airspace {
     private int numberOfGameLoops = 0;
     private int numberOfGameLoopsSinceLastFlightAdded = 0;
     private int numberOfGameLoopsWhenDifficultyIncreases = DIFFICULTY_INCREASE_INTERVAL;
+    private int numberOfGameLoopsSinceHandover = 0;
 
     private List<Flight> listOfFlightsInAirspace = new ArrayList<Flight>();
     private List<Waypoint> listOfWayppoints = new ArrayList<Waypoint>();
@@ -55,7 +58,7 @@ public class Airspace {
 
     private SeparationRules separationRules;
     private int difficultyValueOfGame;
-    private boolean isMultiplayer;
+    private boolean isMultiplayer, handoverDelay;
 
 
     // Constructor
@@ -296,9 +299,14 @@ public class Airspace {
     public void update() {
         this.numberOfGameLoopsSinceLastFlightAdded++;
         this.numberOfGameLoops++;
+        this.numberOfGameLoopsSinceHandover++;
 
         if (this.numberOfGameLoops >= this.numberOfGameLoopsWhenDifficultyIncreases) {
             this.increaseDifficulty();
+        }
+        
+        if (this.numberOfGameLoopsSinceHandover>HANDOVER_DELAY) {
+        	this.setHandoverDelay();
         }
 
         for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
@@ -502,6 +510,27 @@ public class Airspace {
 
     public List<Airport> getAirport() {
         return this.listOfAirports;
+    }
+    
+    public void setHandoverDelay(){
+    	if(this.handoverDelay==false){
+    	this.handoverDelay = true;
+    	}
+    	else {
+    		this.handoverDelay = false;
+    	}
+    }
+    
+    public boolean getHandoverDelay () {
+    	return this.handoverDelay;
+    }
+    
+    public void resetLoopsSinceLastHandover () {
+    	this.numberOfGameLoopsSinceHandover = 0;
+    }
+    
+    public int getLoopsSinceLastHandover () {
+    	return this.numberOfGameLoopsSinceHandover;
     }
 
     @Override
