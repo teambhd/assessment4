@@ -398,22 +398,24 @@ public class Airspace {
         return true;
     }
 
-    public boolean addFlight(Flight flight) {
+    public boolean addFlight(Flight f) {
         // Checks whether the flight was already added before, and if it won't pass the maximum number of flights allowed
-        if ((this.listOfFlightsInAirspace.contains(flight))
-                && (this.listOfFlightsInAirspace.size() > MAX_FLIGHTS - 1)) {
+        if (listOfFlightsInAirspace.contains(f) && listOfFlightsInAirspace.size() > MAX_FLIGHTS - 1) {
             return false;
         }
 
-        // If the flight to be added is to start on the runway, and there's already a plane there, then it can't be added
-        // TODO: Change this code to allow for multiple airports
-        for (Flight a : listOfFlightsInAirspace) {
-            if (a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()) {
-                return false;
+        // If the flight to be added is to start on a runway, and there's already a plane there, then it can't be added
+        if (f.getFlightPlan().getEntryPoint().isRunway()) {
+            for (Flight a : listOfFlightsInAirspace) {
+                if (a.isGrounded() && 
+                    a.getX() == f.getFlightPlan().getEntryPoint().getX() && 
+                    a.getY() == f.getFlightPlan().getEntryPoint().getY()) {
+                        return false;
+                    }
             }
         }
-
-        this.listOfFlightsInAirspace.add(flight);
+        
+        this.listOfFlightsInAirspace.add(f);
         return true;
     }
 
