@@ -111,7 +111,7 @@ public class PauseState extends BasicGameState {
         int posY = stateContainer.Game.HEIGHT - Mouse.getY();
 
         if (gc.getInput().isKeyPressed(Input.KEY_P)) {
-            sbg.enterState(stateContainer.Game.PLAYSTATE);
+            sbg.enterState(destinationStateID);
         }
 
         if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
