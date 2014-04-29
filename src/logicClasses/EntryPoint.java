@@ -10,15 +10,18 @@ import util.DeferredFile;
 
 public class EntryPoint extends Point {
 
-    static Image entryPointTop, entryPointRight, entryPointLeft, entryPointRunway;
+    private static Image entryPointTop;
+    private static Image entryPointRight;
+    private static Image entryPointLeft;
 
+    // Constructor
     public EntryPoint(double x, double y) {
         super(x, y);
     }
 
     /**
-     * init: Initialises the variables and resources required for the EntryPoint object render (Sets EntryPoint Images)
-     * @param gc Game container required by Slick2d
+     * init: Loads the images required to render the EntryPoint
+     * @param gc Game container required by Slick2D
      * @throws SlickException
      */
 
@@ -33,15 +36,13 @@ public class EntryPoint extends Point {
                 entryPointRight.setRotation(90);
                 entryPointLeft = entryPointTop.copy();
                 entryPointLeft.setRotation(270);
-                entryPointRunway = entryPointTop.copy();
-                entryPointRunway.setRotation(135);
             }
         });
     }
 
     /**
      * render: Render method for the EntryPoint object, position determines orientation of image
-     * @param g Graphics required by Slick2d
+     * @param g Graphics required by Slick2D
      * @throws SlickException
      */
 
@@ -57,7 +58,6 @@ public class EntryPoint extends Point {
         else if (x == stateContainer.Game.WIDTH) {
             entryPointRight.draw((int)x - 40, (int)y - 20);
         }
-
     }
 
     /**

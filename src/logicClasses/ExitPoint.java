@@ -11,7 +11,9 @@ import util.DeferredFile;
 
 public class ExitPoint extends Point {
 
-    private static Image exitPointTop, exitPointRight, exitPointLeft, exitPointRunway;
+    private static Image exitPointTop;
+    private static Image exitPointRight;
+    private static Image exitPointLeft;
 
     public ExitPoint(double x, double y, String name) {
         super(x, y, name);
@@ -33,8 +35,6 @@ public class ExitPoint extends Point {
                     exitPointRight.setRotation(90);
                     exitPointLeft = exitPointTop.copy();
                     exitPointLeft.setRotation(270);
-                    exitPointRunway = exitPointTop.copy();
-                    exitPointRunway.setRotation(315);
                 }
             });
         }
