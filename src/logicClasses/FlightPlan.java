@@ -15,29 +15,36 @@ import stateContainer.Game;
 
 public class FlightPlan {
 
+    // The colours for the lines that trace the routes
     private static final Color RED_COLOR = new Color(197, 131, 138);
     private static final Color BLUE_COLOR = new Color(141, 191, 244);
+    
+    // Random number generator
+    private static final Random rand = new Random();
 
-    // FIELDS
+    // Fields
     private EntryPoint entryPoint;
     private ExitPoint exitPoint;
-    private List<Point>
-    currentRoute = new ArrayList<Point>(), // Array that stores the current list of waypoints
-    waypointsAlreadyVisited; // Array that stores all the waypoints the flight has passed through
+    
+    private List<Point> currentRoute = new ArrayList<Point>(); // Array that stores the current list of waypoints
+    private List<Point> waypointsAlreadyVisited = new ArrayList<Point>(); // All the waypoints the flight has passed through
+    
     private Flight flight; // The flight object associated with the flight plan
+    
     private int closestDistance;
 
-    // CONSTRUCTOR
-
+    // Constructor
     public FlightPlan(Airspace airspace, Flight flight) {
         this.flight = flight;
+        
         this.entryPoint = generateEntryPoint(airspace);
-        double v = generateVelocity();
-        flight.setVelocity(v);
-        flight.setTargetVelocity(v);
+
+        flight.setVelocity(generateVelocity());
+        flight.setTargetVelocity(flight.getVelocity());
+
         this.currentRoute = buildRoute(airspace, this.entryPoint);
-        this.waypointsAlreadyVisited = new ArrayList<Point>();
     }
+
 
     // METHODS
 
@@ -48,7 +55,6 @@ public class FlightPlan {
      */
 
     public EntryPoint generateEntryPoint(Airspace airspace) {
-        Random rand = new Random();
         int randomNumber = rand.nextInt(airspace.getListOfEntryPoints().size());
 
         // Setting flights x and y to the coordinates of it's entrypoint
@@ -140,13 +146,11 @@ public class FlightPlan {
      */
 
     public int generateVelocity() {
-        Random r = new Random();
-
         if (entryPoint.isRunway()) {
             return 0;
         }
 
-        return (r.nextInt((Flight.MAX_VELOCITY - Flight.MIN_VELOCITY) / 50) * 50) + Flight.MIN_VELOCITY;
+        return (rand.nextInt((Flight.MAX_VELOCITY - Flight.MIN_VELOCITY) / 50) * 50) + Flight.MIN_VELOCITY;
     }
 
     /**
@@ -236,7 +240,7 @@ public class FlightPlan {
         for (int i = 1; i < currentRoute.size(); i++) {
             returnString += ", " + currentRoute.get(i).getPointRef();
         }
-
+        
         return returnString;
     }
 

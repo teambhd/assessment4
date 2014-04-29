@@ -20,7 +20,7 @@ public class Flight {
     private static Image shadowImage;
 
     // Random number generator
-    private static Random rand = new Random();
+    private static final Random rand = new Random();
 
     // Constants
     private static final double GAME_SCALE = 1 / 1000.0;
