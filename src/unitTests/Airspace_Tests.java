@@ -84,15 +84,6 @@ public class Airspace_Tests {
         assertFalse(airspace.newEntryPoint(0, 0));
     }
 
-
-    // Testing generate_flight_name()
-    @Test
-    public void generateFlightNameTest() {
-        // Test that the name generated is the correct length.
-        String name = airspace.generateFlightName();
-        assertTrue((name.length() == 6));
-    }
-
     // Testing check_if_flight_has_left_airspace()
     @Test
     public void checkIfFlightHasLeftAirspaceTest() {

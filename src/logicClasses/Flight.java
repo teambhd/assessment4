@@ -486,8 +486,8 @@ public class Flight {
             closestDistance = distanceFromWaypoint;
         }
 
-        if (distanceX <= RADIUS && distanceY <= RADIUS) {
-            // The plane is going away from the way point
+        if (distanceFromWaypoint <= RADIUS) {
+            // The plane is going away from the waypoint
             if (closestDistance < distanceFromWaypoint) {
                 if (waypoint instanceof ExitPoint) {
                     if (((ExitPoint)waypoint).isRunway()) {
