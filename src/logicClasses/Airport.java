@@ -14,9 +14,8 @@ public class Airport {
 
     private float x;
     private float y;
+    
     private float runwayHeading;
-
-    private int runwayLength = 303; //Purpose?
 
     private String name;
 
@@ -70,10 +69,6 @@ public class Airport {
 
     public float getRunwayHeading() {
         return runwayHeading;
-    }
-
-    public int getRunwayLength() {
-        return runwayLength;
     }
 
     public String getName() {

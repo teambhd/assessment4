@@ -20,20 +20,13 @@ public class Controls {
     private Flight selectedFlight;
 
 
-    // =============
-    // # Constructor
-    // =============
-
+    // Constructor
     public Controls(KeyBindings keys, String player) {
         myPlayer = player; // "single", "red" or "blue"
         myKeys = keys;
         selectedFlight = null;
     }
 
-
-    // =============
-    // # Methods
-    // =============
 
     public void render(Graphics g) throws SlickException {
         if (selectedFlight != null) {

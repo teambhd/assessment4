@@ -595,16 +595,8 @@ public class Flight {
         return this.turningRight;
     }
 
-    public void setTurningRight(boolean turningRight) {
-        this.turningRight = turningRight;
-    }
-
     public boolean getTurningLeft() {
         return this.turningLeft;
-    }
-
-    public void setTurningLeft(boolean turningLeft) {
-        this.turningLeft = turningLeft;
     }
 
     // toString function to display a flight object so we can read it

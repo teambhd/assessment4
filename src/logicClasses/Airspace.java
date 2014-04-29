@@ -415,28 +415,16 @@ public class Airspace {
             }
         }
         
-        this.listOfFlightsInAirspace.add(f);
+        listOfFlightsInAirspace.add(f);
         return true;
     }
 
     public void removeSpecificFlight(int flight) {
-        this.listOfFlightsInAirspace.remove(flight);
-    }
-
-    public void removeWaypoint(Waypoint waypoint) {
-        this.listOfWayppoints.remove(waypoint);
-    }
-
-    public void removeEntryPoint(EntryPoint entrypoint) {
-        this.listOfEntryPoints.remove(entrypoint);
-    }
-
-    public void removeExitPoint(ExitPoint exitpoint) {
-        this.listOfExitPoints.remove(exitpoint);
+        listOfFlightsInAirspace.remove(flight);
     }
 
     public SeparationRules getSeparationRules() {
-        return this.separationRules;
+        return separationRules;
     }
 
     public ScoreTracking getScore(String player) {
@@ -449,10 +437,6 @@ public class Airspace {
         }
 
         return score;
-    }
-
-    public void setListOfEntryPoints(List<EntryPoint> listOfEntryPoints) {
-        this.listOfEntryPoints = listOfEntryPoints;
     }
 
     public void setDifficultyValueOfGame(int i) {

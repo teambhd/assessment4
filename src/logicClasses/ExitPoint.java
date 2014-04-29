@@ -77,5 +77,4 @@ public class ExitPoint extends Point {
         return x != 0 && x != stateContainer.Game.WIDTH && y != 0 && y != stateContainer.Game.HEIGHT;
     }
 
-
 }
