@@ -175,17 +175,4 @@ public class Controls {
         }
     }
 
-
-    // ========================
-    // # Mutators and Accessors
-    // ========================
-
-    public void setSelectedFlight(Flight flight) {
-        selectedFlight = flight;
-    }
-
-    public Flight getSelectedFlight() {
-        return selectedFlight;
-    }
-
 }
