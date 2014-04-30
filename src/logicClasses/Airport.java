@@ -20,17 +20,12 @@ public class Airport {
     private String name;
 
 
-    //CONSTRUCTOR
-    Airport(float x, float y, String name) {
+    // Constructor
+    Airport(float x, float y, float runwayHeading, String name) {
         this.x = x;
         this.y = y;
+        this.runwayHeading = runwayHeading;
         this.name = name;
-        if (name == "Blue airport") {
-            this.runwayHeading = 0;
-        }
-        if (name == "Red airport") {
-            this.runwayHeading = 90;
-        }
     }
 
     public static void init() throws SlickException {
@@ -44,13 +39,8 @@ public class Airport {
     }
 
     public void render(Graphics g) throws SlickException {
-        // Airport image centred in middle of airspace
-        if (this.name == "Blue airport") {
-            airportImage.setRotation(0);
-        }
-        else {
-            airportImage.setRotation(90);
-        }
+        // Draw the airport image, centred on its co-ordinates
+        airportImage.setRotation((int)runwayHeading);
         airportImage.drawCentered(x, y);
     }
 

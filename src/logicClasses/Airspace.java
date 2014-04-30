@@ -116,6 +116,28 @@ public class Airspace {
 
         return false;
     }
+    
+    /**
+     * newAirport: Add a new airport to the list of airports in the airspace
+     * @param x The x coordinate of the airport
+     * @param y The y coordinate of the airport
+     * @param runwayHeading The direction in which the airport runway should face
+     * @param name The name used to reference the airport
+     */
+        
+    public void newAirport(int x, int y, float runwayHeading, String name) {
+        // Generate and add the airport object itself
+        listOfAirports.add(new Airport(x, y, runwayHeading, name));
+        
+        // Generate and add the airport exit point, notionally in the centre of the runway
+        addExitPoint(new ExitPoint(x, y, name));
+        
+        // Generate and add the airport entry point, on the edge (rather than the centre) of the runway image, 
+        // so the planes take off in the direction of the runway heading
+        int airportEntryX = x - (int)(140 * Math.sin(Math.toRadians(runwayHeading)));
+        int airportEntryY = y + (int)(140 * Math.cos(Math.toRadians(runwayHeading)));
+        addEntryPoint(new EntryPoint(airportEntryX, airportEntryY));
+    }
 
     /**
      * newExitPoint: Add a new exitpoint to the list in the airspace
@@ -125,16 +147,8 @@ public class Airspace {
      */
 
     public boolean newExitPoint(int x, int y, String name) {
-        if (x < 1250 && x > -50 && y < 650 && y > -50) {
-            // x and y must be within these bounds to be within screen space
-            ExitPoint tmpEp = new ExitPoint(x, y, name);
-            tmpEp.setPointRef(name);
-            if (name != "Exit 1" && name != "Exit 2" && name != "Exit 3") {
-                Airport airport = new Airport(x, y, name);
-                this.listOfAirports.add(airport);
-            }
-
-            if (this.addExitPoint(tmpEp)) {
+        if (x < 1250 && x > -50 && y < 650 && y > -50) { // x and y must be within these bounds to be within screen space
+            if (this.addExitPoint(new ExitPoint(x, y, name))) {
                 return true;
             }
         }
@@ -149,10 +163,8 @@ public class Airspace {
      */
 
     public boolean newEntryPoint(int x, int y)  {
-        if (x < 1250 && x > -50 && y < 650 && y > -50) {
-            EntryPoint tmpEp = new EntryPoint(x, y);
-
-            if (this.addEntryPoint(tmpEp)) {
+        if (x < 1250 && x > -50 && y < 650 && y > -50) { // x and y must be within these bounds to be within screen space
+            if (this.addEntryPoint(new EntryPoint(x, y))) {
                 return true;
             }
         }

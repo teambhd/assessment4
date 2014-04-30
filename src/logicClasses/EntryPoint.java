@@ -41,7 +41,8 @@ public class EntryPoint extends Point {
     }
 
     /**
-     * render: Render method for the EntryPoint object, position determines orientation of image
+     * render: Render method for the EntryPoint object, position determines orientation of image. 
+     * EntryPoints attached to Airports are deliberately not drawn.
      * @param g Graphics required by Slick2D
      * @throws SlickException
      */
