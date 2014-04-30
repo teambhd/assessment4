@@ -513,14 +513,14 @@ public class Flight {
      */
 
     public boolean checkIfAtAirport(Airport airport) {
-        if (airport.getName() == "Red airport") {
+        if (airport.getRunwayHeading() == 90) {
             if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 150)
                     && (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 15) {
                 return true;
             }
         }
 
-        if (airport.getName() == "Blue airport") {
+        if (airport.getRunwayHeading() == 0) {
             if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 15)
                     && (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 150) {
                 return true;

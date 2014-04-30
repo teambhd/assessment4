@@ -8,24 +8,16 @@ import org.newdawn.slick.loading.LoadingList;
 import util.DeferredFile;
 
 
-public class Airport {
+public class Airport extends Point {
 
     private static Image airportImage;
-
-    private float x;
-    private float y;
     
-    private float runwayHeading;
-
-    private String name;
-
+    private int runwayHeading;
 
     // Constructor
-    Airport(float x, float y, float runwayHeading, String name) {
-        this.x = x;
-        this.y = y;
+    Airport(double x, double y, int runwayHeading, String name) {
+        super(x, y, name);
         this.runwayHeading = runwayHeading;
-        this.name = name;
     }
 
     public static void init() throws SlickException {
@@ -41,28 +33,16 @@ public class Airport {
     public void render(Graphics g) throws SlickException {
         // Draw the airport image, centred on its co-ordinates
         airportImage.setRotation((int)runwayHeading);
-        airportImage.drawCentered(x, y);
+        airportImage.drawCentered((int)x, (int)y);
     }
 
     @Override
     public String toString() {
-        return "Airport " + name + " located at (" + x + ", " + y + ")";
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
+        return "Airport " + this.pointRef + " located at (" + x + ", " + y + ")";
     }
 
     public float getRunwayHeading() {
-        return runwayHeading;
-    }
-
-    public String getName() {
-        return name;
+        return (float)runwayHeading;
     }
 
 }

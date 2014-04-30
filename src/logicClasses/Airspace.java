@@ -125,7 +125,7 @@ public class Airspace {
      * @param name The name used to reference the airport
      */
         
-    public void newAirport(int x, int y, float runwayHeading, String name) {
+    public void newAirport(int x, int y, int runwayHeading, String name) {
         // Generate and add the airport object itself
         listOfAirports.add(new Airport(x, y, runwayHeading, name));
         
