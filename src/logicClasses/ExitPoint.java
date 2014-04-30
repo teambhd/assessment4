@@ -63,10 +63,6 @@ public class ExitPoint extends Point {
             exitPointRight.draw((int)x - 40, (int)y - 20);
             g.drawString(pointRef, (int)x - 35, (int)y - 7);
         }
-
-        else {
-            g.drawString(pointRef, (int)x - 35, (int)y - 7);
-        }
     }
 
     /**

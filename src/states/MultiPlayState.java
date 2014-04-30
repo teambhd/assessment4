@@ -61,13 +61,13 @@ public class MultiPlayState extends BasicGameState {
         airspace.newEntryPoint(600, 0);
 
         // Add Exit Points
-        airspace.newExitPoint(800, 0, "Exit 1");
-        airspace.newExitPoint(0, 200, "Exit 2");
-        airspace.newExitPoint(1200, 300, "Exit 3");
+        airspace.newExitPoint(800, 0, "EXP1");
+        airspace.newExitPoint(0, 200, "EXP2");
+        airspace.newExitPoint(1200, 300, "EXP3");
         
         // Add Airports
-        airspace.newAirport(700, 300, 0, "Blue airport");
-        airspace.newAirport(200, 100, 90, "Red airport");
+        airspace.newAirport(700, 300, 0, "BHD");
+        airspace.newAirport(200, 100, 90, "DHB");
 
         // Initialise the controls
         redControls = new Controls(KeyBindings.redPlayerKeys, "red");

@@ -214,7 +214,7 @@ public class Flight {
 
     public void takeOff() {
         takingOff = true;
-        setTargetVelocity(MIN_VELOCITY + MAX_VELOCITY) / 2);
+        setTargetVelocity((MIN_VELOCITY + MAX_VELOCITY) / 2);
         setTargetAltitude(MIN_ALTITUDE);
     }
     

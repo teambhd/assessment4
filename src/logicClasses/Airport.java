@@ -34,6 +34,7 @@ public class Airport extends Point {
         // Draw the airport image, centred on its co-ordinates
         airportImage.setRotation((int)runwayHeading);
         airportImage.drawCentered((int)x, (int)y);
+        g.drawString(pointRef, (int)x - 14, (int)y - 10);
     }
 
     @Override
