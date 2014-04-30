@@ -11,7 +11,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import stateContainer.Game;
+import static util.Calculations.distanceBetween;
 
 public class FlightPlan {
 
@@ -125,8 +125,8 @@ public class FlightPlan {
                     }
 
                     // This humungous if statement tries to ensure that doubling-back between waypoints is avoided
-                    if (Point.distanceBetween(v, exitPoint) > Point.distanceBetween(w, exitPoint)
-                            && Point.distanceBetween(entryPoint, v) < Point.distanceBetween(entryPoint, w)) {
+                    if (distanceBetween(v, exitPoint) > distanceBetween(w, exitPoint)
+                            && distanceBetween(entryPoint, v) < distanceBetween(entryPoint, w)) {
                         tempRoute.add(0, v);
                         tempRoute.add(1, w);
                         break;

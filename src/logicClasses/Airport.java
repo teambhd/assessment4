@@ -41,8 +41,16 @@ public class Airport extends Point {
         return "Airport " + this.pointRef + " located at (" + x + ", " + y + ")";
     }
 
-    public float getRunwayHeading() {
-        return (float)runwayHeading;
+    public int getRunwayHeading() {
+        return runwayHeading;
+    }
+    
+    public int getInverseRunwayHeading() {
+        if (runwayHeading < 180) {
+            return runwayHeading + 180;
+        }
+        
+        return runwayHeading - 180;
     }
 
 }

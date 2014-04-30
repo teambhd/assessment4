@@ -2,6 +2,7 @@ package logicClasses;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
@@ -11,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 
 import util.DeferredFile;
+import static util.Calculations.distanceBetween;
 
 
 public class Airspace {
@@ -296,20 +298,32 @@ public class Airspace {
         	setHandoverDelay();
         }
         
-        for (Flight f : listOfFlightsInAirspace) {
+        // The iterator is used directly (rather than through an enhanced for loop) 
+        // so as to avoid a java.util.ConcurrentModificationException when flights are removed during iteration
+        for (Iterator<Flight> i = listOfFlightsInAirspace.iterator(); i.hasNext();) {
+            Flight f = i.next();
+            
             // Update the flight object
             f.update(getScore(f.getOwner()));
+            
+            // Remove the flight if it's landed and come to a stop
+            if (f.isLanding() && f.isGrounded() && f.getVelocity() == 0) {
+                i.remove();
+                continue;
+            }
 
             // Remove the flight if it's reached it's associated ExitPoint, and thus left the screen
             if (f.getFlightPlan().getCurrentRoute().size() == 0) {
-                removeSpecificFlight(f);
+                i.remove();
+                continue;
             }
 
             // Remove the flight (and apply the score penalty) if it's left the screen at any other point
             if (checkIfFlightHasLeftAirspace(f)) {
                 getScore(f.getOwner()).applyFlightLossPenalty();
-                removeSpecificFlight(f);
-            }
+                i.remove();
+                continue;
+            }            
         }
 
         separationRules.update(this);
@@ -415,14 +429,11 @@ public class Airspace {
             return false;
         }
 
-        // If the flight to be added is to start on a runway, and there's already a plane there, then it can't be added
-        if (f.getFlightPlan().getEntryPoint().isRunway()) {
-            for (Flight a : listOfFlightsInAirspace) {
-                if (a.isGrounded() && 
-                    a.getX() == f.getFlightPlan().getEntryPoint().getX() && 
-                    a.getY() == f.getFlightPlan().getEntryPoint().getY()) {
-                        return false;
-                    }
+        // A flight can't be added, if it would immediately go into a state of separation violation with another flight
+        for (Flight e : listOfFlightsInAirspace) {
+            if (Math.abs(e.getAltitude() - f.getAltitude()) <= SeparationRules.VERTICAL_WARNING_DISTANCE ||
+                distanceBetween(e, f) <= SeparationRules.LATERAL_WARNING_DISTANCE) {
+                    return false;
             }
         }
         
@@ -466,7 +477,7 @@ public class Airspace {
         return this.numberOfGameLoopsWhenDifficultyIncreases;
     }
 
-    public List<Airport> getAirport() {
+    public List<Airport> getListOfAirports() {
         return this.listOfAirports;
     }
     

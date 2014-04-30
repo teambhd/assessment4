@@ -4,12 +4,14 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
+import static util.Calculations.distanceBetween;
+
 
 public class SeparationRules {
 
     // Constants
-    private static final int LATERAL_WARNING_DISTANCE = 100;
-    private static final int VERTICAL_WARNING_DISTANCE = 999;
+    public static final int LATERAL_WARNING_DISTANCE = 100;
+    public static final int VERTICAL_WARNING_DISTANCE = 999;
 
     // Fields
     private int gameOverLateralSeparation;
@@ -44,17 +46,6 @@ public class SeparationRules {
     // Methods
 
     /**
-     * lateralDistanceBetweenFlights: Calculates the lateral distance between two flights.
-     * @param f1 - A flight from the airspace.
-     * @param f2 - A flight from the airspace.
-     * @return A double representing the lateral distance between the two flights passed as parameters.
-     */
-
-    public double lateralDistanceBetweenFlights(Flight f1, Flight f2) {
-        return Math.hypot(f1.getX() - f2.getX(), f1.getY() - f2.getY());
-    }
-
-    /**
      * verticalDistanceBetweenFlights: Calculates the vertical distance between two flights.
      * @param f1 - A flight from the airspace.
      * @param f2 - A flight from the airspace.
@@ -80,7 +71,7 @@ public class SeparationRules {
                     continue;
                 }
 
-                if (lateralDistanceBetweenFlights(e, f) <= gameOverLateralSeparation &&
+                if (distanceBetween(e, f) <= gameOverLateralSeparation &&
                         verticalDistanceBetweenFlights(e, f) <= gameOverVerticalSeparation) {
                     gameOverViolation = true;
                     violatingFlight1 = e;
@@ -106,7 +97,7 @@ public class SeparationRules {
                     continue;
                 }
 
-                if (lateralDistanceBetweenFlights(e, f) <= LATERAL_WARNING_DISTANCE &&
+                if (distanceBetween(e, f) <= LATERAL_WARNING_DISTANCE &&
                         verticalDistanceBetweenFlights(e, f) <= VERTICAL_WARNING_DISTANCE) {
                     g.setColor(Color.orange);
                     g.setLineWidth(2);

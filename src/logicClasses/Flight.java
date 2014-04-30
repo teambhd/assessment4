@@ -50,8 +50,6 @@ public class Flight {
     private int currentAltitude;
     private int targetAltitude;
 
-    private int timeToLand;
-
     private boolean turningRight = false;
     private boolean turningLeft = false;
 
@@ -77,7 +75,8 @@ public class Flight {
         this.currentAltitude = generateAltitude();
         this.targetAltitude = this.currentAltitude;
     }
-
+    
+    
     // METHODS
 
     /**
@@ -217,36 +216,85 @@ public class Flight {
         setTargetVelocity((MIN_VELOCITY + MAX_VELOCITY) / 2);
         setTargetAltitude(MIN_ALTITUDE);
     }
-
+    
     public void land() {
-        if (!landing && this.checkHeading()) { //Checks if a flight is meant to land, if it is landing already and its heading.
-            for (int i = 0; i < this.airspace.getAirport().size(); i++) { //Checks if the flight is at a runway.
-                // (Checking a particular runway (red or blue ariport) is pointless, since we already have the heading.
-                if (this.checkIfAtAirport(this.airspace.getAirport().get(i))) {
-                    Airport airport = this.airspace.getAirport().get(i);
-                    landing = true; //Set state to landing
-                    setTargetVelocity(0);
+        if (!landing && currentAltitude == MIN_ALTITUDE && velocity == MIN_VELOCITY) {
+            for (Airport a : airspace.getListOfAirports()) {
+                if (checkIfAtAirport(a) && checkHeadingCorrectForAirport(a)) {
+                    // If we have both the correct heading and location, begin the landing procedure
+                    landing = true;
                     setTargetAltitude(0);
-                    if (withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading(), 10)) {
-                        this.setCurrentHeading(airport.getRunwayHeading());
-                        this.setTargetHeading(this.getCurrentHeading());
+                    
+                    // Set our target speed to touchdown velocity
+                    setTargetVelocity(80);
+                    
+                    // Adjust our heading to line up with the runway even more precisely
+                    if (Math.abs(currentHeading - a.getRunwayHeading()) < Math.abs(currentHeading - a.getInverseRunwayHeading())) {
+                        setTargetHeading(a.getRunwayHeading());
                     }
-                    else if (withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading() + 180, 10)) {
-                        this.setCurrentHeading(airport.getRunwayHeading() + 180);
-                        this.setTargetHeading(this.getCurrentHeading());
+                    
+                    else {
+                        setTargetHeading(a.getInverseRunwayHeading());
                     }
-                    else if (withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading() - 180, 10)) {
-                        this.setCurrentHeading(airport.getRunwayHeading() - 180);
-                        this.setTargetHeading(this.getCurrentHeading());
-                    }
-
-
-                    this.timeToLand = 600; //Set game update cycles until the flight lands. Roughly 10 seconds.
+                    
+                    // There's no point checking any other airports, if we're already landing at one
+                    break;
                 }
             }
         }
     }
     
+    /**
+     * checkHeadingCorrectForAirport: Returns true if the heading is within 10 degrees of the runway heading or its inverse
+     * @param a The airport in question
+     */
+    
+    private boolean checkHeadingCorrectForAirport(Airport a) { 
+        if (withinTolerance(currentHeading, a.getRunwayHeading(), 10) 
+            || withinTolerance(currentHeading, a.getInverseRunwayHeading(), 10)) {
+                return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * checkIfAtAirport: Returns true if the flight is over the runway
+     * @param airport The airport in question
+     */
+
+    private boolean checkIfAtAirport(Airport airport) {
+        if (airport.getRunwayHeading() == 90) {
+            if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 150)
+                    && (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 15) {
+                return true;
+            }
+        }
+
+        if (airport.getRunwayHeading() == 0) {
+            if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 15)
+                    && (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 150) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    public void abortLanding() {
+        if (landing) {
+            landing = false;
+            
+            if ((currentAltitude < MIN_ALTITUDE && targetAltitude < MIN_ALTITUDE) || targetAltitude < MIN_ALTITUDE) {
+                targetAltitude = MIN_ALTITUDE;
+            }
+            
+            if ((velocity < MIN_VELOCITY && targetVelocity < MIN_VELOCITY) || targetVelocity < MIN_VELOCITY) {
+                targetVelocity = MIN_VELOCITY;
+            }
+        }
+    }
+            
     /**
      * handOver: Transfers the plane to the control of the other player. Inoperative in single-player mode.
      * @param st: The ScoreTracking object associated with the flight's (original) owner, 
@@ -377,6 +425,10 @@ public class Flight {
         if (takingOff && (Math.abs(MIN_VELOCITY - velocity) < 0.5)) {
             takingOff = false;
         }
+        
+        if (landing && isGrounded() && targetVelocity != 0) {
+            targetVelocity = 0;
+        } 
     }
 
 
@@ -385,22 +437,11 @@ public class Flight {
      */
 
     public void update(ScoreTracking score) {
-        this.updateVelocity();
-        this.updateCurrentHeading();
-        this.updateXYCoordinates();
-        this.updateAltitude();
-        this.flightPlan.update(score);
-
-        if (landing) {
-            if (this.timeToLand != 0) {
-                this.timeToLand -= 1;
-            }
-            else {
-                // We've landed, so now we should delete ourself
-                airspace.removeSpecificFlight(this);
-            }
-
-        }
+        updateVelocity();
+        updateCurrentHeading();
+        updateXYCoordinates();
+        updateAltitude();
+        flightPlan.update(score);
     }
 
 
@@ -440,16 +481,7 @@ public class Flight {
 
         g.drawString(Math.round(this.velocity) + "mph", (int)this.x + 17, (int)this.y + 9);
     }
-
-    private Airport matchAirport(double pointX) {
-        if (pointX == this.airspace.getAirport().get(0).getX()) {
-            return this.airspace.getAirport().get(0);
-        }
-        else {
-            return this.airspace.getAirport().get(1);
-        }
-    }
-
+    
 
     // =================
     // # Utility Methods
@@ -458,20 +490,6 @@ public class Flight {
     public static boolean withinTolerance(double x1, double x2, double tolerance) {
         return Math.abs(x1 - x2) <= tolerance;
     }
-
-
-    public boolean checkHeading() { //Method to check if the flight is heading parallel to a runway.
-        for (int i = 0; i < this.airspace.getAirport().size(); i++) { //Checks if the flight is at a runway.
-            Airport airport = this.airspace.getAirport().get(i);
-            if (withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading(), 10) || //Do checks for both runway
-                    withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading() + 180, 10) || //directions.
-                    withinTolerance(this.getCurrentHeading(), airport.getRunwayHeading() - 180, 10)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     /**
      * checkIfFlightAtWaypoint: checks whether a flight is close enough to the next waypoint in it's plan
@@ -502,32 +520,6 @@ public class Flight {
         }
         
         return false; // getting closer or not close enough
-    }
-
-
-    /**
-     * checkIfAtAirport: Checks if the flight is in the relative area of the airport. Used for landing.
-     * Since an airport is a very specific type of a point, we cannot use the stock checkIfAtWaypoint method.
-     * @param airport - the airport that we are checking.
-     * @return true if the flight is in the airport area. False otherwise.
-     */
-
-    public boolean checkIfAtAirport(Airport airport) {
-        if (airport.getRunwayHeading() == 90) {
-            if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 150)
-                    && (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 15) {
-                return true;
-            }
-        }
-
-        if (airport.getRunwayHeading() == 0) {
-            if (((Math.abs(Math.round(this.x) - Math.round(airport.getX()))) <= 15)
-                    && (Math.abs(Math.round(this.y) - Math.round(airport.getY()))) <= 150) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 
@@ -589,6 +581,10 @@ public class Flight {
 
     public boolean isCommandable() {
         return !isGrounded() && !landing;
+    }
+    
+    public boolean isLanding() {
+        return landing;
     }
 
     public boolean getTurningRight() {
