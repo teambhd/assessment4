@@ -2,7 +2,7 @@
 
 ## Music Assets
 
-* "Jarvic 8" by [Kevin MacLeod](incompetech.com), licensed under [Creative Commons: By Attribution 3.0](http://creativecommons.org/licenses/by/3.0/)
+* The music on the main game screens is "Jarvic 8" by [Kevin MacLeod](incompetech.com), licensed under a [Creative Commons license](http://creativecommons.org/licenses/by/3.0/).
 
 ## Images
 
