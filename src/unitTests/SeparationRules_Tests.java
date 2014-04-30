@@ -56,7 +56,7 @@ public class SeparationRules_Tests {
     //Test: lateralDistanceBetweenFlights
     @Test
     public void lateralDistanceBetweenFLightsTest() {
-        assertTrue(separationRules.lateralDistanceBetweenFlights(flight1, flight2) >= 0);
+        assertTrue(util.Calculations.distanceBetween(flight1, flight2) >= 0);
     }
 
     //Test: verticalDistanceBetweenFlights

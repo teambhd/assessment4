@@ -27,6 +27,7 @@ public class Flight {
 
     public static final int MIN_VELOCITY = 200; // mph
     public static final int MAX_VELOCITY = 400; // mph
+    private static final int STALL_VELOCITY = 80; // mph
 
     public static final int MIN_ALTITUDE = 1000; // ft
     public static final int MAX_ALTITUDE = 5000; // ft
@@ -213,12 +214,12 @@ public class Flight {
 
     public void takeOff() {
         takingOff = true;
-        setTargetVelocity((MIN_VELOCITY + MAX_VELOCITY) / 2);
+        setTargetVelocity(MIN_VELOCITY + MAX_VELOCITY) / 2);
         setTargetAltitude(MIN_ALTITUDE);
     }
     
     public void land() {
-        if (!landing && currentAltitude == MIN_ALTITUDE && velocity == MIN_VELOCITY) {
+        if (!landing && currentAltitude <= MIN_ALTITUDE && velocity <= MIN_VELOCITY) {
             for (Airport a : airspace.getListOfAirports()) {
                 if (checkIfAtAirport(a) && checkHeadingCorrectForAirport(a)) {
                     // If we have both the correct heading and location, begin the landing procedure
@@ -226,17 +227,17 @@ public class Flight {
                     setTargetAltitude(0);
                     
                     // Set our target speed to touchdown velocity
-                    setTargetVelocity(80);
+                    setTargetVelocity(STALL_VELOCITY);
                     
-                    // Adjust our heading to line up with the runway even more precisely
-                    if (Math.abs(currentHeading - a.getRunwayHeading()) < Math.abs(currentHeading - a.getInverseRunwayHeading())) {
-                        setTargetHeading(a.getRunwayHeading());
+                    // Adjust our heading to line up with the runway even more precisely                    
+                    if (withinTolerance(currentHeading, a.getRunwayHeading(), 10)) {
+                        giveHeading(a.getRunwayHeading());
                     }
                     
                     else {
-                        setTargetHeading(a.getInverseRunwayHeading());
+                        giveHeading(a.getInverseRunwayHeading());
                     }
-                    
+                                        
                     // There's no point checking any other airports, if we're already landing at one
                     break;
                 }
@@ -278,6 +279,17 @@ public class Flight {
             }
         }
 
+        return false;
+    }
+    
+    private static boolean withinTolerance(double a, double b, double tolerance) {        
+        // Account for the fact that values may be either side of due North (e.g. a = 5 and b = 355)
+        if (Math.abs(a - b) <= tolerance || 
+            Math.abs((a - 360) - b) <= tolerance || 
+            Math.abs((a + 360) - b) <= tolerance) {
+            return true;
+        }
+        
         return false;
     }
     
@@ -422,7 +434,7 @@ public class Flight {
             velocity = targetVelocity;
         }
 
-        if (takingOff && (Math.abs(MIN_VELOCITY - velocity) < 0.5)) {
+        if (takingOff && velocity > STALL_VELOCITY) {
             takingOff = false;
         }
         
@@ -486,10 +498,6 @@ public class Flight {
     // =================
     // # Utility Methods
     // =================
-
-    public static boolean withinTolerance(double x1, double x2, double tolerance) {
-        return Math.abs(x1 - x2) <= tolerance;
-    }
 
     /**
      * checkIfFlightAtWaypoint: checks whether a flight is close enough to the next waypoint in it's plan
