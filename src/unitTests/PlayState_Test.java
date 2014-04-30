@@ -25,13 +25,4 @@ public class PlayState_Test {
         assertEquals(2, actualID);
     }
 
-    @Test
-    public void testSetAirspace() {
-        // This test also tests getAirspace
-        Airspace airspace = new Airspace(false);
-        playStateInstance.setAirspace(airspaceInstance);
-        Airspace actualAirspace = playStateInstance.getAirspace();
-        assertEquals(airspace.toString(), actualAirspace.toString());
-    }
-
 }

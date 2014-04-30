@@ -64,10 +64,9 @@ public class Flight {
     
     private int distanceFromWaypoint;
 
-    // All three variables are used to control the flight state
+    // These two variables are used to control the flight state
     private boolean takingOff = false;
     private boolean landing = false;
-    private boolean removeMe = false;
 
     private String owner;
 
@@ -397,7 +396,8 @@ public class Flight {
                 this.timeToLand -= 1;
             }
             else {
-                this.removeMe = true;
+                // We've landed, so now we should delete ourself
+                airspace.removeSpecificFlight(this);
             }
 
         }
@@ -607,14 +607,6 @@ public class Flight {
 
     public int getCurrentAltitude() {
         return currentAltitude;
-    }
-
-    public boolean getRemove() {
-        return this.removeMe;
-    }
-
-    public void setRemove(boolean b) {
-        this.removeMe = b;
     }
 
     public void setCurrentAltitude(int currentAltitude) {

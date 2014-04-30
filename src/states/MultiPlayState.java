@@ -146,8 +146,8 @@ public class MultiPlayState extends BasicGameState {
             airspace.getScore(airspace.getSeparationRules().getViolatingFlight2().getOwner()).applyCrashPenalty();
 
             // Destroy the two planes
-            airspace.getSeparationRules().getViolatingFlight1().setRemove(true);
-            airspace.getSeparationRules().getViolatingFlight2().setRemove(true);
+            airspace.removeSpecificFlight(airspace.getSeparationRules().getViolatingFlight1());
+            airspace.removeSpecificFlight(airspace.getSeparationRules().getViolatingFlight2());
 
             // Reset the separation rules in time for the next crash
             airspace.getSeparationRules().setGameOverViolation(false);
@@ -186,14 +186,6 @@ public class MultiPlayState extends BasicGameState {
 
     public static void restartGame() {
         gameBegun = false;
-    }
-
-    public Airspace getAirspace() {
-        return airspace;
-    }
-
-    public void setAirspace(Airspace airspace) {
-        this.airspace = airspace;
     }
 
     @Override

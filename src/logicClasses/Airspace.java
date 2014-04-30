@@ -284,36 +284,35 @@ public class Airspace {
      */
 
     public void update() {
-        this.numberOfGameLoopsSinceLastFlightAdded++;
-        this.numberOfGameLoops++;
-        this.numberOfGameLoopsSinceHandover++;
+        numberOfGameLoops++;
+        numberOfGameLoopsSinceLastFlightAdded++;
+        numberOfGameLoopsSinceHandover++;
 
-        if (this.numberOfGameLoops >= this.numberOfGameLoopsWhenDifficultyIncreases) {
-            this.increaseDifficulty();
+        if (numberOfGameLoops >= numberOfGameLoopsWhenDifficultyIncreases) {
+            increaseDifficulty();
         }
         
-        if (this.numberOfGameLoopsSinceHandover>HANDOVER_DELAY) {
-        	this.setHandoverDelay();
+        if (numberOfGameLoopsSinceHandover > HANDOVER_DELAY) {
+        	setHandoverDelay();
+        }
+        
+        for (Flight f : listOfFlightsInAirspace) {
+            // Update the flight object
+            f.update(getScore(f.getOwner()));
+
+            // Remove the flight if it's reached it's associated ExitPoint, and thus left the screen
+            if (f.getFlightPlan().getCurrentRoute().size() == 0) {
+                removeSpecificFlight(f);
+            }
+
+            // Remove the flight (and apply the score penalty) if it's left the screen at any other point
+            if (checkIfFlightHasLeftAirspace(f)) {
+                getScore(f.getOwner()).applyFlightLossPenalty();
+                removeSpecificFlight(f);
+            }
         }
 
-        for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
-            this.listOfFlightsInAirspace.get(i).update(this.getScore(this.listOfFlightsInAirspace.get(i).getOwner()));
-
-            if (this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size() == 0) {
-                this.removeSpecificFlight(i);
-            }
-
-            if (this.listOfFlightsInAirspace.get(i).getRemove()) {
-                this.removeSpecificFlight(i);
-            }
-
-            else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
-                this.getScore(this.listOfFlightsInAirspace.get(i).getOwner()).applyFlightLossPenalty();
-                this.removeSpecificFlight(i);
-            }
-        }
-
-        this.separationRules.update(this);
+        separationRules.update(this);
     }
 
     /**
@@ -430,8 +429,8 @@ public class Airspace {
         listOfFlightsInAirspace.add(f);
         return true;
     }
-
-    public void removeSpecificFlight(int flight) {
+    
+    public void removeSpecificFlight(Flight flight) {
         listOfFlightsInAirspace.remove(flight);
     }
 

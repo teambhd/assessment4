@@ -165,12 +165,4 @@ public class PlayState extends BasicGameState {
         return stateContainer.Game.PLAYSTATE;
     }
 
-    public Airspace getAirspace() {
-        return airspace;
-    }
-
-    public void setAirspace(Airspace airspace) {
-        this.airspace = airspace;
-    }
-
 }
