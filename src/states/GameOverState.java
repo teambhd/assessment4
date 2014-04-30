@@ -28,7 +28,9 @@ public class GameOverState extends BasicGameState {
     private static Image againImage, againHover;
 
     private static HoverImage againButton, menuButton, quitButton;
-
+    
+    private static int finalScore;
+    
 
     // Constructor
     public GameOverState(int state) {}
@@ -91,6 +93,11 @@ public class GameOverState extends BasicGameState {
 
         // Draw the page title
         gameOverTitle.draw(((stateContainer.Game.WIDTH - gameOverTitle.getWidth()) / 2) + 5, 20);
+        
+        // Draw the final score
+        String finalScoreString = "Your final score was " + finalScore;
+        int finalScoreX = (stateContainer.Game.WIDTH - util.GameFont.getFont().getWidth(finalScoreString)) / 2;
+        util.GameFont.getFont().drawString(finalScoreX, 300, finalScoreString);
 
         // Get the co-ordinates of the mouse pointer,
         // flipping on the Y axis so as to use the same origin as the graphics object
@@ -122,6 +129,10 @@ public class GameOverState extends BasicGameState {
                 System.exit(0);
             }
         }
+    }
+    
+    public static void setFinalScore(int score) {
+        finalScore = score;
     }
 
     @Override
