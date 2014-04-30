@@ -183,7 +183,7 @@ public class Airspace {
     public boolean newFlight() throws SlickException {
         if (listOfFlightsInAirspace.size() < MAX_FLIGHTS && 
             (numberOfGameLoopsSinceLastFlightAdded >= 300 || listOfFlightsInAirspace.isEmpty())) {
-
+            
             /*
              * The random number is generated in the range 0 to 100 if the airspace is empty, as this increases
              * the likelihood of a value of 1 being returned, and therefore a flight being generated; 
@@ -200,8 +200,8 @@ public class Airspace {
             else {
                 checkNumber = rand.nextInt(chanceOfNewFlight);
             }
-
-            if (checkNumber == 1) {
+            
+            if (checkNumber == 1) {                
                 Flight tempFlight = new Flight(this);
 
                 if (!isMultiplayer) {
@@ -240,6 +240,7 @@ public class Airspace {
                     numberOfGameLoopsSinceLastFlightAdded = 0;
                     return true;
                 }
+                
             }
         }
 
@@ -261,12 +262,12 @@ public class Airspace {
      */
 
     public void increaseDifficulty() {
-        this.numberOfGameLoopsWhenDifficultyIncreases += DIFFICULTY_INCREASE_INTERVAL;
+        numberOfGameLoopsWhenDifficultyIncreases += DIFFICULTY_INCREASE_INTERVAL;
 
-        if (this.chanceOfNewFlight - 25 > 0) {
-            this.chanceOfNewFlight -= 25;
+        if (chanceOfNewFlight - 25 > 0) {
+            chanceOfNewFlight -= 25;
         }
-
+        
         if (isMultiplayer) {
             redScore.applyTimeBonus();
             blueScore.applyTimeBonus();
@@ -431,7 +432,7 @@ public class Airspace {
 
         // A flight can't be added, if it would immediately go into a state of separation violation with another flight
         for (Flight e : listOfFlightsInAirspace) {
-            if (Math.abs(e.getAltitude() - f.getAltitude()) <= SeparationRules.VERTICAL_WARNING_DISTANCE ||
+            if (Math.abs(e.getAltitude() - f.getAltitude()) <= SeparationRules.VERTICAL_WARNING_DISTANCE &&
                 distanceBetween(e, f) <= SeparationRules.LATERAL_WARNING_DISTANCE) {
                     return false;
             }
