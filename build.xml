@@ -68,20 +68,19 @@
     </target>
     
     <target name="mkrunnable" depends="build">
-        <jar destfile="dist/runnable.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="dist/runnable.jar" filesetmanifest="mergewithoutmain" duplicate="preserve">
             <manifest>
                 <attribute name="Main-Class" value="stateContainer.Game"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="bin"/>
+            
+            <fileset excludes="unitTests/" dir="bin"/>
             
             <!-- JARs -->
             <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/lwjgl.jar"/>
             <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/slick.jar"/>
             <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/jogg-0.0.7.jar"/>
             <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/jorbis-0.0.17-1.jar"/>
-            <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/hamcrest-core-1.3.jar"/>
-            <zipfileset excludes="META-INF/*.SF LICENSE.txt" src="lib/jars/junit-4.11.jar"/>
         </jar>
     </target>
     
