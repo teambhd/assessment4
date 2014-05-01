@@ -44,7 +44,8 @@ public class Airspace {
     private int numberOfGameLoops = 0;
     private int numberOfGameLoopsSinceLastFlightAdded = 0;
     private int numberOfGameLoopsWhenDifficultyIncreases = DIFFICULTY_INCREASE_INTERVAL;
-    private int numberOfGameLoopsSinceHandover = 0;
+    private int numberOfGameLoopsSinceHandoverRed = 0;
+    private int numberOfGameLoopsSinceHandoverBlue = 0;
 
     private List<Flight> listOfFlightsInAirspace = new ArrayList<Flight>();
     private List<Waypoint> listOfWayppoints = new ArrayList<Waypoint>();
@@ -59,7 +60,7 @@ public class Airspace {
 
     private SeparationRules separationRules;
     private int difficultyValueOfGame;
-    private boolean isMultiplayer, handoverDelay;
+    private boolean isMultiplayer, handoverDelayRed, handoverDelayBlue;
 
 
     // Constructor
@@ -308,14 +309,18 @@ public class Airspace {
     public void update() {
         numberOfGameLoops++;
         numberOfGameLoopsSinceLastFlightAdded++;
-        numberOfGameLoopsSinceHandover++;
+        numberOfGameLoopsSinceHandoverRed++;
+        numberOfGameLoopsSinceHandoverBlue++;
 
         if (numberOfGameLoops >= numberOfGameLoopsWhenDifficultyIncreases) {
             increaseDifficulty();
         }
         
-        if (numberOfGameLoopsSinceHandover > HANDOVER_DELAY) {
-        	setHandoverDelay();
+        if (numberOfGameLoopsSinceHandoverRed > HANDOVER_DELAY) {
+        	setHandoverDelayRed();
+        }
+        if (numberOfGameLoopsSinceHandoverBlue > HANDOVER_DELAY) {
+        	setHandoverDelayBlue();
         }
         
         // The iterator is used directly (rather than through an enhanced for loop) 
@@ -501,20 +506,36 @@ public class Airspace {
         return listOfAirports;
     }
     
-    public void setHandoverDelay() {
-        handoverDelay = !handoverDelay;
+    public void setHandoverDelayRed() {
+        handoverDelayRed = !handoverDelayRed;
     }
     
-    public boolean getHandoverDelay() {
-    	return handoverDelay;
+    public void setHandoverDelayBlue() {
+        handoverDelayBlue = !handoverDelayBlue;
     }
     
-    public void resetLoopsSinceLastHandover() {
-    	numberOfGameLoopsSinceHandover = 0;
+    public boolean getHandoverDelayRed() {
+    	return handoverDelayRed;
     }
     
-    public int getLoopsSinceLastHandover() {
-    	return numberOfGameLoopsSinceHandover;
+    public boolean getHandoverDelayBlue() {
+    	return handoverDelayBlue;
+    }
+    
+    public void resetLoopsSinceLastHandoverRed() {
+    	numberOfGameLoopsSinceHandoverRed = 0;
+    }
+    
+    public void resetLoopsSinceLastHandoverBlue() {
+    	numberOfGameLoopsSinceHandoverBlue = 0;
+    }
+    
+    public int getLoopsSinceLastHandoverRed() {
+    	return numberOfGameLoopsSinceHandoverRed;
+    }
+    
+    public int getLoopsSinceLastHandoverBlue() {
+    	return numberOfGameLoopsSinceHandoverBlue;
     }
 
     @Override
