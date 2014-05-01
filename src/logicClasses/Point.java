@@ -20,8 +20,8 @@ public class Point {
 
     // Point Constructor that also takes pointRef string, more commonly used.
     public Point(double x, double y, String pointRef) {
-        this.x = xcoord;
-        this.y = ycoord;
+        this.x = x;
+        this.y = y;
         this.pointRef = pointRef;
     }
 
