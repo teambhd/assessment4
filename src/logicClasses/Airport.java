@@ -39,7 +39,7 @@ public class Airport extends Point {
 
     @Override
     public String toString() {
-        return "Airport " + this.pointRef + " located at (" + x + ", " + y + ")";
+        return "Airport " + pointRef + " located at (" + x + ", " + y + ")";
     }
 
     public int getRunwayHeading() {

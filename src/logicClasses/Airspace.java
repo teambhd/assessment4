@@ -85,6 +85,7 @@ public class Airspace {
         return ((angle % 360) + 360) % 360;
     }    
 
+
     // METHODS
 
     /**
@@ -275,7 +276,8 @@ public class Airspace {
     }
 
     /**
-     * increaseDifficulty
+     * increaseDifficulty: Increases the chance of a new flight spawning, and also awards a points bonus. 
+     * Called by update every DIFFICULTY_INCREASE_INTERVAL ms.
      */
 
     public void increaseDifficulty() {
@@ -383,11 +385,11 @@ public class Airspace {
     // MUTATORS AND ACCESSORS
 
     public List<Flight> getListOfFlights() {
-        return this.listOfFlightsInAirspace;
+        return listOfFlightsInAirspace;
     }
 
     public boolean isFlightWithOwner(String owner) {
-        return !this.getListOfFlightsWithOwner(owner).isEmpty();
+        return !getListOfFlightsWithOwner(owner).isEmpty();
     }
 
     public List<Flight> getListOfFlightsWithOwner(String owner) {
@@ -403,41 +405,41 @@ public class Airspace {
     }
 
     public List<Waypoint> getListOfWaypoints() {
-        return this.listOfWayppoints;
+        return listOfWayppoints;
     }
 
     public List<EntryPoint> getListOfEntryPoints() {
-        return this.listOfEntryPoints;
+        return listOfEntryPoints;
     }
 
     public List<ExitPoint> getListOfExitPoints() {
-        return this.listOfExitPoints;
+        return listOfExitPoints;
     }
 
     public boolean addWaypoint(Waypoint waypoint) {
-        if (this.listOfWayppoints.contains(waypoint)) {
+        if (listOfWayppoints.contains(waypoint)) {
             return false;
         }
 
-        this.listOfWayppoints.add(waypoint);
+        listOfWayppoints.add(waypoint);
         return true;
     }
 
     public boolean addEntryPoint(EntryPoint entrypoint) {
-        if (this.listOfEntryPoints.contains(entrypoint)) {
+        if (listOfEntryPoints.contains(entrypoint)) {
             return false;
         }
 
-        this.listOfEntryPoints.add(entrypoint);
+        listOfEntryPoints.add(entrypoint);
         return true;
     }
 
     public boolean addExitPoint(ExitPoint exitpoint) {
-        if (this.listOfExitPoints.contains(exitpoint)) {
+        if (listOfExitPoints.contains(exitpoint)) {
             return false;
         }
 
-        this.listOfExitPoints.add(exitpoint);
+        listOfExitPoints.add(exitpoint);
         return true;
     }
 
@@ -447,7 +449,7 @@ public class Airspace {
             return false;
         }
 
-        // A flight can't be added, if it would immediately go into a state of separation violation with another flight
+        // A flight can't be added if it would immediately go into a state of separation violation with another flight
         for (Flight e : listOfFlightsInAirspace) {
             if (Math.abs(e.getAltitude() - f.getAltitude()) <= SeparationRules.VERTICAL_WARNING_DISTANCE &&
                 distanceBetween(e, f) <= SeparationRules.LATERAL_WARNING_DISTANCE) {
@@ -480,23 +482,23 @@ public class Airspace {
     }
 
     public void setDifficultyValueOfGame(int i) {
-        this.difficultyValueOfGame = i;
+        difficultyValueOfGame = i;
     }
 
     public int getDifficultyValueOfGame() {
-        return this.difficultyValueOfGame;
+        return difficultyValueOfGame;
     }
 
     public int getNumberOfGameLoops() {
-        return this.numberOfGameLoops;
+        return numberOfGameLoops;
     }
 
     public int getNumberOfGameLoopsWhenDifficultyIncreases() {
-        return this.numberOfGameLoopsWhenDifficultyIncreases;
+        return numberOfGameLoopsWhenDifficultyIncreases;
     }
 
     public List<Airport> getListOfAirports() {
-        return this.listOfAirports;
+        return listOfAirports;
     }
     
     public void setHandoverDelay() {
@@ -504,20 +506,20 @@ public class Airspace {
     }
     
     public boolean getHandoverDelay() {
-    	return this.handoverDelay;
+    	return handoverDelay;
     }
     
     public void resetLoopsSinceLastHandover() {
-    	this.numberOfGameLoopsSinceHandover = 0;
+    	numberOfGameLoopsSinceHandover = 0;
     }
     
     public int getLoopsSinceLastHandover() {
-    	return this.numberOfGameLoopsSinceHandover;
+    	return numberOfGameLoopsSinceHandover;
     }
 
     @Override
     public String toString() {
-        return "Airspace: " + this.listOfAirports.toString();
+        return "Airspace: " + listOfAirports.toString();
     }
     
 }
