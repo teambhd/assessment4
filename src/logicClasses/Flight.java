@@ -11,6 +11,7 @@ import org.newdawn.slick.loading.LoadingList;
 
 import util.DeferredFile;
 
+
 public class Flight {
 
     // Images
@@ -119,6 +120,11 @@ public class Flight {
             });
         }
     }
+    
+    
+    // ==========================================
+    // # Methods dealing with flight construction
+    // ==========================================
 
     /**
      * generateAltitude: Randomly assigns one of three different altitudes to a flight
@@ -144,13 +150,19 @@ public class Flight {
      */
 
     public double calculateHeadingToFirstWaypoint(double desX, double desY) {
-        double angle = Math.toDegrees(Math.atan2(desY - this.y, desX - this.x)) + 90;
+        return normalizeAngle(Math.toDegrees(Math.atan2(desY - y, desX - x)) + 90);
+    }
 
-        if (angle < 0) {
-            angle += 360;
-        }
+    
+    // ====================================================
+    // # Methods dealing with changes to a flight's heading
+    // ====================================================
 
-        return angle;
+    public static double normalizeAngle(double angle) {
+        // The first % normalises to between -359 and 359, 
+        // the + 360 moves that to between 1 and 719 
+        // and the final % 360 brings it between 0 and 360
+        return ((angle % 360) + 360) % 360;
     }
 
     /**
@@ -162,13 +174,9 @@ public class Flight {
      */
 
     public void turnFlightLeft(int degreeTurnedBy) {
-        this.turningRight = false;
-        this.turningLeft = true;
-        this.targetHeading = Math.round(this.currentHeading) - degreeTurnedBy;
-
-        if (this.targetHeading < 0) {
-            this.targetHeading = 360 + this.targetHeading;
-        }
+        turningRight = false;
+        turningLeft = true;
+        targetHeading = normalizeAngle(Math.round(this.currentHeading) - degreeTurnedBy);
     }
 
     /**
@@ -180,37 +188,29 @@ public class Flight {
      */
 
     public void turnFlightRight(int degreeTurnedBy) {
-        this.turningLeft = false;
-        this.turningRight = true;
-        this.targetHeading = Math.round(this.currentHeading) + degreeTurnedBy;
-
-        if (this.targetHeading >= 360) {
-            this.targetHeading = this.targetHeading - 360;
-        }
+        turningLeft = false;
+        turningRight = true;
+        targetHeading = normalizeAngle(Math.round(currentHeading) + degreeTurnedBy);
     }
 
     /**
-     * giveHeading: Changes the target heading to newHeading. Whenever a command is issued by the user to change the heading,
-     * the method is passed the value of that command. The heading is always adjusted to a value between 0 and 359. This is
-     * done using newHeading % 360.
-     * @param newHeading - The heading the flight has been commmanded to fly at.
+     * giveHeading: Changes the target heading to newHeading, 
+     * while also ensuring the flight takes the quickest course to that heading
+     * @param newHeading The heading the flight has been commmanded to fly at
      */
 
     public void giveHeading(int newHeading) {
-        this.turningRight = false;
-        this.turningLeft = false;
-        newHeading = newHeading % 360;
-        this.targetHeading = newHeading;
+        // Clearing these variables ensures that the flight does not circle round to its new heading
+        // but always takes the quickest route
+        turningRight = false;
+        turningLeft = false;
+        targetHeading = normalizeAngle(newHeading);
     }
 
 
-    public int minDistanceFromWaypoint(Point waypoint) {
-        return closestDistance;
-    }
-
-    public void resetMinDistanceFromWaypoint() {
-        closestDistance = Integer.MAX_VALUE;
-    }
+    // =============================================
+    // # Methods dealing with taking-off and landing
+    // =============================================
 
     public void takeOff() {
         takingOff = true;
@@ -338,9 +338,8 @@ public class Flight {
      */
 
     public void updateXYCoordinates() {
-        double vs = velocity * GAME_SCALE;
-        this.x += vs * Math.sin(Math.toRadians(currentHeading));
-        this.y -= vs * Math.cos(Math.toRadians(currentHeading));
+        x += velocity * Math.sin(Math.toRadians(currentHeading)) * GAME_SCALE;
+        y -= velocity * Math.cos(Math.toRadians(currentHeading)) * GAME_SCALE;
     }
 
     /**
@@ -434,10 +433,14 @@ public class Flight {
             velocity = targetVelocity;
         }
 
+        // If the flight's reached its minimum airborne velocity, then set takingOff to false, 
+        // so the updateAltitude method can lift it up off the runway
         if (takingOff && velocity > STALL_VELOCITY) {
             takingOff = false;
         }
         
+        // If the flight's landed successfully, then it can decelerate to a stop,
+        // at which point it will then be removed by the airspace
         if (landing && isGrounded() && targetVelocity != 0) {
             targetVelocity = 0;
         } 
@@ -463,35 +466,40 @@ public class Flight {
      */
 
     public void render(Graphics g) throws SlickException {
-        float shadowScale = (float)(36 - (this.currentAltitude / 1000)) / 10;  // Scale the shadow in line with the flight's altitude
-        shadowImage.setRotation((int) currentHeading);
-        shadowImage.draw((int) this.x - 35, (int) this.y, shadowScale);
 
-        if (this.owner == "red") {
+        // Draw the shadow image, scaled in line with the flight's altitude
+        float shadowScale = (float)(36 - (currentAltitude / 1000)) / 10;
+        shadowImage.setRotation((int) currentHeading);
+        shadowImage.draw((int)x - 35, (int)y, shadowScale);
+        
+        // Draw the correct colour-coded image, depending on the owner of the flight
+        if (owner == "red") {
             redFlightImage.setRotation((int) currentHeading);
-            redFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+            redFlightImage.draw((int)x - 10, (int)y - 10);
         }
 
-        else if (this.owner == "blue") {
+        else if (owner == "blue") {
             blueFlightImage.setRotation((int) currentHeading);
-            blueFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+            blueFlightImage.draw((int)x - 10, (int)y - 10);
         }
 
         else {
             whiteFlightImage.setRotation((int) currentHeading);
-            whiteFlightImage.draw((int) this.x - 10, (int) this.y - 10);
+            whiteFlightImage.draw((int)x - 10, (int)y - 10);
         }
+
 
         // Drawing information around flight, first the next waypoint, then the flight's altitude, then the flight's speed
         g.setColor(Color.white);
 
-        if (this.flightPlan.getCurrentRoute().size() > 0) {
-            g.drawString("Aim: " + this.flightPlan.getPointByIndex(0).getPointRef(), (int)this.x + 18, (int)this.y - 27);
+        if (!flightPlan.getCurrentRoute().isEmpty()) {
+            g.drawString("Aim: " + flightPlan.getPointByIndex(0).getPointRef(), (int)x + 18, (int)y - 27);
         }
 
-        g.drawString(currentAltitude + "ft", (int)this.x + 17, (int)this.y - 9);
+        g.drawString(currentAltitude + "ft", (int)x + 17, (int)y - 9);
 
-        g.drawString(Math.round(this.velocity) + "mph", (int)this.x + 17, (int)this.y + 9);
+        g.drawString(Math.round(velocity) + "mph", (int)x + 17, (int)y + 9);
+        
     }
     
 
@@ -601,6 +609,14 @@ public class Flight {
 
     public boolean getTurningLeft() {
         return this.turningLeft;
+    }
+    
+    public int getClosestDistanceFromWaypoint() {
+        return closestDistance;
+    }
+
+    public void resetClosestDistanceFromWaypoint() {
+        closestDistance = Integer.MAX_VALUE;
     }
 
     // toString function to display a flight object so we can read it

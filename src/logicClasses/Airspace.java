@@ -77,7 +77,7 @@ public class Airspace {
     public static double distanceBetween(Flight a, Flight b) {
         return Math.hypot(b.getX() - a.getX(), b.getY() - a.getY());
     }
-    
+        
 
     // METHODS
 

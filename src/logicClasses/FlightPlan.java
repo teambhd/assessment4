@@ -160,14 +160,16 @@ public class FlightPlan {
     public void update(ScoreTracking score) {
         int waypointScore = 0;
 
-        if (this.currentRoute.size() > 0) {
+        if (!currentRoute.isEmpty()) {
             // Check to see if there are still waypoints to visit and then check if the flight is passing through waypoint
-            if (this.flight.checkIfFlightAtWaypoint(currentRoute.get(0))) {
-                this.waypointsAlreadyVisited.add(this.currentRoute.get(0));
-                closestDistance = this.flight.minDistanceFromWaypoint(this.currentRoute.get(0)); // get the closest distance from the waypoint
-                flight.resetMinDistanceFromWaypoint();
+            if (flight.checkIfFlightAtWaypoint(currentRoute.get(0))) {
+                waypointsAlreadyVisited.add(currentRoute.get(0));
+                
+                closestDistance = flight.getClosestDistanceFromWaypoint();
+                flight.resetClosestDistanceFromWaypoint();
                 waypointScore = score.updateWaypointScore(closestDistance); // update the score based on how close to the waypoints
-                this.currentRoute.remove(0);
+                
+                currentRoute.remove(0);
             }
 
             score.updateScore(waypointScore);
@@ -175,13 +177,13 @@ public class FlightPlan {
     }
 
     public void render(Graphics g) throws SlickException {
-        if (this.currentRoute.size() > 0) {
+        if (!currentRoute.isEmpty()) {
 
-            if (this.flight.getOwner() == "red") {
+            if (flight.getOwner() == "red") {
                 g.setColor(RED_COLOR);
             }
 
-            else if (this.flight.getOwner() == "blue") {
+            else if (flight.getOwner() == "blue") {
                 g.setColor(BLUE_COLOR);
             }
 
@@ -191,21 +193,21 @@ public class FlightPlan {
 
             // Draw a line from the flight to it's next waypoint
             g.drawLine(
-                (float)this.flight.getX(),
-                (float)this.flight.getY(),
-                (float)this.currentRoute.get(0).getX(),
-                (float)this.currentRoute.get(0).getY()
+                (float)flight.getX(),
+                (float)flight.getY(),
+                (float)currentRoute.get(0).getX(),
+                (float)currentRoute.get(0).getY()
             );
 
             // Draw lines between all waypoints in plan
-            for (int i = 1; i < this.currentRoute.size(); i++) {
+            for (int i = 1; i < currentRoute.size(); i++) {
                 g.drawLine(
-                    (float)this.currentRoute.get(i).getX(),
-                    (float)this.currentRoute.get(i).getY(),
-                    (float)this.currentRoute.get(i - 1).getX(),
-                    (float)this.currentRoute.get(i - 1).getY()
+                    (float)currentRoute.get(i).getX(),
+                    (float)currentRoute.get(i).getY(),
+                    (float)currentRoute.get(i - 1).getX(),
+                    (float)currentRoute.get(i - 1).getY()
                 );
-            }
+            }            
         }
     }
 
@@ -217,15 +219,15 @@ public class FlightPlan {
     }
 
     public Point getPointByIndex(int i) {
-        return this.currentRoute.get(i);
+        return currentRoute.get(i);
     }
 
     public EntryPoint getEntryPoint() {
-        return this.entryPoint;
+        return entryPoint;
     }
 
     public ExitPoint getExitPoint() {
-        return this.exitPoint;
+        return exitPoint;
     }
 
 
