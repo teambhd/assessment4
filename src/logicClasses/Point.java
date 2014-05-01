@@ -11,45 +11,41 @@ public class Point {
 
     // CONSTRUCTORS
 
-    //Point Constructor taking two doubles for X then Y coordinates.
-    public Point(double xcoord, double ycoord) {
-        x = xcoord;
-        y = ycoord;
-        pointRef = "-";
+    // Point Constructor taking two doubles for X then Y coordinates.
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+        this.pointRef = "-";
     }
 
-    //Point Constructor that also takes pointRef string, more commonly used.
-    public Point(double xcoord, double ycoord, String name) {
-        x = xcoord;
-        y = ycoord;
-        pointRef = name;
+    // Point Constructor that also takes pointRef string, more commonly used.
+    public Point(double x, double y, String pointRef) {
+        this.x = xcoord;
+        this.y = ycoord;
+        this.pointRef = pointRef;
     }
 
 
     // MUTATORS AND ACCESSORS
 
     public double getX() {
-        return this.x;
+        return x;
     }
 
     public double getY() {
-        return this.y;
+        return y;
     }
 
-    public void setX(double newX) {
-        this.x = newX;
+    public void setX(double x) {
+        this.x = x;
     }
 
-    public void setY(double newY) {
-        this.y = newY;
+    public void setY(double y) {
+        this.y = y;
     }
 
     public String getPointRef() {
-        return this.pointRef;
-    }
-
-    public void setPointRef(String pointRef) {
-        this.pointRef = pointRef;
+        return pointRef;
     }
 
     public boolean equals(Point point) {

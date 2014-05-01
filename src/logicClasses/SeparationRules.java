@@ -117,7 +117,7 @@ public class SeparationRules {
      */
 
     public void update(Airspace airspace) {
-        this.checkViolation(airspace);
+        checkViolation(airspace);
     }
 
 
@@ -127,15 +127,15 @@ public class SeparationRules {
     }
 
     public boolean getGameOverViolation() {
-        return this.gameOverViolation;
+        return gameOverViolation;
     }
 
     public Flight getViolatingFlight1() {
-        return this.violatingFlight1;
+        return violatingFlight1;
     }
 
     public Flight getViolatingFlight2() {
-        return this.violatingFlight2;
+        return violatingFlight2;
     }
 
 }
