@@ -5,15 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import states.DifficultyState;
-import states.GameOverState;
-import states.MenuState;
-import states.PauseState;
-import states.MultiPlayState;
-import states.PlayState;
-import states.ControlsState;
-import states.SplashState;
-import states.VictoryState;
+import states.*;
 
 public class Game extends StateBasedGame {
 
@@ -25,10 +17,9 @@ public class Game extends StateBasedGame {
     public static final int MULTIPLAYSTATE = 3;
     public static final int GAMEOVERSTATE = 4;
     public static final int PAUSESTATE = 5;
-    public static final int CONTROLSSTATE = 6;
-    public static final int DIFFICULTYSTATE = 7;
-    public static final int REDVICTORYSTATE = 8;
-    public static final int BLUEVICTORYSTATE = 9;
+    public static final int DIFFICULTYSTATE = 6;
+    public static final int REDVICTORYSTATE = 7;
+    public static final int BLUEVICTORYSTATE = 8;
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 600;
@@ -53,7 +44,6 @@ public class Game extends StateBasedGame {
         addState(new MultiPlayState(MULTIPLAYSTATE));
         addState(new GameOverState(GAMEOVERSTATE));
         addState(new PauseState(PAUSESTATE));
-        addState(new ControlsState(CONTROLSSTATE));
         addState(new VictoryState(REDVICTORYSTATE, "red"));
         addState(new VictoryState(BLUEVICTORYSTATE, "blue"));
     }

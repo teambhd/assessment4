@@ -150,8 +150,7 @@ public class Controls {
         }
 
         if (input.isKeyPressed(myKeys.get("airport"))) {
-            // If we're waiting for take-off, then take-off, if we're landing then abort landing
-            // otherwise attempt to issue the land command
+            // If we're waiting for take-off, then take-off, if we're landing then abort landing, otherwise try to land
             if (selectedFlight.isGrounded()) {
                 selectedFlight.takeOff();
             }

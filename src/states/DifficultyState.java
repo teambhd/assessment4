@@ -36,7 +36,7 @@ public class DifficultyState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         LoadingList loading = LoadingList.get();
 
-        loading.add(new DeferredFile("res/menu_graphics/difficulty.png") {
+        loading.add(new DeferredFile("res/graphics/difficulty_background.png") {
             public void loadFile(String filename) throws SlickException {
                 difficultyBackground = new Image(filename);
             }

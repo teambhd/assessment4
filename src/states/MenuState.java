@@ -1,5 +1,8 @@
 package states;
 
+import java.awt.Desktop;
+import java.net.URI;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.loading.DeferredResource;
 import org.newdawn.slick.loading.LoadingList;
@@ -16,7 +19,9 @@ import util.HoverImage;
 
 
 public class MenuState extends BasicGameState {
-
+    
+    private static final String WEBSITE_URL = "http://teambhd.github.io";
+                
     private static Image menuBackground;
     private static Image titleImage;
     
@@ -46,7 +51,7 @@ public class MenuState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg)
     throws SlickException {
         LoadingList loading = LoadingList.get();
-        loading.add(new DeferredFile("res/menu_graphics/background.png") {
+        loading.add(new DeferredFile("res/graphics/menu_background.png") {
             public void loadFile(String filename) throws SlickException {
                 menuBackground = new Image(filename);
             }
@@ -145,7 +150,13 @@ public class MenuState extends BasicGameState {
                 }
 
                 if (help.isMouseOver(posX, posY)) {
-                    sbg.enterState(stateContainer.Game.CONTROLSSTATE);
+                    try {
+                        Desktop.getDesktop().browse(new URI(WEBSITE_URL)); 
+                    }
+                    
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 if (quit.isMouseOver(posX, posY)) {
