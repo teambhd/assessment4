@@ -309,17 +309,15 @@ public class Flight {
      */
 
     public void handOver(ScoreTracking st) {
-        if (owner == "red" && airspace.getHandoverDelayRed() == false) {
+        if (owner == "red" && airspace.isRedAbleToHandover()) {
             owner = "blue";
-            airspace.resetLoopsSinceLastHandoverRed();
-            airspace.setHandoverDelayRed();
+            airspace.resetRedHandoverCountdown();
             st.applyFlightLossPenalty();
         }
         
-        else if (owner == "blue" && airspace.getHandoverDelayBlue() == false) {
+        else if (owner == "blue" && airspace.isBlueAbleToHandover()) {
             owner = "red";
-            airspace.resetLoopsSinceLastHandoverBlue();
-            airspace.setHandoverDelayBlue();
+            airspace.resetBlueHandoverCountdown();
             st.applyFlightLossPenalty();
         }
     }
