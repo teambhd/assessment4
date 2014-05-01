@@ -12,7 +12,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 
 import util.DeferredFile;
-import static util.Calculations.distanceBetween;
 
 
 public class Airspace {
@@ -67,6 +66,18 @@ public class Airspace {
     public Airspace(boolean multiplayer) {
         this.isMultiplayer = multiplayer;        
     }
+    
+    
+    // STATIC METHODS
+
+    public static double distanceBetween(Point a, Point b) {
+        return Math.hypot(b.getX() - a.getX(), b.getY() - a.getY());
+    }
+
+    public static double distanceBetween(Flight a, Flight b) {
+        return Math.hypot(b.getX() - a.getX(), b.getY() - a.getY());
+    }
+    
 
     // METHODS
 

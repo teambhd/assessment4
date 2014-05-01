@@ -11,7 +11,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import static util.Calculations.distanceBetween;
+import static logicClasses.Airspace.distanceBetween;
 
 public class FlightPlan {
 

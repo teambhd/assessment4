@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-import static util.Calculations.distanceBetween;
+import static logicClasses.Airspace.distanceBetween;
 
 
 public class SeparationRules {
