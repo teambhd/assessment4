@@ -77,7 +77,13 @@ public class Airspace {
     public static double distanceBetween(Flight a, Flight b) {
         return Math.hypot(b.getX() - a.getX(), b.getY() - a.getY());
     }
-        
+    
+    public static double normalizeAngle(double angle) {
+        // The first % normalises to between -359 and 359, 
+        // the + 360 moves that to between 1 and 719 
+        // and the final % 360 brings it between 0 and 360
+        return ((angle % 360) + 360) % 360;
+    }    
 
     // METHODS
 

@@ -11,6 +11,8 @@ import org.newdawn.slick.loading.LoadingList;
 
 import util.DeferredFile;
 
+import static logicClasses.Airspace.normalizeAngle;
+
 
 public class Flight {
 
@@ -157,13 +159,6 @@ public class Flight {
     // ====================================================
     // # Methods dealing with changes to a flight's heading
     // ====================================================
-
-    public static double normalizeAngle(double angle) {
-        // The first % normalises to between -359 and 359, 
-        // the + 360 moves that to between 1 and 719 
-        // and the final % 360 brings it between 0 and 360
-        return ((angle % 360) + 360) % 360;
-    }
 
     /**
      * turnFlightLeft: sets the target heading to certain amount to to the left of the flight's current heading.

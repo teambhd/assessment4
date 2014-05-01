@@ -8,6 +8,7 @@ import org.newdawn.slick.loading.LoadingList;
 
 import util.DeferredFile;
 
+
 public class WindIndicator {
 
     private static Image windImage;
@@ -36,11 +37,7 @@ public class WindIndicator {
         windImage.draw(14, 550);
 
         // Also display the degree value of the wind direction (normalised between 0 and 360)
-        int displayDirection = Math.round(this.direction);
-
-        if (displayDirection < 0) {
-            displayDirection += 360;
-        }
+        int displayDirection = (int)Airspace.normalizeAngle(Math.round(this.direction));
 
         g.setColor(Color.white);
         g.drawString("Wind:", 60, 550);
