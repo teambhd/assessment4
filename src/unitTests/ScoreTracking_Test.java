@@ -83,10 +83,4 @@ public class ScoreTracking_Test {
         assertEquals(100, scoreTrackingInstance.getScore());
     }
 
-    @Test
-    public void testToString() {
-        scoreTrackingInstance.updateScore(100);
-        assertEquals("Score = 100", scoreTrackingInstance.toString());
-    }
-
 }

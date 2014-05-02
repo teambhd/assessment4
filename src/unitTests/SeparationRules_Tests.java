@@ -77,7 +77,6 @@ public class SeparationRules_Tests {
         flight2.setX(1);
         flight1.setY(1);
         flight2.setY(1);
-        airspace.update();
         separationRules.checkViolation(airspace);
         assertTrue(separationRules.getGameOverViolation());
     }

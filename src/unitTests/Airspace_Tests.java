@@ -10,10 +10,12 @@ public class Airspace_Tests {
 
     private Airspace airspace;
     private Flight flight1;
+    private ScoreTracking score;
+
 
     @Before
     public void setUp() {
-        airspace = new Airspace(false);
+        airspace = new Airspace(true);
         // Waypoints
         airspace.newWaypoint(350, 150, "A");
         airspace.newWaypoint(400, 470, "B");
@@ -39,8 +41,10 @@ public class Airspace_Tests {
         airspace.newAirport(700, 300, 0, "BHD");
         // Get a Flight
         flight1 = new Flight(airspace);
+        flight1.setOwner("red");
         airspace.setDifficultyValueOfGame(1);
         airspace.createAndSetSeparationRules();
+        score = new ScoreTracking();
     }
 
     //Testing resetAirspace()
@@ -110,25 +114,27 @@ public class Airspace_Tests {
     @Test
     public void handoverTimerTest1 () {
     	//Test that the handover delay flag is switched after a long enough wait timer
-    	airspace.setHandoverDelayBlue();
+    	flight1.handOver(score);
     	int i = 0;
     	while (i<=300){
     		i++;
     		airspace.update();
     	}
-    	assertFalse (airspace.getHandoverDelayBlue());
+    	assertTrue (airspace.isRedAbleToHandover());
     }
     
     @Test
     public void handoverTimerTest2 () {
     	//Test that the handover delay flag does not switch back without a handover initiated
-    	airspace.setHandoverDelayBlue();
+    	System.out.println(flight1.getOwner());
+    	flight1.handOver(score);
+    	System.out.println(flight1.getOwner());
     	int i = 0;
     	while (i<=3000){
     		i++;
     		airspace.update();
     	}
-    	assertFalse (airspace.getHandoverDelayBlue());
+    	assertTrue (airspace.isRedAbleToHandover());
     }
 }
 

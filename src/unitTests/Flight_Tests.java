@@ -393,7 +393,8 @@ public class Flight_Tests {
     @Test
     public void handoverTest2 () {
     	//Test that handover does not happen while there is "cooldown" for the player
-    	airspace.setHandoverDelayRed();
+    	flight1.handOver(this.score);
+    	flight1.handOver(this.score);
     	flight1.handOver(this.score);
     	assertFalse(flight1.getOwner()=="blue");
     }
@@ -403,22 +404,18 @@ public class Flight_Tests {
     public void handoverTest3 () {
     	//Test that handover sets up delay for the player who initiates it
     	flight1.handOver(this.score);
-    	assertTrue(airspace.getHandoverDelayRed());
+    	assertTrue(!airspace.isRedAbleToHandover());
     }
     
     @Test
     public void landTest1 () {
     	//Test that flight lands properly when all the landing conditions are fulfilled
-    	System.out.println (airspace.getListOfAirports().get(0));
-    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setX(airspace.getListOfAirports().get(0).getX());
     	flight1.setY(airspace.getListOfAirports().get(0).getY());
     	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setTargetHeading(flight1.getCurrentHeading());
     	flight1.setVelocity(Flight.MIN_VELOCITY);
     	flight1.setAltitude(Flight.MIN_ALTITUDE);
-    	System.out.println (flight1);
-    	System.out.println (flight1.getCurrentHeading());
     	flight1.land();
     	assertTrue (flight1.getLanding());
     }
@@ -426,16 +423,12 @@ public class Flight_Tests {
     @Test
     public void landTest2 () {
     	//Test that flight lands properly when heading in the inverse direction of a runway
-    	System.out.println (airspace.getListOfAirports().get(0));
-    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setX(airspace.getListOfAirports().get(0).getX());
     	flight1.setY(airspace.getListOfAirports().get(0).getY());
     	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading()+180);
     	flight1.setTargetHeading(flight1.getCurrentHeading());
     	flight1.setVelocity(Flight.MIN_VELOCITY);
     	flight1.setAltitude(Flight.MIN_ALTITUDE);
-    	System.out.println (flight1);
-    	System.out.println (flight1.getCurrentHeading());
     	flight1.land();
     	assertTrue (flight1.getLanding());
     }
@@ -443,16 +436,12 @@ public class Flight_Tests {
     @Test
     public void landTest3 () {
     	//Test that flight does not land when not at the right co-ordinates
-    	System.out.println (airspace.getListOfAirports().get(0));
-    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setX(airspace.getListOfAirports().get(0).getX()+500);
     	flight1.setY(airspace.getListOfAirports().get(0).getY());
     	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading()+180);
     	flight1.setTargetHeading(flight1.getCurrentHeading());
     	flight1.setVelocity(Flight.MIN_VELOCITY);
     	flight1.setAltitude(Flight.MIN_ALTITUDE);
-    	System.out.println (flight1);
-    	System.out.println (flight1.getCurrentHeading());
     	flight1.land();
     	assertFalse (flight1.getLanding());
     }
@@ -460,16 +449,12 @@ public class Flight_Tests {
     @Test
     public void landTest4 () {
     	//Test that flight does not land when not with the right heading
-    	System.out.println (airspace.getListOfAirports().get(0));
-    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setX(airspace.getListOfAirports().get(0).getX());
     	flight1.setY(airspace.getListOfAirports().get(0).getY());
     	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading()+200);
     	flight1.setTargetHeading(flight1.getCurrentHeading());
     	flight1.setVelocity(Flight.MIN_VELOCITY);
     	flight1.setAltitude(Flight.MIN_ALTITUDE);
-    	System.out.println (flight1);
-    	System.out.println (flight1.getCurrentHeading());
     	flight1.land();
     	assertFalse (flight1.getLanding());
     }
@@ -477,16 +462,12 @@ public class Flight_Tests {
     @Test
     public void landTest5 () {
     	//Test that flight does not land when not with the right altitude
-    	System.out.println (airspace.getListOfAirports().get(0));
-    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setX(airspace.getListOfAirports().get(0).getX());
     	flight1.setY(airspace.getListOfAirports().get(0).getY());
     	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setTargetHeading(flight1.getCurrentHeading());
     	flight1.setVelocity(Flight.MIN_VELOCITY);
     	flight1.setAltitude(Flight.MAX_ALTITUDE);
-    	System.out.println (flight1);
-    	System.out.println (flight1.getCurrentHeading());
     	flight1.land();
     	assertFalse (flight1.getLanding());
     }
@@ -494,16 +475,12 @@ public class Flight_Tests {
     @Test
     public void landTest6 () {
     	//Test that flight does not land when not with the right velocity
-    	System.out.println (airspace.getListOfAirports().get(0));
-    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setX(airspace.getListOfAirports().get(0).getX());
     	flight1.setY(airspace.getListOfAirports().get(0).getY());
     	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading());
     	flight1.setTargetHeading(flight1.getCurrentHeading());
     	flight1.setVelocity(Flight.MAX_VELOCITY);
     	flight1.setAltitude(Flight.MIN_ALTITUDE);
-    	System.out.println (flight1);
-    	System.out.println (flight1.getCurrentHeading());
     	flight1.land();
     	assertFalse (flight1.getLanding());
     }

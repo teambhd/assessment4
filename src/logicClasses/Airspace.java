@@ -543,6 +543,7 @@ public class Airspace {
     public boolean isBlueAbleToHandover() {
     	return loopsUntilBlueAbleToHandover == 0;
     }
+    
 
     @Override
     public String toString() {
