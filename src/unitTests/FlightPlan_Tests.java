@@ -53,7 +53,8 @@ public class FlightPlan_Tests {
     public void generateEntryPointTest1() {
         // Testing that the function generates a entrypoint that is contained within the entrypoint list
         EntryPoint result = flight1.getFlightPlan().generateEntryPoint(airspace);
-        assertTrue(result == airspace.getListOfEntryPoints().get(0) || result == airspace.getListOfEntryPoints().get(1) || result == airspace.getListOfEntryPoints().get(2));
+        System.out.println(airspace.getListOfEntryPoints());
+        assertTrue(airspace.getListOfEntryPoints().contains(result));
     }
 
     @Test
@@ -61,7 +62,7 @@ public class FlightPlan_Tests {
         // Testing that the velocity generated is always within the constraints applied.
         for (int i = 0; i < 100; i++) {
             double velocity = flightplan.generateVelocity();
-            assertTrue(velocity < 400 && velocity >= 200);
+            assertTrue((velocity < 400 && velocity >= 200) || velocity == 0);
         }
     }
 
@@ -133,11 +134,16 @@ public class FlightPlan_Tests {
     @Test
     public void updateFlightPlanTest() {
         // Tests that a waypoint is removed from the flightplan when visited.
+    	System.out.println(flight1.getFlightPlan());
         int previousSize = flight1.getFlightPlan().getCurrentRoute().size();
+        flight1.takeOff();
         flight1.setX(flight1.getFlightPlan().getCurrentRoute().get(0).getX());
         flight1.setY(flight1.getFlightPlan().getCurrentRoute().get(0).getY());
-        flight1.getFlightPlan().update(new ScoreTracking());  // {!} need to test these properly
-        assertEquals(previousSize - 1, flight1.getFlightPlan().getCurrentRoute().size(), 0);
+        System.out.println(flight1.getFlightPlan());
+        airspace.update();
+        flight1.getFlightPlan().update(new ScoreTracking()); // {!} need to test these properly
+        System.out.println(flight1.getFlightPlan());
+        assertEquals(previousSize - 1, flight1.getFlightPlan().getCurrentRoute().size());
     }
 
     @Test

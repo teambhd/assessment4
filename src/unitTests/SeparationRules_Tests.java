@@ -71,10 +71,13 @@ public class SeparationRules_Tests {
     @Test
     public void checkViolationTrueTest() {
         // Tests that game over is achieved when two flights are too close.
+    	flight1.takeOff();
+    	flight2.takeOff();
         flight1.setX(1);
         flight2.setX(1);
         flight1.setY(1);
         flight2.setY(1);
+        airspace.update();
         separationRules.checkViolation(airspace);
         assertTrue(separationRules.getGameOverViolation());
     }

@@ -659,5 +659,9 @@ public class Flight {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+    
+    public boolean getLanding () {
+    	return this.landing;
+    }
 
 }

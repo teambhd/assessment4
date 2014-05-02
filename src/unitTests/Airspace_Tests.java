@@ -35,6 +35,8 @@ public class Airspace_Tests {
         airspace.newExitPoint(150, 200, "2");
         airspace.newExitPoint(1200, 300, "3");
         airspace.newExitPoint(590, 195, "4");
+        // Airport
+        airspace.newAirport(700, 300, 0, "BHD");
         // Get a Flight
         flight1 = new Flight(airspace);
         airspace.setDifficultyValueOfGame(1);
@@ -60,7 +62,7 @@ public class Airspace_Tests {
         // tests that waypoint isn't added when outside range of the airspace.
         assertTrue(airspace.newWaypoint(151, 500, "TEST"));
         assertFalse(airspace.newWaypoint(-10000, 151, "TEST2"));
-        assertFalse(airspace.newWaypoint(50, 0, "TEST3"));
+        assertFalse(airspace.newWaypoint(1650, 0, "TEST3"));
     }
 
 
@@ -71,7 +73,7 @@ public class Airspace_Tests {
         // tests that exitpoint isn't added when outside range of the airspace.
         assertTrue(airspace.newExitPoint(150, 500, "TEST"));
         assertFalse(airspace.newExitPoint(-100, 220, "TEST2"));
-        assertFalse(airspace.newExitPoint(0, 23, "TEST3"));
+        assertFalse(airspace.newExitPoint(-100, 23, "TEST3"));
     }
 
     // Testing new_entry_point()
@@ -81,7 +83,7 @@ public class Airspace_Tests {
         // tests that entrypoint isn't added when outside range of the airspace.
         assertTrue(airspace.newEntryPoint(150, 500));
         assertFalse(airspace.newEntryPoint(60, -540));
-        assertFalse(airspace.newEntryPoint(0, 0));
+        assertFalse(airspace.newEntryPoint(0, 800));
     }
 
     // Testing check_if_flight_has_left_airspace()
@@ -103,6 +105,30 @@ public class Airspace_Tests {
         flight1.setX(-143401);
         flight1.setY(101010);
         assertTrue(airspace.checkIfFlightHasLeftAirspace(flight1));
+    }
+    
+    @Test
+    public void handoverTimerTest1 () {
+    	//Test that the handover delay flag is switched after a long enough wait timer
+    	airspace.setHandoverDelayBlue();
+    	int i = 0;
+    	while (i<=300){
+    		i++;
+    		airspace.update();
+    	}
+    	assertFalse (airspace.getHandoverDelayBlue());
+    }
+    
+    @Test
+    public void handoverTimerTest2 () {
+    	//Test that the handover delay flag does not switch back without a handover initiated
+    	airspace.setHandoverDelayBlue();
+    	int i = 0;
+    	while (i<=3000){
+    		i++;
+    		airspace.update();
+    	}
+    	assertFalse (airspace.getHandoverDelayBlue());
     }
 }
 

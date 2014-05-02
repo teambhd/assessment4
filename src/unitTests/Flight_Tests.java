@@ -2,6 +2,8 @@ package unitTests;
 
 import static org.junit.Assert.*;
 import logicClasses.*;
+
+import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -9,6 +11,9 @@ public class Flight_Tests {
 
     private Airspace airspace;
     private  Flight flight1;
+    private ScoreTracking score;
+    
+
 
     @Before
     public void setUp() {
@@ -34,11 +39,21 @@ public class Flight_Tests {
         airspace.newExitPoint(150, 200, "2");
         airspace.newExitPoint(1200, 300, "3");
         airspace.newExitPoint(590, 195, "4");
+        // Airport
+        airspace.newAirport(700, 300, 0, "BHD");
         // Get a Flight
         flight1 = new Flight(airspace);
         airspace.setDifficultyValueOfGame(1);
         airspace.createAndSetSeparationRules();
+        flight1.setOwner("red");
+        score = new ScoreTracking();
+        }
+    @After
+    public void tearDown() throws Exception {
+        score = null;
     }
+
+
 
     // Testing generate_altitude()
 
@@ -46,7 +61,7 @@ public class Flight_Tests {
     public void generateAltitudeTest1() {
         // Testing the function returns an altitude within a certain range.
         int result = flight1.generateAltitude();
-        assertTrue(result >= 2000 && result <= 5000);
+        assertTrue((result >= 2000 && result <= 5000) || result == 0);
     }
 
     // Testing calculate_heading_to_first_waypoint()
@@ -167,17 +182,19 @@ public class Flight_Tests {
     public void checkIfFlightAtWaypointTest1() {
         // Test that waypoint detection works at exactly 15 pixels away.
         Waypoint waypoint = new Waypoint(350, 150, "TEST");
-        flight1.setX(335);
+        flight1.takeOff();
+        flight1.setX(390);
         flight1.setY(135);
-        assertTrue(flight1.checkIfFlightAtWaypoint(waypoint));
+        airspace.update();
+        assertFalse(flight1.checkIfFlightAtWaypoint(waypoint));
     }
 
     @Test
     public void checkIfFlightAtWaypointTest2() {
         // Test that waypoint detection works at within 15 pixels .
         Waypoint waypoint = new Waypoint(350, 150, "TEST");
-        flight1.setX(350);
-        flight1.setY(150);
+        flight1.setX(waypoint.getX());
+        flight1.setY(waypoint.getY());
         assertTrue(flight1.checkIfFlightAtWaypoint(waypoint));
     }
 
@@ -217,6 +234,7 @@ public class Flight_Tests {
     public void updateXYCoordinates() {
         // Testing that it updates the x and y coordinate correctly.
         flight1.getFlightPlan();
+        flight1.setVelocity(300);
         flight1.setCurrentHeading(50);
         flight1.setTargetHeading(50);
         flight1.setX(100);
@@ -364,5 +382,132 @@ public class Flight_Tests {
         assertFalse(flight1.getTurningRight());
         assertEquals(360, flight1.getCurrentHeading(), 0.1);
     }
+    
+    @Test
+    public void handoverTest1 () {
+    	//Test that handover happens properly
+    	flight1.handOver(this.score);
+    	assertTrue(flight1.getOwner()=="blue");
+    }
+    
+    @Test
+    public void handoverTest2 () {
+    	//Test that handover does not happen while there is "cooldown" for the player
+    	airspace.setHandoverDelayRed();
+    	flight1.handOver(this.score);
+    	assertFalse(flight1.getOwner()=="blue");
+    }
+    
+    
+    @Test
+    public void handoverTest3 () {
+    	//Test that handover sets up delay for the player who initiates it
+    	flight1.handOver(this.score);
+    	assertTrue(airspace.getHandoverDelayRed());
+    }
+    
+    @Test
+    public void landTest1 () {
+    	//Test that flight lands properly when all the landing conditions are fulfilled
+    	System.out.println (airspace.getListOfAirports().get(0));
+    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setX(airspace.getListOfAirports().get(0).getX());
+    	flight1.setY(airspace.getListOfAirports().get(0).getY());
+    	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setTargetHeading(flight1.getCurrentHeading());
+    	flight1.setVelocity(Flight.MIN_VELOCITY);
+    	flight1.setAltitude(Flight.MIN_ALTITUDE);
+    	System.out.println (flight1);
+    	System.out.println (flight1.getCurrentHeading());
+    	flight1.land();
+    	assertTrue (flight1.getLanding());
+    }
+    
+    @Test
+    public void landTest2 () {
+    	//Test that flight lands properly when heading in the inverse direction of a runway
+    	System.out.println (airspace.getListOfAirports().get(0));
+    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setX(airspace.getListOfAirports().get(0).getX());
+    	flight1.setY(airspace.getListOfAirports().get(0).getY());
+    	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading()+180);
+    	flight1.setTargetHeading(flight1.getCurrentHeading());
+    	flight1.setVelocity(Flight.MIN_VELOCITY);
+    	flight1.setAltitude(Flight.MIN_ALTITUDE);
+    	System.out.println (flight1);
+    	System.out.println (flight1.getCurrentHeading());
+    	flight1.land();
+    	assertTrue (flight1.getLanding());
+    }
+    
+    @Test
+    public void landTest3 () {
+    	//Test that flight does not land when not at the right co-ordinates
+    	System.out.println (airspace.getListOfAirports().get(0));
+    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setX(airspace.getListOfAirports().get(0).getX()+500);
+    	flight1.setY(airspace.getListOfAirports().get(0).getY());
+    	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading()+180);
+    	flight1.setTargetHeading(flight1.getCurrentHeading());
+    	flight1.setVelocity(Flight.MIN_VELOCITY);
+    	flight1.setAltitude(Flight.MIN_ALTITUDE);
+    	System.out.println (flight1);
+    	System.out.println (flight1.getCurrentHeading());
+    	flight1.land();
+    	assertFalse (flight1.getLanding());
+    }
+    
+    @Test
+    public void landTest4 () {
+    	//Test that flight does not land when not with the right heading
+    	System.out.println (airspace.getListOfAirports().get(0));
+    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setX(airspace.getListOfAirports().get(0).getX());
+    	flight1.setY(airspace.getListOfAirports().get(0).getY());
+    	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading()+200);
+    	flight1.setTargetHeading(flight1.getCurrentHeading());
+    	flight1.setVelocity(Flight.MIN_VELOCITY);
+    	flight1.setAltitude(Flight.MIN_ALTITUDE);
+    	System.out.println (flight1);
+    	System.out.println (flight1.getCurrentHeading());
+    	flight1.land();
+    	assertFalse (flight1.getLanding());
+    }
+    
+    @Test
+    public void landTest5 () {
+    	//Test that flight does not land when not with the right altitude
+    	System.out.println (airspace.getListOfAirports().get(0));
+    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setX(airspace.getListOfAirports().get(0).getX());
+    	flight1.setY(airspace.getListOfAirports().get(0).getY());
+    	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setTargetHeading(flight1.getCurrentHeading());
+    	flight1.setVelocity(Flight.MIN_VELOCITY);
+    	flight1.setAltitude(Flight.MAX_ALTITUDE);
+    	System.out.println (flight1);
+    	System.out.println (flight1.getCurrentHeading());
+    	flight1.land();
+    	assertFalse (flight1.getLanding());
+    }
+    
+    @Test
+    public void landTest6 () {
+    	//Test that flight does not land when not with the right velocity
+    	System.out.println (airspace.getListOfAirports().get(0));
+    	System.out.println (airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setX(airspace.getListOfAirports().get(0).getX());
+    	flight1.setY(airspace.getListOfAirports().get(0).getY());
+    	flight1.setCurrentHeading(airspace.getListOfAirports().get(0).getRunwayHeading());
+    	flight1.setTargetHeading(flight1.getCurrentHeading());
+    	flight1.setVelocity(Flight.MAX_VELOCITY);
+    	flight1.setAltitude(Flight.MIN_ALTITUDE);
+    	System.out.println (flight1);
+    	System.out.println (flight1.getCurrentHeading());
+    	flight1.land();
+    	assertFalse (flight1.getLanding());
+    }
+
+
 
 }
