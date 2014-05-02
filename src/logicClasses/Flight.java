@@ -241,6 +241,27 @@ public class Flight {
     }
     
     /**
+     * isReadyToLand: Returns true if the flight is able to land, 
+     * used to add the "Ready to land" text next to the flight image.
+     * The checks on targetAltitude and targetVelocity are there to prevent "Ready to land" appearing during
+     * the take-off sequence (even though it is theoretically possible to land then) and confusing the player.
+     */
+    
+    public boolean isReadyToLand() {
+        if (!landing && !isGrounded() && !takingOff && 
+            currentAltitude <= MIN_ALTITUDE && velocity <= MIN_VELOCITY && 
+            targetAltitude <= MIN_ALTITUDE && targetVelocity <= MIN_VELOCITY) {
+                for (Airport a : airspace.getListOfAirports()) {
+                    if (checkIfAtAirport(a) && checkHeadingCorrectForAirport(a)) {
+                        return true;
+                    }
+                }
+        }
+        
+        return false;
+    }
+    
+    /**
      * checkHeadingCorrectForAirport: Returns true if the heading is within 10 degrees of the runway heading or its inverse
      * @param a The airport in question
      */
@@ -309,17 +330,15 @@ public class Flight {
      */
 
     public void handOver(ScoreTracking st) {
-        if (owner == "red" && airspace.getHandoverDelayRed() == false) {
+        if (owner == "red" && airspace.isRedAbleToHandover()) {
             owner = "blue";
-            airspace.resetLoopsSinceLastHandoverRed();
-            airspace.setHandoverDelayRed();
+            airspace.resetRedHandoverCountdown();
             st.applyFlightLossPenalty();
         }
         
-        else if (owner == "blue" && airspace.getHandoverDelayBlue() == false) {
+        else if (owner == "blue" && airspace.isBlueAbleToHandover()) {
             owner = "red";
-            airspace.resetLoopsSinceLastHandoverBlue();
-            airspace.setHandoverDelayBlue();
+            airspace.resetBlueHandoverCountdown();
             st.applyFlightLossPenalty();
         }
     }
@@ -490,11 +509,14 @@ public class Flight {
         if (!flightPlan.getCurrentRoute().isEmpty()) {
             g.drawString("Aim: " + flightPlan.getPointByIndex(0).getPointRef(), (int)x + 18, (int)y - 27);
         }
-
+                
         g.drawString(currentAltitude + "ft", (int)x + 17, (int)y - 9);
-
         g.drawString(Math.round(velocity) + "mph", (int)x + 17, (int)y + 9);
         
+        if (isReadyToLand()) {
+            g.drawString("Ready to land", (int)x + 17, (int)y + 27);
+        }
+                
     }
     
 

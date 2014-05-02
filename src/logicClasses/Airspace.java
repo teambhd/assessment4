@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -44,8 +45,9 @@ public class Airspace {
     private int numberOfGameLoops = 0;
     private int numberOfGameLoopsSinceLastFlightAdded = 0;
     private int numberOfGameLoopsWhenDifficultyIncreases = DIFFICULTY_INCREASE_INTERVAL;
-    private int numberOfGameLoopsSinceHandoverRed = 0;
-    private int numberOfGameLoopsSinceHandoverBlue = 0;
+    
+    private int loopsUntilRedAbleToHandover = 0;
+    private int loopsUntilBlueAbleToHandover = 0;
 
     private List<Flight> listOfFlightsInAirspace = new ArrayList<Flight>();
     private List<Waypoint> listOfWayppoints = new ArrayList<Waypoint>();
@@ -60,7 +62,7 @@ public class Airspace {
 
     private SeparationRules separationRules;
     private int difficultyValueOfGame;
-    private boolean isMultiplayer, handoverDelayRed, handoverDelayBlue;
+    private boolean isMultiplayer;
 
 
     // Constructor
@@ -309,20 +311,21 @@ public class Airspace {
     public void update() {
         numberOfGameLoops++;
         numberOfGameLoopsSinceLastFlightAdded++;
-        numberOfGameLoopsSinceHandoverRed++;
-        numberOfGameLoopsSinceHandoverBlue++;
-
+        
+        if (isMultiplayer) {
+            if (loopsUntilRedAbleToHandover > 0) {
+                loopsUntilRedAbleToHandover--;
+            }
+        
+            if (loopsUntilBlueAbleToHandover > 0) {
+                loopsUntilBlueAbleToHandover--;
+            }
+        }
+        
         if (numberOfGameLoops >= numberOfGameLoopsWhenDifficultyIncreases) {
             increaseDifficulty();
         }
-        
-        if (numberOfGameLoopsSinceHandoverRed > HANDOVER_DELAY) {
-        	setHandoverDelayRed();
-        }
-        if (numberOfGameLoopsSinceHandoverBlue > HANDOVER_DELAY) {
-        	setHandoverDelayBlue();
-        }
-        
+                
         // The iterator is used directly (rather than through an enhanced for loop) 
         // so as to avoid a java.util.ConcurrentModificationException when flights are removed during iteration
         for (Iterator<Flight> i = listOfFlightsInAirspace.iterator(); i.hasNext();) {
@@ -384,6 +387,25 @@ public class Airspace {
         }
 
         separationRules.render(g, this);
+        
+        if (!isRedAbleToHandover()) {
+            int handoverPercentRemaining = (int)(((double)loopsUntilRedAbleToHandover / HANDOVER_DELAY) * 100);
+            g.setColor(states.MultiPlayState.RED_COLOR);
+            g.fillRect(stateContainer.Game.WIDTH - 120, stateContainer.Game.HEIGHT - 75, handoverPercentRemaining, 20);
+            
+            g.setColor(Color.white);
+            g.drawRect(stateContainer.Game.WIDTH - 120, stateContainer.Game.HEIGHT - 75, 100, 20);
+        }
+        
+        if (!isBlueAbleToHandover()) {
+            int handoverPercentRemaining = (int)(((double)loopsUntilBlueAbleToHandover / HANDOVER_DELAY) * 100);
+            g.setColor(states.MultiPlayState.BLUE_COLOR);
+            g.fillRect(stateContainer.Game.WIDTH - 120, stateContainer.Game.HEIGHT - 40, handoverPercentRemaining, 20);
+            
+            g.setColor(Color.white);
+            g.drawRect(stateContainer.Game.WIDTH - 120, stateContainer.Game.HEIGHT - 40, 100, 20);
+            
+        }
     }
 
 
@@ -505,37 +527,21 @@ public class Airspace {
     public List<Airport> getListOfAirports() {
         return listOfAirports;
     }
-    
-    public void setHandoverDelayRed() {
-        handoverDelayRed = !handoverDelayRed;
+        
+    public void resetRedHandoverCountdown() {
+    	loopsUntilRedAbleToHandover = HANDOVER_DELAY;
     }
     
-    public void setHandoverDelayBlue() {
-        handoverDelayBlue = !handoverDelayBlue;
+    public void resetBlueHandoverCountdown() {
+    	loopsUntilBlueAbleToHandover = HANDOVER_DELAY;
     }
     
-    public boolean getHandoverDelayRed() {
-    	return handoverDelayRed;
+    public boolean isRedAbleToHandover() {
+    	return loopsUntilRedAbleToHandover == 0;
     }
     
-    public boolean getHandoverDelayBlue() {
-    	return handoverDelayBlue;
-    }
-    
-    public void resetLoopsSinceLastHandoverRed() {
-    	numberOfGameLoopsSinceHandoverRed = 0;
-    }
-    
-    public void resetLoopsSinceLastHandoverBlue() {
-    	numberOfGameLoopsSinceHandoverBlue = 0;
-    }
-    
-    public int getLoopsSinceLastHandoverRed() {
-    	return numberOfGameLoopsSinceHandoverRed;
-    }
-    
-    public int getLoopsSinceLastHandoverBlue() {
-    	return numberOfGameLoopsSinceHandoverBlue;
+    public boolean isBlueAbleToHandover() {
+    	return loopsUntilBlueAbleToHandover == 0;
     }
 
     @Override
