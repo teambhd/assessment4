@@ -20,7 +20,7 @@ import util.HoverImage;
 
 public class MenuState extends BasicGameState {
     
-    private static final String WEBSITE_URL = "http://teambhd.github.io";
+    private static final String WEBSITE_URL = "http://teambhd.github.io/downloads/bhdmanual.pdf";
                 
     private static Image menuBackground;
     private static Image titleImage;
