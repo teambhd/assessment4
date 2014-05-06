@@ -9,15 +9,7 @@ import org.junit.Test;
 import states.PlayState;
 
 public class PlayState_Test {
-    /**
-	 * @uml.property  name="airspaceInstance"
-	 * @uml.associationEnd  
-	 */
     private Airspace airspaceInstance;
-    /**
-	 * @uml.property  name="playStateInstance"
-	 * @uml.associationEnd  
-	 */
     private PlayState playStateInstance;
 
     @Before

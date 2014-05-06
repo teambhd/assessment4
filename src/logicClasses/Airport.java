@@ -12,9 +12,6 @@ public class Airport extends Point {
 
     private static Image airportImage;
     
-    /**
-	 * @uml.property  name="runwayHeading"
-	 */
     private int runwayHeading;
 
     // Constructor
@@ -45,10 +42,6 @@ public class Airport extends Point {
         return "Airport " + pointRef + " located at (" + x + ", " + y + ")";
     }
 
-    /**
-	 * @return
-	 * @uml.property  name="runwayHeading"
-	 */
     public int getRunwayHeading() {
         return runwayHeading;
     }

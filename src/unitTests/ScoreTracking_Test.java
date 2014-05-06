@@ -8,10 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ScoreTracking_Test {
-    /**
-	 * @uml.property  name="scoreTrackingInstance"
-	 * @uml.associationEnd  
-	 */
     private ScoreTracking scoreTrackingInstance;
 
 

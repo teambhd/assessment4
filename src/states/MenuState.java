@@ -41,9 +41,6 @@ public class MenuState extends BasicGameState {
     private static Image versusHover;
     private static HoverImage versus;
 
-    /**
-	 * @uml.property  name="mouseBeenReleased"
-	 */
     private boolean mouseBeenReleased = false;
 
 

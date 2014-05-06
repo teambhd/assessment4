@@ -8,25 +8,9 @@ import org.junit.Before;
 
 public class SeparationRules_Tests {
 
-    /**
-	 * @uml.property  name="airspace"
-	 * @uml.associationEnd  
-	 */
     private Airspace airspace;
-    /**
-	 * @uml.property  name="separationRules"
-	 * @uml.associationEnd  
-	 */
     private SeparationRules separationRules;
-    /**
-	 * @uml.property  name="flight1"
-	 * @uml.associationEnd  
-	 */
     private Flight flight1;
-    /**
-	 * @uml.property  name="flight2"
-	 * @uml.associationEnd  
-	 */
     private Flight flight2;
 
     @Before

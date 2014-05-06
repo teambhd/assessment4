@@ -7,10 +7,6 @@ import org.newdawn.slick.Input;
 
 public class KeyBindings {
 
-    /**
-	 * @uml.property  name="hash"
-	 * @uml.associationEnd  qualifier="constant:java.lang.String java.lang.Integer"
-	 */
     private HashMap<String, Integer> hash = new HashMap<String, Integer>();
     
     /**

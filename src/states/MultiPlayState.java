@@ -19,31 +19,12 @@ import util.KeyBindings;
 
 public class MultiPlayState extends BasicGameState {
 
-    /**
-	 * @uml.property  name="time"
-	 */
     private int time = 0;
 
-    /**
-	 * @uml.property  name="airspace"
-	 * @uml.associationEnd  
-	 */
     private Airspace airspace;
-    /**
-	 * @uml.property  name="windIndicator"
-	 * @uml.associationEnd  
-	 */
     private WindIndicator windIndicator;
 
-    /**
-	 * @uml.property  name="redControls"
-	 * @uml.associationEnd  
-	 */
     private Controls redControls;
-    /**
-	 * @uml.property  name="blueControls"
-	 * @uml.associationEnd  
-	 */
     private Controls blueControls;
 
     public static final Color RED_COLOR = new Color(165, 0, 0); // or #D70C1E as a hex

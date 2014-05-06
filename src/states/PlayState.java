@@ -19,25 +19,10 @@ import util.KeyBindings;
 
 public class PlayState extends BasicGameState {
 
-    /**
-	 * @uml.property  name="time"
-	 */
     private int time = 0;
 
-    /**
-	 * @uml.property  name="airspace"
-	 * @uml.associationEnd  
-	 */
     private Airspace airspace;
-    /**
-	 * @uml.property  name="controls"
-	 * @uml.associationEnd  
-	 */
     private Controls controls;
-    /**
-	 * @uml.property  name="windIndicator"
-	 * @uml.associationEnd  
-	 */
     private WindIndicator windIndicator;
 
     private static int difficultyLevel;

@@ -14,29 +14,12 @@ public class SeparationRules {
     public static final int VERTICAL_WARNING_DISTANCE = 999;
 
     // Fields
-    /**
-	 * @uml.property  name="gameOverLateralSeparation"
-	 */
     private int gameOverLateralSeparation;
-    /**
-	 * @uml.property  name="gameOverVerticalSeparation"
-	 */
     private int gameOverVerticalSeparation;
 
-    /**
-	 * @uml.property  name="gameOverViolation"
-	 */
     private boolean gameOverViolation = false;
 
-    /**
-	 * @uml.property  name="violatingFlight1"
-	 * @uml.associationEnd  
-	 */
     private Flight violatingFlight1;
-    /**
-	 * @uml.property  name="violatingFlight2"
-	 * @uml.associationEnd  
-	 */
     private Flight violatingFlight2;
 
     // Constructor
@@ -139,10 +122,6 @@ public class SeparationRules {
 
 
     // Mutators and Accessors
-    /**
-	 * @param gameOverViolation
-	 * @uml.property  name="gameOverViolation"
-	 */
     public void setGameOverViolation(boolean gameOverViolation) {
         this.gameOverViolation = gameOverViolation;
     }
@@ -151,18 +130,10 @@ public class SeparationRules {
         return gameOverViolation;
     }
 
-    /**
-	 * @return
-	 * @uml.property  name="violatingFlight1"
-	 */
     public Flight getViolatingFlight1() {
         return violatingFlight1;
     }
 
-    /**
-	 * @return
-	 * @uml.property  name="violatingFlight2"
-	 */
     public Flight getViolatingFlight2() {
         return violatingFlight2;
     }

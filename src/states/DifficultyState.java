@@ -20,28 +20,10 @@ import util.HoverImage;
 public class DifficultyState extends BasicGameState {
 
     private static Image difficultyBackground;
-    private static Image easyImage;
-	private static Image mediumImage;
-	private static Image hardImage;
-    private static Image easyHover;
-	private static Image mediumHover;
-	private static Image hardHover;
+    private static Image easyImage, mediumImage, hardImage;
+    private static Image easyHover, mediumHover, hardHover;
 
-    /**
-	 * @uml.property  name="easyButton"
-	 * @uml.associationEnd  
-	 */
-    private HoverImage easyButton;
-	/**
-	 * @uml.property  name="mediumButton"
-	 * @uml.associationEnd  
-	 */
-	private HoverImage mediumButton;
-	/**
-	 * @uml.property  name="hardButton"
-	 * @uml.associationEnd  
-	 */
-	private HoverImage hardButton;
+    private HoverImage easyButton, mediumButton, hardButton;
 
     public static final int EASY = 1;
     public static final int MEDIUM = 2;

@@ -6,19 +6,7 @@ import org.newdawn.slick.Image;
 
 public class HoverImage {
 
-    /**
-	 * @uml.property  name="normal"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
-    private Image normal;
-	/**
-	 * @uml.property  name="hover"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
-	private Image hover;
-    /**
-	 * @uml.property  name="dim"
-	 */
+    private Image normal, hover;
     private Rectangle dim = new Rectangle();  //tracks position and dimensions
 
 

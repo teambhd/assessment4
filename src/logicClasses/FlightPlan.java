@@ -23,37 +23,14 @@ public class FlightPlan {
     private static final Random rand = new Random();
 
     // Fields
-    /**
-	 * @uml.property  name="entryPoint"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
     private EntryPoint entryPoint;
-    /**
-	 * @uml.property  name="exitPoint"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
     private ExitPoint exitPoint;
     
-    /**
-	 * @uml.property  name="currentRoute"
-	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="logicClasses.Point"
-	 */
     private List<Point> currentRoute = new ArrayList<Point>(); // Array that stores the current list of waypoints
-    /**
-	 * @uml.property  name="waypointsAlreadyVisited"
-	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="logicClasses.FlightPlan"
-	 */
     private List<Point> waypointsAlreadyVisited = new ArrayList<Point>(); // All the waypoints the flight has passed through
     
-    /**
-	 * @uml.property  name="flight"
-	 * @uml.associationEnd  multiplicity="(1 1)" inverse="flightPlan:logicClasses.Flight"
-	 */
     private Flight flight; // The flight object associated with the flight plan
     
-    /**
-	 * @uml.property  name="closestDistance"
-	 */
     private int closestDistance;
 
     // Constructor
@@ -245,18 +222,10 @@ public class FlightPlan {
         return currentRoute.get(i);
     }
 
-    /**
-	 * @return
-	 * @uml.property  name="entryPoint"
-	 */
     public EntryPoint getEntryPoint() {
         return entryPoint;
     }
 
-    /**
-	 * @return
-	 * @uml.property  name="exitPoint"
-	 */
     public ExitPoint getExitPoint() {
         return exitPoint;
     }

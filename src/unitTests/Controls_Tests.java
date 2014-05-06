@@ -19,20 +19,8 @@ import util.KeyBindings;
 
 public class Controls_Tests {
 
-    /**
-	 * @uml.property  name="controlsInstance"
-	 * @uml.associationEnd  
-	 */
     private Controls controlsInstance;
-    /**
-	 * @uml.property  name="airspace"
-	 * @uml.associationEnd  
-	 */
     private Airspace airspace;
-    /**
-	 * @uml.property  name="flight1"
-	 * @uml.associationEnd  
-	 */
     private Flight flight1;
 
     @Before

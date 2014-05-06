@@ -7,9 +7,6 @@ import org.newdawn.slick.loading.DeferredResource;
 
 
 public abstract class DeferredFile implements DeferredResource {
-    /**
-	 * @uml.property  name="filename"
-	 */
     private final String filename;
 
     public DeferredFile(String filename) {

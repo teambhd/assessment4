@@ -19,14 +19,8 @@ import util.HoverImage;
 
 public class VictoryState extends BasicGameState {
 
-    /**
-	 * @uml.property  name="stateID"
-	 */
     private int stateID;
 
-    /**
-	 * @uml.property  name="winningPlayer"
-	 */
     private String winningPlayer;
 
     private static Image redTitle;

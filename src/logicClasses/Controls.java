@@ -14,20 +14,9 @@ import util.KeyBindings;
 
 public class Controls {
 
-    /**
-	 * @uml.property  name="myKeys"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
     private KeyBindings myKeys;
-    /**
-	 * @uml.property  name="myPlayer"
-	 */
     private String myPlayer;
 
-    /**
-	 * @uml.property  name="selectedFlight"
-	 * @uml.associationEnd  
-	 */
     private Flight selectedFlight;
 
 
