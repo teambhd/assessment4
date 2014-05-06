@@ -23,11 +23,21 @@ public class GameOverState extends BasicGameState {
 
     private static Image gameOverTitle;
 
-    private static Image quitImage, quitHover;
-    private static Image menuImage, menuHover;
-    private static Image againImage, againHover;
+    private static Image quitImage;
 
-    private static HoverImage againButton, menuButton, quitButton;
+	private static Image quitHover;
+    private static Image menuImage;
+
+	private static Image menuHover;
+    private static Image againImage;
+
+	private static Image againHover;
+
+    private static HoverImage againButton;
+
+	private static HoverImage menuButton;
+
+	private static HoverImage quitButton;
     
     private static int finalScore;
     

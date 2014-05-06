@@ -8,8 +8,20 @@ import org.junit.Before;
 
 public class Airspace_Tests {
 
+    /**
+	 * @uml.property  name="airspace"
+	 * @uml.associationEnd  
+	 */
     private Airspace airspace;
+    /**
+	 * @uml.property  name="flight1"
+	 * @uml.associationEnd  
+	 */
     private Flight flight1;
+    /**
+	 * @uml.property  name="score"
+	 * @uml.associationEnd  
+	 */
     private ScoreTracking score;
 
 

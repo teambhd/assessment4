@@ -23,6 +23,9 @@ public class WindIndicator {
         }
     }
 
+    /**
+	 * @uml.property  name="direction"
+	 */
     private float direction;
 
     // Constructor

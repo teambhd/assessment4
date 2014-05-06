@@ -13,6 +13,9 @@ public class ScoreTracking {
 
 
     // Fields
+    /**
+	 * @uml.property  name="currentScore"
+	 */
     private int currentScore = 0;
 
 

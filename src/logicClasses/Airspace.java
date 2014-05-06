@@ -40,28 +40,88 @@ public class Airspace {
 
 
     // Fields
+    /**
+	 * @uml.property  name="chanceOfNewFlight"
+	 */
     private int chanceOfNewFlight = INITIAL_CHANCE_OF_NEW_FLIGHT;
 
+    /**
+	 * @uml.property  name="numberOfGameLoops"
+	 */
     private int numberOfGameLoops = 0;
+    /**
+	 * @uml.property  name="numberOfGameLoopsSinceLastFlightAdded"
+	 */
     private int numberOfGameLoopsSinceLastFlightAdded = 0;
+    /**
+	 * @uml.property  name="numberOfGameLoopsWhenDifficultyIncreases"
+	 */
     private int numberOfGameLoopsWhenDifficultyIncreases = DIFFICULTY_INCREASE_INTERVAL;
     
+    /**
+	 * @uml.property  name="loopsUntilRedAbleToHandover"
+	 */
     private int loopsUntilRedAbleToHandover = 0;
+    /**
+	 * @uml.property  name="loopsUntilBlueAbleToHandover"
+	 */
     private int loopsUntilBlueAbleToHandover = 0;
 
+    /**
+	 * @uml.property  name="listOfFlightsInAirspace"
+	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="airspace:logicClasses.Flight"
+	 */
     private List<Flight> listOfFlightsInAirspace = new ArrayList<Flight>();
+    /**
+	 * @uml.property  name="listOfWayppoints"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="logicClasses.Waypoint"
+	 */
     private List<Waypoint> listOfWayppoints = new ArrayList<Waypoint>();
+    /**
+	 * @uml.property  name="listOfEntryPoints"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="logicClasses.EntryPoint"
+	 */
     private List<EntryPoint> listOfEntryPoints = new ArrayList<EntryPoint>();
+    /**
+	 * @uml.property  name="listOfExitPoints"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="logicClasses.ExitPoint"
+	 */
     private List<ExitPoint> listOfExitPoints = new ArrayList<ExitPoint>();
+    /**
+	 * @uml.property  name="listOfAirports"
+	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="logicClasses.Airport"
+	 */
     private List<Airport> listOfAirports = new ArrayList<Airport>();
 
     // score isn't actually used in multiplayer, and vice versa, but there's no harm in just doing this the simple way
+    /**
+	 * @uml.property  name="score"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     private ScoreTracking score = new ScoreTracking();
+    /**
+	 * @uml.property  name="redScore"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     private ScoreTracking redScore = new ScoreTracking();
+    /**
+	 * @uml.property  name="blueScore"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     private ScoreTracking blueScore = new ScoreTracking();
 
+    /**
+	 * @uml.property  name="separationRules"
+	 * @uml.associationEnd  
+	 */
     private SeparationRules separationRules;
+    /**
+	 * @uml.property  name="difficultyValueOfGame"
+	 */
     private int difficultyValueOfGame;
+    /**
+	 * @uml.property  name="isMultiplayer"
+	 */
     private boolean isMultiplayer;
 
 
@@ -492,6 +552,10 @@ public class Airspace {
         listOfFlightsInAirspace.remove(flight);
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="separationRules"
+	 */
     public SeparationRules getSeparationRules() {
         return separationRules;
     }
@@ -508,18 +572,34 @@ public class Airspace {
         return score;
     }
 
+    /**
+	 * @param i
+	 * @uml.property  name="difficultyValueOfGame"
+	 */
     public void setDifficultyValueOfGame(int i) {
         difficultyValueOfGame = i;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="difficultyValueOfGame"
+	 */
     public int getDifficultyValueOfGame() {
         return difficultyValueOfGame;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="numberOfGameLoops"
+	 */
     public int getNumberOfGameLoops() {
         return numberOfGameLoops;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="numberOfGameLoopsWhenDifficultyIncreases"
+	 */
     public int getNumberOfGameLoopsWhenDifficultyIncreases() {
         return numberOfGameLoopsWhenDifficultyIncreases;
     }

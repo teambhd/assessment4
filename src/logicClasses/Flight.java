@@ -42,34 +42,87 @@ public class Flight {
     private static final double TURN_RATE = 30 / 60.0;
 
     // Fields
+    /**
+	 * @uml.property  name="x"
+	 */
     private double x = 0;
+    /**
+	 * @uml.property  name="y"
+	 */
     private double y = 0;
 
+    /**
+	 * @uml.property  name="velocity"
+	 */
     private double velocity; 
+    /**
+	 * @uml.property  name="targetVelocity"
+	 */
     private double targetVelocity;
     
+    /**
+	 * @uml.property  name="currentHeading"
+	 */
     private double currentHeading;
+    /**
+	 * @uml.property  name="targetHeading"
+	 */
     private double targetHeading;
     
+    /**
+	 * @uml.property  name="currentAltitude"
+	 */
     private int currentAltitude;
+    /**
+	 * @uml.property  name="targetAltitude"
+	 */
     private int targetAltitude;
 
+    /**
+	 * @uml.property  name="turningRight"
+	 */
     private boolean turningRight = false;
+    /**
+	 * @uml.property  name="turningLeft"
+	 */
     private boolean turningLeft = false;
 
+    /**
+	 * @uml.property  name="airspace"
+	 * @uml.associationEnd  multiplicity="(1 1)" inverse="listOfFlightsInAirspace:logicClasses.Airspace"
+	 */
     private Airspace airspace;
+    /**
+	 * @uml.property  name="flightPlan"
+	 * @uml.associationEnd  multiplicity="(1 1)" inverse="flight:logicClasses.FlightPlan"
+	 */
     private FlightPlan flightPlan;
 
     // This is the maximum distance a plane can be away from the waypoint once it has
     // been checked that the plane is inside the waypoint
+    /**
+	 * @uml.property  name="closestDistance"
+	 */
     private int closestDistance = Integer.MAX_VALUE; 
     
+    /**
+	 * @uml.property  name="distanceFromWaypoint"
+	 */
     private int distanceFromWaypoint;
 
     // These two variables are used to control the flight state
+    /**
+	 * @uml.property  name="takingOff"
+	 */
     private boolean takingOff = false;
+    /**
+	 * @uml.property  name="landing"
+	 */
     private boolean landing = false;
 
+    /**
+	 * @uml.property  name="owner"
+	 */
     private String owner;
 
     // Constructor
@@ -560,42 +613,82 @@ public class Flight {
     // # Mutators and Accessors
     // ========================
 
+    /**
+	 * @return
+	 * @uml.property  name="x"
+	 */
     public double getX() {
         return this.x;
     }
 
+    /**
+	 * @param x
+	 * @uml.property  name="x"
+	 */
     public void setX(double x) {
         this.x = x;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="y"
+	 */
     public double getY() {
         return this.y;
     }
 
+    /**
+	 * @param y
+	 * @uml.property  name="y"
+	 */
     public void setY(double y) {
         this.y = y;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="currentHeading"
+	 */
     public double getCurrentHeading() {
         return this.currentHeading;
     }
 
+    /**
+	 * @param currentHeading
+	 * @uml.property  name="currentHeading"
+	 */
     public void setCurrentHeading(double currentHeading) {
         this.currentHeading = currentHeading;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="targetHeading"
+	 */
     public double getTargetHeading() {
         return this.targetHeading;
     }
 
+    /**
+	 * @param targetHeading
+	 * @uml.property  name="targetHeading"
+	 */
     public void setTargetHeading(double targetHeading) {
         this.targetHeading = targetHeading;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="targetAltitude"
+	 */
     public int getTargetAltitude() {
         return this.targetAltitude;
     }
 
+    /**
+	 * @param targetAltitude
+	 * @uml.property  name="targetAltitude"
+	 */
     public void setTargetAltitude(int targetAltitude) {
         this.targetAltitude = targetAltitude;
     }
@@ -616,6 +709,10 @@ public class Flight {
         return !isGrounded() && !landing;
     }
     
+    /**
+	 * @return
+	 * @uml.property  name="landing"
+	 */
     public boolean isLanding() {
         return landing;
     }
@@ -642,42 +739,82 @@ public class Flight {
         return "Flight at (" + x + ", " + y + ")";
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="currentAltitude"
+	 */
     public int getCurrentAltitude() {
         return currentAltitude;
     }
 
+    /**
+	 * @param currentAltitude
+	 * @uml.property  name="currentAltitude"
+	 */
     public void setCurrentAltitude(int currentAltitude) {
         this.currentAltitude = currentAltitude;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="velocity"
+	 */
     public double getVelocity() {
         return velocity;
     }
 
+    /**
+	 * @param velocity
+	 * @uml.property  name="velocity"
+	 */
     public void setVelocity(double velocity) {
         this.velocity = velocity;
     }
 
+    /**
+	 * @param velocity
+	 * @uml.property  name="targetVelocity"
+	 */
     public void setTargetVelocity(double velocity) {
         this.targetVelocity = velocity;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="targetVelocity"
+	 */
     public double getTargetVelocity() {
         return targetVelocity;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="flightPlan"
+	 */
     public FlightPlan getFlightPlan() {
         return flightPlan;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="airspace"
+	 */
     public Airspace getAirspace() {
         return airspace;
     }
 
+    /**
+	 * @return
+	 * @uml.property  name="owner"
+	 */
     public String getOwner() {
         return this.owner;
     }
 
+    /**
+	 * @param owner
+	 * @uml.property  name="owner"
+	 */
     public void setOwner(String owner) {
         this.owner = owner;
     }

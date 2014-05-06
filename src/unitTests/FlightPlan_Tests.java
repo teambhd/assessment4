@@ -11,8 +11,20 @@ import org.junit.Before;
 
 public class FlightPlan_Tests {
 
+    /**
+	 * @uml.property  name="airspace"
+	 * @uml.associationEnd  
+	 */
     private Airspace airspace;
+    /**
+	 * @uml.property  name="flight1"
+	 * @uml.associationEnd  
+	 */
     private Flight flight1;
+    /**
+	 * @uml.property  name="flightplan"
+	 * @uml.associationEnd  
+	 */
     private FlightPlan flightplan;
 
     @Before

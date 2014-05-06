@@ -16,6 +16,10 @@ import org.newdawn.slick.loading.LoadingList;
 import util.DeferredFile;
 
 public class DeferredFile_Test {
+    /**
+	 * @uml.property  name="deferredFileInstance"
+	 * @uml.associationEnd  
+	 */
     private DeferredFile deferredFileInstance;
 
     @Before
